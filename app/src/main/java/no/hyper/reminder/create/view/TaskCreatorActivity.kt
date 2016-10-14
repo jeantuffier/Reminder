@@ -5,17 +5,24 @@ import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.view.View
+import kotlinx.android.synthetic.main.activity_creator_task.*
 import no.hyper.reminder.R
+import no.hyper.reminder.list.view.RequiredTaskListViewOps
 
-class TaskCreatorActivity : AppCompatActivity() {
+class TaskCreatorActivity : AppCompatActivity(), RequiredTaskListViewOps {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_creator_task)
 
         setToolbar()
         setFab()
+    }
+
+    override fun getActivityContext() = this
+
+    override fun notifyItemInserted() {
+        Snackbar.make(task_creator_root, getString(R.string.add_task_success), Snackbar.LENGTH_LONG).show()
     }
 
     private fun setToolbar() {
@@ -25,9 +32,7 @@ class TaskCreatorActivity : AppCompatActivity() {
 
     private fun setFab() {
         val fab = findViewById(R.id.fab) as FloatingActionButton
-        fab.setOnClickListener {
-            Snackbar.make(it, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show()
-        }
+        fab.setOnClickListener { }
     }
 
 }

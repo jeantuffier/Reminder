@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Reminder</string>
-    <string name="title_activity_main">MainActivity</string>
+
+    <!-- CREATOR -->
+    <string name="add_task_success">The task has been created</string>
+
 </resources>
