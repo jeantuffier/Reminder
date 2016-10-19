@@ -34,17 +34,17 @@ class ListTaskActivity : AppCompatActivity() {
         taskRecycler.adapter = TaskAdapter()
     }
 
-    private inner class TaskAdapter : RecyclerView.Adapter<RegularTaskViewHolder>() {
+    private inner class TaskAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         override fun getItemCount() = presenter.getTasksCount()
 
         override fun getItemViewType(position: Int) = presenter.getViewType(position)
 
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RegularTaskViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
             return presenter.createViewHolder(parent, viewType)
         }
 
-        override fun onBindViewHolder(holder: RegularTaskViewHolder?, position: Int) {
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             presenter.bindViewHolder(holder, position)
         }
     }

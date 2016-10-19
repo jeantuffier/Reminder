@@ -2,6 +2,7 @@
     <string name="app_name">Reminder</string>
 
     <!-- CREATOR -->
+    <string name="activity_creator_label">Create a task</string>
     <string name="add_task_success">The task has been created</string>
 
 </resources>
