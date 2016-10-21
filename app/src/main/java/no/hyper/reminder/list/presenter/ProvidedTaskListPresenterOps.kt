@@ -10,7 +10,7 @@ import no.hyper.reminder.common.model.regular.RegularTaskViewHolder
 interface ProvidedTaskListPresenterOps {
     fun createNewTask()
     fun getTasksCount() : Int
-    fun getViewType(position: Int) : Int
-    fun createViewHolder(parent: ViewGroup?, viewType: Int) : RecyclerView.ViewHolder
+    fun getViewType(position: Int) : Int?
+    fun createViewHolder(parent: ViewGroup?, viewType: Int) : RecyclerView.ViewHolder?
     fun bindViewHolder(holder: RecyclerView.ViewHolder, position: Int)
 }

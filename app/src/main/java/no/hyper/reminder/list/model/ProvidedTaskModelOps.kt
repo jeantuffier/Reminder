@@ -1,5 +1,6 @@
-package no.hyper.reminder.common.model
+package no.hyper.reminder.list.model
 
+import no.hyper.reminder.common.model.Task
 import no.hyper.reminder.common.model.regular.RegularTask
 
 /**
@@ -7,7 +8,7 @@ import no.hyper.reminder.common.model.regular.RegularTask
  */
 interface ProvidedTaskModelOps {
     fun getTaskCount() : Int
-    fun getTask(position: Int) : Task
-    fun insertTask(task: RegularTask)
+    fun getTask(position: Int) : Task?
+    fun saveTask(task: RegularTask) : Long
     fun loadData() : Boolean
 }

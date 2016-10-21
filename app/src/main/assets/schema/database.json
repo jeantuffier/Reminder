@@ -1,0 +1,13 @@
+{
+  "tables": [{
+    "name": "RegularTask",
+    "columns": [{
+      "label": "name",
+      "type": "text",
+      "primary": true
+    }, {
+      "label": "priority",
+      "type": "integer"
+    }]
+  }]
+}
