@@ -1,12 +1,12 @@
 package no.hyper.reminder
 
-import io.kotlintest.mock.`when`
 import no.hyper.memoryorm.Memory
 import no.hyper.reminder.common.model.Task
 import no.hyper.reminder.list.model.ProvidedTaskModelOps
 import no.hyper.reminder.list.presenter.TaskListPresenter
 import no.hyper.reminder.list.view.RequiredTaskListViewOps
 import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.robolectric.RobolectricGradleTestRunner
@@ -31,7 +31,7 @@ class TaskListPresenterUnitTest {
         model = Mockito.mock(ProvidedTaskModelOps::class.java)
         presenter = TaskListPresenter(view, model)
 
-        `when`(model.loadData()).thenReturn(true)
+        mockMethod(model.loadData()).thenReturn(true)
 
         Memory(RuntimeEnvironment.application).cleanTable(Task::class.java.simpleName, null)
     }

@@ -25,10 +25,6 @@ class TaskListPresenter(view: RequiredTaskListViewOps, val model : ProvidedTaskM
         viewReference = WeakReference(view)
     }
 
-    override fun createNewTask() {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun getTasksCount() = model.getTaskCount()
 
     override fun getViewType(position: Int): Int? {
