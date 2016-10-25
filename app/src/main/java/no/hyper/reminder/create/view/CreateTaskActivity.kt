@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.activity_creator_task.*
 import no.hyper.reminder.R
 import no.hyper.reminder.list.view.RequiredTaskListViewOps
 
-class TaskCreatorActivity : AppCompatActivity(), RequiredTaskListViewOps {
+class CreateTaskActivity : AppCompatActivity(), RequiredTaskListViewOps {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

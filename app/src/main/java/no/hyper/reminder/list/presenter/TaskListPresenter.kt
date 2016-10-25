@@ -13,12 +13,13 @@ import java.lang.ref.WeakReference
 /**
  * Created by Jean on 10/12/2016.
  */
-class TaskListPresenter(view: RequiredTaskListViewOps, val model : ProvidedTaskModelOps)
+class TaskListPresenter(view: RequiredTaskListViewOps)
     : ProvidedTaskListPresenterOps, RequiredTaskListPresenterOps {
 
     private var viewReference : WeakReference<RequiredTaskListViewOps>
-    private val factory = ViewTypeFactory()
+    lateinit var model : ProvidedTaskModelOps
 
+    private val factory = ViewTypeFactory()
     private val regularTaskDelegate = RegularTaskDelagate()
 
     init {
@@ -27,15 +28,15 @@ class TaskListPresenter(view: RequiredTaskListViewOps, val model : ProvidedTaskM
 
     override fun getTasksCount() = model.getTaskCount()
 
-    override fun getViewType(position: Int): Int? {
+    override fun getViewType(position: Int): Int {
         val task = model.getTask(position)
-        return task?.getViewType(factory)
+        return task?.getViewType(factory) ?: throw Exception("No view type for this position")
     }
 
-    override fun createViewHolder(parent: ViewGroup?, viewType: Int): RegularTaskViewHolder? {
+    override fun createViewHolder(parent: ViewGroup?, viewType: Int): RegularTaskViewHolder {
         return when (viewType) {
             R.layout.view_item_task_list -> regularTaskDelegate.createViewHolder(parent, viewType)
-            else -> null
+            else -> throw Exception("No view holder type for this view type")
         }
     }
 

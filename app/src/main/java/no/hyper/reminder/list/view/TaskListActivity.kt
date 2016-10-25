@@ -7,10 +7,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_list_task.*
 import no.hyper.reminder.R
-import no.hyper.reminder.common.model.regular.RegularTaskViewHolder
 import no.hyper.reminder.list.presenter.ProvidedTaskListPresenterOps
 
-class ListTaskActivity : AppCompatActivity() {
+class TaskListActivity : AppCompatActivity(), RequiredTaskListViewOps {
 
     private lateinit var taskRecycler : RecyclerView
     private lateinit var presenter : ProvidedTaskListPresenterOps
@@ -48,4 +47,9 @@ class ListTaskActivity : AppCompatActivity() {
             presenter.bindViewHolder(holder, position)
         }
     }
+
+    override fun getActivityContext() = this
+
+    override fun notifyItemInserted() { }
+
 }

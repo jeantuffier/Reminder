@@ -29,7 +29,7 @@ class TaskListPresenterUnitTest {
     fun setup() {
         view = Mockito.mock(RequiredTaskListViewOps::class.java)
         model = Mockito.mock(ProvidedTaskModelOps::class.java)
-        presenter = TaskListPresenter(view, model)
+        presenter = TaskListPresenter(view)
 
         mockMethod(model.loadData()).thenReturn(true)
 
