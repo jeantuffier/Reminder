@@ -13,11 +13,11 @@ import no.hyper.reminder.list.view.TaskListActivity
  */
 
 @Module
-class TaskListActivityModule(val activity : TaskListActivity) {
+class TaskListActivityModule(private val activity : TaskListActivity) {
 
     @Provides
     @ActivityScope
-    fun providesListTaskActivity() = activity
+    fun providesTaskListActivity() = activity
 
     @Provides
     @ActivityScope

@@ -7,19 +7,37 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_list_task.*
 import no.hyper.reminder.R
+import no.hyper.reminder.common.Reminder
+import no.hyper.reminder.common.extension.toDp
+import no.hyper.reminder.common.injection.module.TaskListActivityModule
+import no.hyper.reminder.common.recycler.SpaceItemDecoration
 import no.hyper.reminder.list.presenter.ProvidedTaskListPresenterOps
+import javax.inject.Inject
 
 class TaskListActivity : AppCompatActivity(), RequiredTaskListViewOps {
 
-    private lateinit var taskRecycler : RecyclerView
-    private lateinit var presenter : ProvidedTaskListPresenterOps
+    lateinit var taskRecycler : RecyclerView
+
+    @Inject
+    lateinit var presenter : ProvidedTaskListPresenterOps
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_task)
 
+        setComponent()
         getUiElement()
         setRecyclerView()
+    }
+
+    override fun getActivityContext() = this
+
+    override fun notifyItemInserted() { }
+
+    private fun setComponent() {
+        Reminder.get(this).component
+                .getTaskListComponent(TaskListActivityModule(this))
+                .inject(this)
     }
 
     private fun getUiElement() {
@@ -29,11 +47,11 @@ class TaskListActivity : AppCompatActivity(), RequiredTaskListViewOps {
     private fun setRecyclerView() {
         val layout = LinearLayoutManager(this)
         taskRecycler.layoutManager = layout
-
+        taskRecycler.addItemDecoration(SpaceItemDecoration(16.toDp(this)))
         taskRecycler.adapter = TaskAdapter()
     }
 
-    private inner class TaskAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private inner class TaskAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         override fun getItemCount() = presenter.getTasksCount()
 
@@ -46,10 +64,7 @@ class TaskListActivity : AppCompatActivity(), RequiredTaskListViewOps {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             presenter.bindViewHolder(holder, position)
         }
+
     }
-
-    override fun getActivityContext() = this
-
-    override fun notifyItemInserted() { }
 
 }

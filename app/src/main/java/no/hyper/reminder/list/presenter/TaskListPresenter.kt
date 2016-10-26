@@ -1,12 +1,13 @@
 package no.hyper.reminder.list.presenter
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.ViewGroup
 import no.hyper.reminder.R
 import no.hyper.reminder.list.model.ProvidedTaskModelOps
 import no.hyper.reminder.common.model.ViewTypeFactory
 import no.hyper.reminder.common.model.regular.RegularTaskViewHolder
-import no.hyper.reminder.list.presenter.delegate.RegularTaskDelagate
+import no.hyper.reminder.list.presenter.delegate.RegularTaskDelegate
 import no.hyper.reminder.list.view.RequiredTaskListViewOps
 import java.lang.ref.WeakReference
 
@@ -16,11 +17,12 @@ import java.lang.ref.WeakReference
 class TaskListPresenter(view: RequiredTaskListViewOps)
     : ProvidedTaskListPresenterOps, RequiredTaskListPresenterOps {
 
+    private val LOG_TAG = this.javaClass.simpleName
+    private val factory = ViewTypeFactory()
+    private val regularTaskDelegate = RegularTaskDelegate()
+
     private var viewReference : WeakReference<RequiredTaskListViewOps>
     lateinit var model : ProvidedTaskModelOps
-
-    private val factory = ViewTypeFactory()
-    private val regularTaskDelegate = RegularTaskDelagate()
 
     init {
         viewReference = WeakReference(view)
@@ -30,6 +32,7 @@ class TaskListPresenter(view: RequiredTaskListViewOps)
 
     override fun getViewType(position: Int): Int {
         val task = model.getTask(position)
+        Log.d(LOG_TAG, "get view type for task ${task?.getName()} at position $position")
         return task?.getViewType(factory) ?: throw Exception("No view type for this position")
     }
 
@@ -42,7 +45,7 @@ class TaskListPresenter(view: RequiredTaskListViewOps)
 
     override fun bindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
-            R.layout.view_item_task_list -> regularTaskDelegate.bindViewHolder(holder, position)
+            R.layout.view_item_task_list -> regularTaskDelegate.bindViewHolder(holder, model.getTask(position))
         }
     }
 

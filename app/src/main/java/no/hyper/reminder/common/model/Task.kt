@@ -6,5 +6,7 @@ package no.hyper.reminder.common.model
 interface Task {
     fun getViewType(factory: ViewTypeFactory) : Int?
     fun getName() : String
-    fun getPriority() : Int
+    fun getPriority() : Priority
+    fun getDeadLine() : String
+    fun getCreation() : String
 }
