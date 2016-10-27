@@ -10,7 +10,7 @@
     <color name="colorDivider">#BDBDBD</color>
 
     <color name="colorPriorityHigh">#F44336</color>
-    <color name="colorPriorityMiddle">#8BC34A</color>
-    <color name="colorPriorityLow">#03A9F4</color>
+    <color name="colorPriorityMiddle">#FFC107</color>
+    <color name="colorPriorityLow">#8BC34A</color>
 
 </resources>
