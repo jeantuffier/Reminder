@@ -16,9 +16,9 @@ class TaskListModel(val presenter : RequiredTaskListPresenterOps) : ProvidedTask
     private val memory by lazy { Memory(presenter.getApplicationContext()) }
 
     init {
-        tasks.add(RegularTask("Duolingo", Priority.LOW, "01/01/2017", "0101/2016"))
-        tasks.add(RegularTask("sortir les poubelles", Priority.MIDDLE, "01/01/2017", "0101/2016"))
-        tasks.add(RegularTask("aller acheter des pneus de velo", Priority.HIGH, "01/01/2017", "0101/2016"))
+        tasks.add(RegularTask("Duolingo", Priority.LOW, "01/01/2017"))
+        tasks.add(RegularTask("sortir les poubelles", Priority.MIDDLE, "01/01/2017"))
+        tasks.add(RegularTask("aller acheter des pneus de velo", Priority.HIGH, "01/01/2017"))
     }
 
     override fun getTaskCount() = tasks.size

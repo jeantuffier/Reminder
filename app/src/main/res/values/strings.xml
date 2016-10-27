@@ -5,4 +5,7 @@
     <string name="activity_creator_label">Create a task</string>
     <string name="add_task_success">The task has been created</string>
 
+    <!-- LIST -->
+    <string name="deadline">Deadline</string>
+
 </resources>

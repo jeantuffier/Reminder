@@ -4,6 +4,7 @@ import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import no.hyper.reminder.R
 import no.hyper.reminder.common.model.Task
 import no.hyper.reminder.common.model.regular.RegularTaskViewHolder
 
@@ -24,15 +25,16 @@ class RegularTaskDelegate {
         holder as RegularTaskViewHolder
         val context = holder.itemView.context
 
-        val colorId = task.getPriority().getColorId()
-        val color = ResourcesCompat.getColor(context.resources, colorId, null)
-        holder.backgroundIcon.setBackgroundColor(color)
-
         val drawableId = task.getPriority().getIconId()
         val drawable = ResourcesCompat.getDrawable(context.resources, drawableId, null)
         holder.icon.setImageDrawable(drawable)
 
+        val colorId = task.getPriority().getColorId()
+        val color = ResourcesCompat.getColor(context.resources, colorId, null)
+        holder.icon.setBackgroundColor(color)
+
         holder.title.text = task.getName()
+        holder.deadline.text = "${context.getString(R.string.deadline)} : ${task.getDeadLine()}"
     }
 
 }

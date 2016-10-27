@@ -8,5 +8,4 @@ interface Task {
     fun getName() : String
     fun getPriority() : Priority
     fun getDeadLine() : String
-    fun getCreation() : String
 }

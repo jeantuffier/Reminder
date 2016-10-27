@@ -12,14 +12,14 @@ import no.hyper.reminder.R
  */
 class RegularTaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    val backgroundIcon : FrameLayout
     val icon : ImageView
     val title : TextView
+    val deadline : TextView
 
     init {
         title = itemView.findViewById(R.id.task_title) as TextView
-        backgroundIcon = itemView.findViewById(R.id.root_priority) as FrameLayout
         icon = itemView.findViewById(R.id.ic_priority) as ImageView
+        deadline = itemView.findViewById(R.id.task_deadline) as TextView
     }
 
 }

@@ -11,8 +11,7 @@ import no.hyper.reminder.common.model.ViewTypeFactory
 data class RegularTask(
         private val name: String,
         private val priority: Priority,
-        private val deadLine: String,
-        private val creation: String
+        private val deadLine: String
 ) : Task {
 
     override fun getViewType(factory: ViewTypeFactory) = factory.type(this)
@@ -22,7 +21,5 @@ data class RegularTask(
     override fun getPriority() = priority
 
     override fun getDeadLine() = deadLine
-
-    override fun getCreation() = creation
 
 }

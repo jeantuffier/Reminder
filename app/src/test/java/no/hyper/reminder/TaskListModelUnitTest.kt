@@ -36,9 +36,9 @@ class TaskListModelUnitTest : FunSpec() {
 
     @Test
     private fun loadData() {
-        model.saveTask(RegularTask("task 1", Priority.LOW, "01/01/2016", "01/01/2017"))
-        model.saveTask(RegularTask("task 2", Priority.LOW, "01/01/2016", "01/01/2017"))
-        model.saveTask(RegularTask("task 3", Priority.LOW, "01/01/2016", "01/01/2017"))
+        model.saveTask(RegularTask("task 1", Priority.LOW, "01/01/2016"))
+        model.saveTask(RegularTask("task 2", Priority.LOW, "01/01/2016"))
+        model.saveTask(RegularTask("task 3", Priority.LOW, "01/01/2016"))
 
         model.loadData()
 
@@ -57,7 +57,7 @@ class TaskListModelUnitTest : FunSpec() {
 
     @Test
     fun getTask() {
-        model.saveTask(RegularTask("task 1", Priority.LOW, "01/01/2016", "01/01/2017"))
+        model.saveTask(RegularTask("task 1", Priority.LOW, "01/01/2016"))
         val task = model.getTask(0)
         test("task should be the same > to 0") {
             (task != null) shouldBe true
