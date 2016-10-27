@@ -2,6 +2,7 @@ package no.hyper.reminder
 
 import io.kotlintest.specs.FunSpec
 import no.hyper.memoryorm.Memory
+import no.hyper.reminder.common.model.Priority
 import no.hyper.reminder.common.model.Task
 import no.hyper.reminder.common.model.regular.RegularTask
 import no.hyper.reminder.list.model.ProvidedTaskModelOps
@@ -35,9 +36,9 @@ class TaskListModelUnitTest : FunSpec() {
 
     @Test
     private fun loadData() {
-        for (i in 0..5) {
-            model.saveTask(RegularTask("task$i", i))
-        }
+        model.saveTask(RegularTask("task 1", Priority.LOW, "01/01/2016", "01/01/2017"))
+        model.saveTask(RegularTask("task 2", Priority.LOW, "01/01/2016", "01/01/2017"))
+        model.saveTask(RegularTask("task 3", Priority.LOW, "01/01/2016", "01/01/2017"))
 
         model.loadData()
 
@@ -56,12 +57,12 @@ class TaskListModelUnitTest : FunSpec() {
 
     @Test
     fun getTask() {
-        model.saveTask(RegularTask("task", 1))
+        model.saveTask(RegularTask("task 1", Priority.LOW, "01/01/2016", "01/01/2017"))
         val task = model.getTask(0)
         test("task should be the same > to 0") {
             (task != null) shouldBe true
-            task?.getName() shouldBe "task"
-            task?.getPriority() shouldBe 1
+            task?.getName() shouldBe "task 1"
+            task?.getPriority() shouldBe Priority.LOW
         }
     }
 
