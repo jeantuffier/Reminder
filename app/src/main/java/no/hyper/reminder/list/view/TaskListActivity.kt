@@ -1,5 +1,6 @@
 package no.hyper.reminder.list.view
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -11,10 +12,15 @@ import no.hyper.reminder.common.Reminder
 import no.hyper.reminder.common.extension.toDp
 import no.hyper.reminder.common.injection.module.TaskListActivityModule
 import no.hyper.reminder.common.recycler.SpaceItemDecoration
+import no.hyper.reminder.create.view.CreateTaskActivity
 import no.hyper.reminder.list.presenter.ProvidedTaskListPresenterOps
 import javax.inject.Inject
 
 class TaskListActivity : AppCompatActivity(), RequiredTaskListViewOps {
+
+    companion object {
+        private val CODE_REQUEST_CREATE_TASK = 1
+    }
 
     lateinit var taskRecycler : RecyclerView
 
@@ -25,8 +31,13 @@ class TaskListActivity : AppCompatActivity(), RequiredTaskListViewOps {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_task)
 
+        taskRecycler = task_recycler
+        task_create_button.setOnClickListener {
+            val intent = Intent(this, CreateTaskActivity::class.java)
+            startActivityForResult(intent, CODE_REQUEST_CREATE_TASK)
+        }
+
         setComponent()
-        getUiElement()
         setRecyclerView()
     }
 
@@ -38,10 +49,6 @@ class TaskListActivity : AppCompatActivity(), RequiredTaskListViewOps {
         Reminder.get(this).component
                 .getTaskListComponent(TaskListActivityModule(this))
                 .inject(this)
-    }
-
-    private fun getUiElement() {
-        taskRecycler = task_recycler
     }
 
     private fun setRecyclerView() {

@@ -6,6 +6,7 @@
     <string name="add_task_success">The task has been created</string>
 
     <!-- LIST -->
-    <string name="deadline">Deadline</string>
+    <string name="task_deadline">Deadline</string>
+    <string name="task_frequency">Frequency : </string>
 
 </resources>
