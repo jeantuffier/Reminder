@@ -4,6 +4,13 @@
     <!-- CREATOR -->
     <string name="activity_creator_label">Create a task</string>
     <string name="add_task_success">The task has been created</string>
+    <string name="add_task_title">Title</string>
+    <string name="add_task_deadline">Deadline</string>
+    <string name="add_task_priority">Priority : </string>
+    <string name="add_task_priority_low">Low</string>
+    <string name="add_task_priority_middle">Middle</string>
+    <string name="add_task_priority_high">High</string>
+    <string name="add_task_confirmation">Create</string>
 
     <!-- LIST -->
     <string name="task_deadline">Deadline</string>
