@@ -2,9 +2,9 @@ package no.hyper.reminder.common
 
 import android.app.Application
 import android.content.Context
-import no.hyper.reminder.common.injection.component.ApplicationComponent
-import no.hyper.reminder.common.injection.component.DaggerApplicationComponent as appComponent
-import no.hyper.reminder.common.injection.module.ApplicationModule
+import no.hyper.reminder.common.injection.ApplicationComponent
+import no.hyper.reminder.common.injection.ApplicationModule
+import no.hyper.reminder.common.injection.DaggerApplicationComponent
 
 /**
  * Created by jean on 25.10.2016.
@@ -23,7 +23,7 @@ class Reminder : Application() {
     }
 
     private fun initApplicationComponent() {
-        component = appComponent.builder()
+        component = DaggerApplicationComponent.builder()
                 .applicationModule(ApplicationModule(this))
                 .build()
     }

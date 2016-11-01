@@ -1,4 +1,4 @@
-package no.hyper.reminder.common.injection.scope
+package no.hyper.reminder.common.injection
 
 import javax.inject.Scope
 

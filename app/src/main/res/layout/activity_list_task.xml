@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="no.hyper.reminder.create.view.CreateTaskActivity">
+    tools:context="no.hyper.reminder.create.view.activity.CreateTaskActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

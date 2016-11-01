@@ -7,7 +7,7 @@ import no.hyper.reminder.common.model.timer.Timer
  */
 interface Task {
     fun getViewType(factory: ViewTypeFactory) : Int?
-    fun getName() : String
+    fun getTitle() : String
     fun getPriority() : Priority
     fun getDeadLine() : String
     fun getTimer() : Timer

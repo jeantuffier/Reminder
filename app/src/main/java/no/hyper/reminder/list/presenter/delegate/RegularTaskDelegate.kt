@@ -33,7 +33,7 @@ class RegularTaskDelegate {
         val color = ResourcesCompat.getColor(context.resources, colorId, null)
         holder.icon.setBackgroundColor(color)
 
-        holder.title.text = task.getName()
+        holder.title.text = task.getTitle()
         holder.deadline.text = "${context.getString(R.string.task_deadline)} : ${task.getDeadLine()}"
         holder.frequency.text = context.getString(R.string.task_frequency)
     }

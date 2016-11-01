@@ -20,7 +20,7 @@
 
         </activity>
 
-        <activity android:name=".create.view.CreateTaskActivity"
+        <activity android:name=".create.view.activity.CreateTaskActivity"
                   android:label="@string/activity_create_task_name"
                   android:theme="@style/AppTheme.NoActionBar">
 

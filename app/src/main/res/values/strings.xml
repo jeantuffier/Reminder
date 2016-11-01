@@ -3,19 +3,26 @@
 
     <!-- CREATOR -->
     <string name="activity_create_task_name">Create a task</string>
-    <string name="add_task_success">The task has been created</string>
-    <string name="add_task_title">Title</string>
-    <string name="add_task_deadline">Deadline</string>
-    <string name="add_task_priority">Priority : </string>
-    <string name="add_task_priority_low">Low</string>
-    <string name="add_task_priority_middle">Middle</string>
-    <string name="add_task_priority_high">High</string>
-    <string name="add_task_confirmation">Create</string>
-    <string name="add_task_frequency">Every : </string>
-    <string name="add_task_frequency_hours">Hours</string>
-    <string name="add_task_frequency_minutes">Minutes</string>
-    <string name="add_task_frequency_start">Start</string>
-    <string name="add_task_frequency_end">End</string>
+    <string name="create_task_success">The task has been created</string>
+    <string name="create_task_title">Title</string>
+    <string name="create_task_deadline">Deadline</string>
+
+    <string name="create_task_priority">Priority : </string>
+    <string name="create_task_priority_low">Low</string>
+    <string name="create_task_priority_middle">Middle</string>
+    <string name="create_task_priority_high">High</string>
+
+    <string name="create_task_frequency">Every : </string>
+    <string name="create_task_frequency_hours">Hours</string>
+    <string name="create_task_frequency_minutes">Minutes</string>
+    <string name="create_task_frequency_start">Start</string>
+    <string name="create_task_frequency_end">End</string>
+
+    <string name="create_task_alarm">Alarm : </string>
+    <string name="create_task_alarm_notification">Notification</string>
+    <string name="create_task_alarm_vibration">Vibration</string>
+
+    <string name="create_task_confirmation">Create</string>
 
     <!-- LIST -->
     <string name="task_deadline">Deadline</string>

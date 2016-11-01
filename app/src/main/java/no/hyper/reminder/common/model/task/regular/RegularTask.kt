@@ -10,7 +10,7 @@ import no.hyper.reminder.common.model.timer.Timer
  */
 
 data class RegularTask(
-        private val name: String,
+        private val title: String,
         private val priority: Priority,
         private val deadLine: String,
         private val timer: Timer
@@ -18,7 +18,7 @@ data class RegularTask(
 
     override fun getViewType(factory: ViewTypeFactory) = factory.type(this)
 
-    override fun getName() = name
+    override fun getTitle() = title
 
     override fun getPriority() = priority
 

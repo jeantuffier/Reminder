@@ -1,4 +1,4 @@
-package no.hyper.reminder.common.injection.module
+package no.hyper.reminder.common.injection
 
 import android.app.Application
 import dagger.Module

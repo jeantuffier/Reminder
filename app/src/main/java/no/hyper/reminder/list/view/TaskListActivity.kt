@@ -11,9 +11,9 @@ import kotlinx.android.synthetic.main.activity_list_task.*
 import no.hyper.reminder.R
 import no.hyper.reminder.common.Reminder
 import no.hyper.reminder.common.extension.toDp
-import no.hyper.reminder.common.injection.module.TaskListActivityModule
+import no.hyper.reminder.list.injection.TaskListActivityModule
 import no.hyper.reminder.common.recycler.SpaceItemDecoration
-import no.hyper.reminder.create.view.CreateTaskActivity
+import no.hyper.reminder.create.view.activity.CreateTaskActivity
 import no.hyper.reminder.list.presenter.ProvidedTaskListPresenterOps
 import javax.inject.Inject
 
@@ -47,16 +47,16 @@ class TaskListActivity : AppCompatActivity(), RequiredTaskListViewOps {
 
     override fun notifyItemInserted() { }
 
-    private fun setToolbar() {
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
-        supportActionBar?.title = getString(R.string.app_name)
-    }
-
     private fun setComponent() {
         Reminder.get(this).component
                 .getTaskListComponent(TaskListActivityModule(this))
                 .inject(this)
+    }
+
+    private fun setToolbar() {
+        val toolbar = findViewById(R.id.toolbar) as Toolbar
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = getString(R.string.app_name)
     }
 
     private fun setRecyclerView() {
