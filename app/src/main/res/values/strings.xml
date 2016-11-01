@@ -11,6 +11,11 @@
     <string name="add_task_priority_middle">Middle</string>
     <string name="add_task_priority_high">High</string>
     <string name="add_task_confirmation">Create</string>
+    <string name="add_task_frequency">Every : </string>
+    <string name="add_task_frequency_hours">Hours</string>
+    <string name="add_task_frequency_minutes">Minutes</string>
+    <string name="add_task_frequency_start">Start</string>
+    <string name="add_task_frequency_end">End</string>
 
     <!-- LIST -->
     <string name="task_deadline">Deadline</string>

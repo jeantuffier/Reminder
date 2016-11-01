@@ -4,6 +4,7 @@ import no.hyper.memoryorm.Memory
 import no.hyper.reminder.common.model.task.Priority
 import no.hyper.reminder.common.model.task.Task
 import no.hyper.reminder.common.model.task.regular.RegularTask
+import no.hyper.reminder.common.model.timer.Timer
 import no.hyper.reminder.list.presenter.RequiredTaskListPresenterOps
 
 /**
@@ -16,9 +17,10 @@ class TaskListModel(val presenter : RequiredTaskListPresenterOps) : ProvidedTask
     private val memory by lazy { Memory(presenter.getApplicationContext()) }
 
     init {
-        tasks.add(RegularTask("Duolingo", Priority.LOW, "01/01/2017"))
-        tasks.add(RegularTask("sortir les poubelles", Priority.MIDDLE, "01/01/2017"))
-        tasks.add(RegularTask("aller acheter des pneus de velo", Priority.HIGH, "01/01/2017"))
+        val timer = Timer(Timer.Frequency.HOURS, 1, "", "", Timer.Alarm.NOTIFICATION)
+        tasks.add(RegularTask("Duolingo", Priority.LOW, "01/01/2017", timer))
+        tasks.add(RegularTask("sortir les poubelles", Priority.MIDDLE, "01/01/2017", timer))
+        tasks.add(RegularTask("aller acheter des pneus de velo", Priority.HIGH, "01/01/2017", timer))
     }
 
     override fun getTaskCount() = tasks.size

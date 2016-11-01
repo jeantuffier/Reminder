@@ -5,6 +5,7 @@ import no.hyper.memoryorm.Memory
 import no.hyper.reminder.common.model.task.Priority
 import no.hyper.reminder.common.model.task.Task
 import no.hyper.reminder.common.model.task.regular.RegularTask
+import no.hyper.reminder.common.model.timer.Timer
 import no.hyper.reminder.list.model.ProvidedTaskModelOps
 import no.hyper.reminder.list.model.TaskListModel
 import no.hyper.reminder.list.presenter.RequiredTaskListPresenterOps
@@ -36,9 +37,10 @@ class TaskListModelUnitTest : FunSpec() {
 
     @Test
     private fun loadData() {
-        model.saveTask(RegularTask("task 1", Priority.LOW, "01/01/2016"))
-        model.saveTask(RegularTask("task 2", Priority.LOW, "01/01/2016"))
-        model.saveTask(RegularTask("task 3", Priority.LOW, "01/01/2016"))
+        val timer = Timer(Timer.Frequency.HOURS, 1, "", "", Timer.Alarm.NOTIFICATION)
+        model.saveTask(RegularTask("task 1", Priority.LOW, "01/01/2016", timer))
+        model.saveTask(RegularTask("task 2", Priority.LOW, "01/01/2016", timer))
+        model.saveTask(RegularTask("task 3", Priority.LOW, "01/01/2016", timer))
 
         model.loadData()
 
@@ -57,7 +59,8 @@ class TaskListModelUnitTest : FunSpec() {
 
     @Test
     fun getTask() {
-        model.saveTask(RegularTask("task 1", Priority.LOW, "01/01/2016"))
+        val timer = Timer(Timer.Frequency.HOURS, 1, "", "", Timer.Alarm.NOTIFICATION)
+        model.saveTask(RegularTask("task 1", Priority.LOW, "01/01/2016", timer))
         val task = model.getTask(0)
         test("task should be the same > to 0") {
             (task != null) shouldBe true
