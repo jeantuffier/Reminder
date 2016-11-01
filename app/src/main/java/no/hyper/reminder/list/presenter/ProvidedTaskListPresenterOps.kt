@@ -2,7 +2,7 @@ package no.hyper.reminder.list.presenter
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import no.hyper.reminder.common.model.regular.RegularTaskViewHolder
+import no.hyper.reminder.common.model.task.regular.RegularTaskViewHolder
 
 /**
  * Created by Jean on 10/12/2016.

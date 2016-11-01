@@ -5,8 +5,8 @@ import android.util.Log
 import android.view.ViewGroup
 import no.hyper.reminder.R
 import no.hyper.reminder.list.model.ProvidedTaskModelOps
-import no.hyper.reminder.common.model.ViewTypeFactory
-import no.hyper.reminder.common.model.regular.RegularTaskViewHolder
+import no.hyper.reminder.common.model.task.ViewTypeFactory
+import no.hyper.reminder.common.model.task.regular.RegularTaskViewHolder
 import no.hyper.reminder.list.presenter.delegate.RegularTaskDelegate
 import no.hyper.reminder.list.view.RequiredTaskListViewOps
 import java.lang.ref.WeakReference

@@ -2,9 +2,9 @@ package no.hyper.reminder
 
 import io.kotlintest.specs.FunSpec
 import no.hyper.memoryorm.Memory
-import no.hyper.reminder.common.model.Priority
-import no.hyper.reminder.common.model.Task
-import no.hyper.reminder.common.model.regular.RegularTask
+import no.hyper.reminder.common.model.task.Priority
+import no.hyper.reminder.common.model.task.Task
+import no.hyper.reminder.common.model.task.regular.RegularTask
 import no.hyper.reminder.list.model.ProvidedTaskModelOps
 import no.hyper.reminder.list.model.TaskListModel
 import no.hyper.reminder.list.presenter.RequiredTaskListPresenterOps

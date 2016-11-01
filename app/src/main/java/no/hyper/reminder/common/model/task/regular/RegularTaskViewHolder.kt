@@ -1,4 +1,4 @@
-package no.hyper.reminder.common.model.regular
+package no.hyper.reminder.common.model.task.regular
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

@@ -1,7 +1,7 @@
 package no.hyper.reminder
 
 import no.hyper.memoryorm.Memory
-import no.hyper.reminder.common.model.Task
+import no.hyper.reminder.common.model.task.Task
 import no.hyper.reminder.list.model.ProvidedTaskModelOps
 import no.hyper.reminder.list.presenter.TaskListPresenter
 import no.hyper.reminder.list.view.RequiredTaskListViewOps

@@ -1,4 +1,4 @@
-package no.hyper.reminder.common.model
+package no.hyper.reminder.common.model.task
 
 import no.hyper.reminder.R
 

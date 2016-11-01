@@ -1,7 +1,7 @@
 package no.hyper.reminder.list.model
 
-import no.hyper.reminder.common.model.Task
-import no.hyper.reminder.common.model.regular.RegularTask
+import no.hyper.reminder.common.model.task.Task
+import no.hyper.reminder.common.model.task.regular.RegularTask
 
 /**
  * Created by jean on 14.10.2016.

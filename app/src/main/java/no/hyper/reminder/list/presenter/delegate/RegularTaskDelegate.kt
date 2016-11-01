@@ -5,8 +5,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import no.hyper.reminder.R
-import no.hyper.reminder.common.model.Task
-import no.hyper.reminder.common.model.regular.RegularTaskViewHolder
+import no.hyper.reminder.common.model.task.Task
+import no.hyper.reminder.common.model.task.regular.RegularTaskViewHolder
 
 /**
  * Created by jean on 14.10.2016.
