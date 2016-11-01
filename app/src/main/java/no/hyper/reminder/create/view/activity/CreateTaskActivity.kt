@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
-import kotlinx.android.synthetic.main.activity_creator_task.*
+import kotlinx.android.synthetic.main.create_task_activity.*
 import no.hyper.reminder.R
 import no.hyper.reminder.common.Reminder
 import no.hyper.reminder.create.injection.CreateTaskActivityModule
@@ -22,7 +22,7 @@ class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_creator_task)
+        setContentView(R.layout.create_task_activity)
 
         setComponent()
         setToolbar()

@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.activity_list_task.*
+import kotlinx.android.synthetic.main.list_task_activity.*
 import no.hyper.reminder.R
 import no.hyper.reminder.common.Reminder
 import no.hyper.reminder.common.extension.toDp
@@ -30,7 +30,7 @@ class TaskListActivity : AppCompatActivity(), RequiredTaskListViewOps {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_task)
+        setContentView(R.layout.list_task_activity)
 
         taskRecycler = task_recycler
         task_create_button.setOnClickListener {

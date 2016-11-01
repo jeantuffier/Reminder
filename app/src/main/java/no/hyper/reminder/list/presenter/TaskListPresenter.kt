@@ -38,14 +38,14 @@ class TaskListPresenter(view: RequiredTaskListViewOps)
 
     override fun createViewHolder(parent: ViewGroup?, viewType: Int): RegularTaskViewHolder {
         return when (viewType) {
-            R.layout.view_item_task_list -> regularTaskDelegate.createViewHolder(parent, viewType)
+            R.layout.list_task_view_item -> regularTaskDelegate.createViewHolder(parent, viewType)
             else -> throw Exception("No view holder type for this view type")
         }
     }
 
     override fun bindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
-            R.layout.view_item_task_list -> regularTaskDelegate.bindViewHolder(holder, model.getTask(position))
+            R.layout.list_task_view_item -> regularTaskDelegate.bindViewHolder(holder, model.getTask(position))
         }
     }
 
