@@ -9,6 +9,7 @@ import android.view.View
 import kotlinx.android.synthetic.main.create_task_activity.*
 import no.hyper.reminder.R
 import no.hyper.reminder.common.Reminder
+import no.hyper.reminder.common.extension.toDp
 import no.hyper.reminder.create.injection.CreateTaskActivityModule
 import no.hyper.reminder.create.presenter.ProvidedCreateTaskListPresenterOps
 import javax.inject.Inject
@@ -51,6 +52,8 @@ class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
         override fun getItem(position: Int) = presenter.getItem(position)
 
         override fun getCount() = presenter.getCount()
+
+        override fun getPageWidth(position: Int) = 0.8f
 
     }
 

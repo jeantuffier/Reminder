@@ -36,7 +36,8 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/create_task_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="300dp"
+            android:layout_centerInParent="true"/>
 
     </RelativeLayout>
 
