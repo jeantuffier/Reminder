@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_list_task.*
 import no.hyper.reminder.R
@@ -38,12 +39,19 @@ class TaskListActivity : AppCompatActivity(), RequiredTaskListViewOps {
         }
 
         setComponent()
+        setToolbar()
         setRecyclerView()
     }
 
     override fun getActivityContext() = this
 
     override fun notifyItemInserted() { }
+
+    private fun setToolbar() {
+        val toolbar = findViewById(R.id.toolbar) as Toolbar
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = getString(R.string.app_name)
+    }
 
     private fun setComponent() {
         Reminder.get(this).component

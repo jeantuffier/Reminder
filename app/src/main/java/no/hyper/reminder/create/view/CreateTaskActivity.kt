@@ -14,6 +14,15 @@ class CreateTaskActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_creator_task)
+
+        setToolbar()
+    }
+
+    private fun setToolbar() {
+        val toolbar = findViewById(R.id.toolbar) as Toolbar
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = getString(R.string.activity_create_task_name)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
 }
