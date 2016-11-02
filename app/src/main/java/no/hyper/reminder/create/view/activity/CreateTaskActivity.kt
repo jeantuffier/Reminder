@@ -6,9 +6,11 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
+import android.widget.RelativeLayout
 import kotlinx.android.synthetic.main.create_task_activity.*
 import no.hyper.reminder.R
 import no.hyper.reminder.common.Reminder
+import no.hyper.reminder.common.extension.getScreenWidthInDp
 import no.hyper.reminder.common.extension.toDp
 import no.hyper.reminder.create.injection.CreateTaskActivityModule
 import no.hyper.reminder.create.presenter.ProvidedCreateTaskListPresenterOps
@@ -45,6 +47,7 @@ class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
 
     private fun setViewPager() {
         create_task_pager.adapter = CreateTaskPager(supportFragmentManager)
+        create_task_pager.pageMargin = 16.toDp(this)
     }
 
     private inner class CreateTaskPager(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
@@ -52,8 +55,6 @@ class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
         override fun getItem(position: Int) = presenter.getItem(position)
 
         override fun getCount() = presenter.getCount()
-
-        override fun getPageWidth(position: Int) = 0.8f
 
     }
 
