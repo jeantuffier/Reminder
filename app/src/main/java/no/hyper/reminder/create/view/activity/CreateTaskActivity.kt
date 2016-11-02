@@ -13,7 +13,7 @@ import no.hyper.reminder.common.Reminder
 import no.hyper.reminder.common.extension.getScreenWidthInDp
 import no.hyper.reminder.common.extension.toDp
 import no.hyper.reminder.create.injection.CreateTaskActivityModule
-import no.hyper.reminder.create.presenter.ProvidedCreateTaskListPresenterOps
+import no.hyper.reminder.create.presenter.activity.ProvidedCreateTaskPresenterOps
 import javax.inject.Inject
 
 class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
@@ -21,7 +21,7 @@ class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
     private lateinit var viewListener : View
 
     @Inject
-    lateinit var presenter : ProvidedCreateTaskListPresenterOps
+    lateinit var presenter : ProvidedCreateTaskPresenterOps
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

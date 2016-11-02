@@ -10,10 +10,10 @@ import no.hyper.reminder.R
 /**
  * Created by jean on 01.11.2016.
  */
-class CreateTaskNameFragment : Fragment() {
+class CreateTaskTitleFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.create_task_fragment_name, container, false)
+        return inflater.inflate(R.layout.create_task_fragment_title, container, false)
     }
 
 }
