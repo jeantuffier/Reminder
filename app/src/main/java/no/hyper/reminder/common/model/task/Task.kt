@@ -1,14 +1,40 @@
 package no.hyper.reminder.common.model.task
 
+import no.hyper.reminder.R
 import no.hyper.reminder.common.model.timer.Timer
 
 /**
  * Created by jean on 14.10.2016.
  */
 interface Task {
+
+    enum class Priority {
+
+        LOW {
+            override fun getLevel() = LOW
+            override fun getColorId() = R.color.colorPriorityLow
+            override fun getIconId() = R.drawable.ic_priority_low
+        },
+
+        MIDDLE {
+            override fun getLevel() = MIDDLE
+            override fun getColorId() = R.color.colorPriorityMiddle
+            override fun getIconId() = R.drawable.ic_priority_middle
+        },
+
+        HIGH {
+            override fun getLevel() = LOW
+            override fun getColorId() = R.color.colorPriorityHigh
+            override fun getIconId() = R.drawable.ic_priority_high
+        };
+
+        abstract fun getLevel() : Priority
+        abstract fun getColorId() : Int
+        abstract fun getIconId() : Int
+    }
+
     fun getViewType(factory: ViewTypeFactory) : Int?
     fun getTitle() : String
     fun getPriority() : Priority
-    fun getDeadLine() : String
     fun getTimer() : Timer
 }

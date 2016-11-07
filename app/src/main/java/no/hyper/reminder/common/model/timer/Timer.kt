@@ -6,9 +6,7 @@ package no.hyper.reminder.common.model.timer
 data class Timer (
         val frequency: Frequency,
         val delay: Int,
-        val start: String,
-        val end: String,
-        val alarm: Alarm
+        val alarm: Alarm = Timer.Alarm.NOTIFICATION
 ) {
 
     enum class Frequency { HOURS, MINUTES }

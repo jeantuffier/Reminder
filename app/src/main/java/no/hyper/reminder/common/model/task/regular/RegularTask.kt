@@ -1,6 +1,5 @@
 package no.hyper.reminder.common.model.task.regular
 
-import no.hyper.reminder.common.model.task.Priority
 import no.hyper.reminder.common.model.task.Task
 import no.hyper.reminder.common.model.task.ViewTypeFactory
 import no.hyper.reminder.common.model.timer.Timer
@@ -11,8 +10,7 @@ import no.hyper.reminder.common.model.timer.Timer
 
 data class RegularTask(
         private val title: String,
-        private val priority: Priority,
-        private val deadLine: String,
+        private val priority: Task.Priority,
         private val timer: Timer
 ) : Task {
 
@@ -21,8 +19,6 @@ data class RegularTask(
     override fun getTitle() = title
 
     override fun getPriority() = priority
-
-    override fun getDeadLine() = deadLine
 
     override fun getTimer() = timer
 

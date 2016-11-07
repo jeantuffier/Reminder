@@ -22,6 +22,7 @@
     <string name="create_task_alarm_vibration">Vibration</string>
 
     <string name="create_task_confirmation">Create</string>
+    <string name="create_task_error_field_empty">Every field must be complete</string>
 
     <!-- LIST -->
     <string name="task_deadline">Deadline</string>
