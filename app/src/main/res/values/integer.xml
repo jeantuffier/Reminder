@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- REQUEST -->
+    <integer name="request_create_task">1</integer>
+
+    <!-- RESULT -->
+    <integer name="result_create_task_success">1</integer>
+
+</resources>

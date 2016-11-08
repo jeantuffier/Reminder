@@ -1,12 +1,18 @@
 package no.hyper.reminder.common.model.task
 
+import android.os.Parcelable
 import no.hyper.reminder.R
 import no.hyper.reminder.common.model.timer.Timer
 
 /**
  * Created by jean on 14.10.2016.
  */
-interface Task {
+interface Task : Parcelable {
+
+    companion object {
+        val PARCELABLE = "Task.PARCELABLE"
+        val CREATED = 1
+    }
 
     enum class Priority {
 

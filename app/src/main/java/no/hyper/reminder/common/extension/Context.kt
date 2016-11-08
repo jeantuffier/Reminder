@@ -10,3 +10,5 @@ fun Context.getScreenWidthInDp() : Int {
     val displayMetrics = resources.displayMetrics
     return (displayMetrics.widthPixels / displayMetrics.density).toInt()
 }
+
+fun Context.getInteger(resourceId: Int) = this.resources.getInteger(resourceId)

@@ -13,13 +13,11 @@ class RegularTaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
 
     val icon : ImageView
     val title : TextView
-    val deadline : TextView
     val frequency : TextView
 
     init {
         title = itemView.findViewById(R.id.task_title) as TextView
         icon = itemView.findViewById(R.id.ic_priority) as ImageView
-        deadline = itemView.findViewById(R.id.task_deadline) as TextView
         frequency = itemView.findViewById(R.id.task_frequency) as TextView
     }
 

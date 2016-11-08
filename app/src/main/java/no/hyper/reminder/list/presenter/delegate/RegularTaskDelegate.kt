@@ -34,7 +34,6 @@ class RegularTaskDelegate {
         holder.icon.setBackgroundColor(color)
 
         holder.title.text = task.getTitle()
-        holder.deadline.text = "${context.getString(R.string.task_deadline)} : ${task.getDeadLine()}"
         holder.frequency.text = context.getString(R.string.task_frequency)
     }
 

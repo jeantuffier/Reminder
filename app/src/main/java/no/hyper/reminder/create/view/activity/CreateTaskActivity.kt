@@ -1,5 +1,6 @@
 package no.hyper.reminder.create.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -11,6 +12,8 @@ import kotlinx.android.synthetic.main.create_task_activity.*
 import no.hyper.reminder.R
 import no.hyper.reminder.common.Reminder
 import no.hyper.reminder.common.extension.toDp
+import no.hyper.reminder.common.extension.withExtras
+import no.hyper.reminder.common.model.task.Task
 import no.hyper.reminder.create.injection.CreateTaskActivityModule
 import no.hyper.reminder.create.presenter.ProvidedCreateTaskPresenterOps
 import no.hyper.reminder.create.view.fragment.CreateTaskFrequencyFragment
@@ -31,6 +34,10 @@ class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.create_task_activity)
 
+        form_create_button.setOnClickListener {
+            presenter.createTask()
+        }
+
         setComponent()
         setToolbar()
         setViewPager()
@@ -45,6 +52,11 @@ class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
     override fun getTaskPriority() = createTaskPriorityFragment.getTaskPriority()
 
     override fun getResourceString(id: Int) : String = getString(id)
+
+    override fun notifyNewItem(task: Task) {
+        setResult(Task.CREATED, Intent().withExtras(Task.PARCELABLE to task))
+        finish()
+    }
 
     override fun error(message: String) {
         Snackbar.make(task_creator_root, message, Snackbar.LENGTH_SHORT).show()

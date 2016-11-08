@@ -42,12 +42,6 @@
                     android:ellipsize="end"/>
 
                 <TextView
-                    android:id="@+id/task_deadline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"/>
-
-                <TextView
                     android:id="@+id/task_frequency"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

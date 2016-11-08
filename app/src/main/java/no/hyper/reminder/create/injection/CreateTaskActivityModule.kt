@@ -3,6 +3,7 @@ package no.hyper.reminder.create.injection
 import dagger.Module
 import dagger.Provides
 import no.hyper.reminder.common.injection.ActivityScope
+import no.hyper.reminder.create.model.CreateTaskModel
 import no.hyper.reminder.create.presenter.CreateTaskPresenter
 import no.hyper.reminder.create.presenter.ProvidedCreateTaskPresenterOps
 import no.hyper.reminder.create.view.activity.CreateTaskActivity
@@ -21,8 +22,8 @@ class CreateTaskActivityModule(private val activity : CreateTaskActivity) {
     @ActivityScope
     fun providesCreateTaskPresenter() : ProvidedCreateTaskPresenterOps {
         val presenter = CreateTaskPresenter(activity)
-        //val model = TaskListModel(presenter)
-        //presenter.model = model
+        val model = CreateTaskModel(presenter)
+        presenter.model = model
 
         return presenter
     }

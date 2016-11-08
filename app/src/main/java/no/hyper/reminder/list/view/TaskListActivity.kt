@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.list_task_activity.*
 import no.hyper.reminder.R
 import no.hyper.reminder.common.Reminder
+import no.hyper.reminder.common.extension.getInteger
 import no.hyper.reminder.common.extension.toDp
 import no.hyper.reminder.list.injection.TaskListActivityModule
 import no.hyper.reminder.common.recycler.SpaceItemDecoration
@@ -18,10 +19,6 @@ import no.hyper.reminder.list.presenter.ProvidedTaskListPresenterOps
 import javax.inject.Inject
 
 class TaskListActivity : AppCompatActivity(), RequiredTaskListViewOps {
-
-    companion object {
-        private val CODE_REQUEST_CREATE_TASK = 1
-    }
 
     lateinit var taskRecycler : RecyclerView
 
@@ -35,7 +32,7 @@ class TaskListActivity : AppCompatActivity(), RequiredTaskListViewOps {
         taskRecycler = task_recycler
         task_create_button.setOnClickListener {
             val intent = Intent(this, CreateTaskActivity::class.java)
-            startActivityForResult(intent, CODE_REQUEST_CREATE_TASK)
+            startActivityForResult(intent, getInteger(R.integer.request_create_task))
         }
 
         setComponent()
@@ -46,6 +43,13 @@ class TaskListActivity : AppCompatActivity(), RequiredTaskListViewOps {
     override fun getActivityContext() = this
 
     override fun notifyItemInserted() { }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == getInteger(R.integer.request_create_task) &&
+                resultCode == getInteger(R.integer.result_create_task_success)) {
+
+        }
+    }
 
     private fun setComponent() {
         Reminder.get(this).component
