@@ -2,9 +2,9 @@ package no.hyper.reminder
 
 import no.hyper.memoryorm.Memory
 import no.hyper.reminder.common.model.task.Task
-import no.hyper.reminder.list.model.ProvidedTaskModelOps
-import no.hyper.reminder.list.presenter.TaskListPresenter
-import no.hyper.reminder.list.view.RequiredTaskListViewOps
+import no.hyper.reminder.display.model.ProvidedDisplayTaskModelOps
+import no.hyper.reminder.display.presenter.DisplayTaskPresenter
+import no.hyper.reminder.display.view.RequiredDisplayTaskViewOps
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -21,15 +21,15 @@ import org.robolectric.annotation.Config
 @Config(constants = BuildConfig::class, sdk = intArrayOf(25), manifest = "/src/main/AndroidManifest.xml")
 class TaskListPresenterUnitTest {
 
-    private lateinit var model : ProvidedTaskModelOps
-    private lateinit var view : RequiredTaskListViewOps
-    private lateinit var presenter : TaskListPresenter
+    private lateinit var model : ProvidedDisplayTaskModelOps
+    private lateinit var view : RequiredDisplayTaskViewOps
+    private lateinit var presenter : DisplayTaskPresenter
 
     @Before
     fun setup() {
-        view = Mockito.mock(RequiredTaskListViewOps::class.java)
-        model = Mockito.mock(ProvidedTaskModelOps::class.java)
-        presenter = TaskListPresenter(view)
+        view = Mockito.mock(RequiredDisplayTaskViewOps::class.java)
+        model = Mockito.mock(ProvidedDisplayTaskModelOps::class.java)
+        presenter = DisplayTaskPresenter(view)
 
         mockMethod(model.loadData()).thenReturn(true)
 

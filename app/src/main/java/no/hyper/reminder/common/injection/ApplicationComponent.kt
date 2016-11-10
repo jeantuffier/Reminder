@@ -5,8 +5,8 @@ import dagger.Component
 import no.hyper.reminder.common.injection.ApplicationModule
 import no.hyper.reminder.create.injection.CreateTaskActivityComponent
 import no.hyper.reminder.create.injection.CreateTaskActivityModule
-import no.hyper.reminder.list.injection.TaskListActivityComponent
-import no.hyper.reminder.list.injection.TaskListActivityModule
+import no.hyper.reminder.display.injection.DisplayTaskActivityComponent
+import no.hyper.reminder.display.injection.DisplayTaskActivityModule
 import javax.inject.Singleton
 
 /**
@@ -18,7 +18,7 @@ import javax.inject.Singleton
 interface ApplicationComponent {
 
     fun application() : Application
-    fun getTaskListComponent(module: TaskListActivityModule) : TaskListActivityComponent
+    fun getTaskListComponent(module: DisplayTaskActivityModule) : DisplayTaskActivityComponent
     fun getCreateTaskComponent(module: CreateTaskActivityModule) : CreateTaskActivityComponent
 
 }

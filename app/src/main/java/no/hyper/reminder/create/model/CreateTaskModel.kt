@@ -11,16 +11,11 @@ class CreateTaskModel(val presenter: RequiredCreateTaskPresenterOps) : ProvidedC
 
     val memory by lazy { Memory(presenter.getContext()) }
 
-    override fun saveNewTask(task: Task) : Int? {
-        val rowId = memory.save(task)
-        if (rowId == null) {
-            return null
-        } else {
-            return getRowCount(task.javaClass.simpleName)
-        }
+    override fun saveNewTask(task: Task) : Long? {
+        return memory.save(task)
     }
 
-    private fun getRowCount(table: String) : Int {
+    override fun getTaskCount(): Int {
         return 3
     }
 

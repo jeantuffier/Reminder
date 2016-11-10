@@ -1,4 +1,4 @@
-package no.hyper.reminder.list.model
+package no.hyper.reminder.display.model
 
 import no.hyper.reminder.common.model.task.Task
 import no.hyper.reminder.common.model.task.regular.RegularTask
@@ -6,9 +6,9 @@ import no.hyper.reminder.common.model.task.regular.RegularTask
 /**
  * Created by jean on 14.10.2016.
  */
-interface ProvidedTaskModelOps {
+interface ProvidedDisplayTaskModelOps {
     fun getTaskCount() : Int
     fun getTask(position: Int) : Task?
     fun saveTask(task: RegularTask) : Long
-    fun loadData() : Boolean
+    fun loadData()
 }

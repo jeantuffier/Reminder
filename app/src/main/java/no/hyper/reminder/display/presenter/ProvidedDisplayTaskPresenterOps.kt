@@ -1,4 +1,4 @@
-package no.hyper.reminder.list.presenter
+package no.hyper.reminder.display.presenter
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
@@ -7,7 +7,8 @@ import no.hyper.reminder.common.model.task.regular.RegularTaskViewHolder
 /**
  * Created by Jean on 10/12/2016.
  */
-interface ProvidedTaskListPresenterOps {
+interface ProvidedDisplayTaskPresenterOps {
+    fun loadData()
     fun getTasksCount() : Int
     fun getViewType(position: Int) : Int
     fun createViewHolder(parent: ViewGroup?, viewType: Int) : RecyclerView.ViewHolder

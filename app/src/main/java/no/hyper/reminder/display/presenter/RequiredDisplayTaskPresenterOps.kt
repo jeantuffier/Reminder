@@ -1,11 +1,11 @@
-package no.hyper.reminder.list.presenter
+package no.hyper.reminder.display.presenter
 
 import android.content.Context
 
 /**
  * Created by Jean on 10/12/2016.
  */
-interface RequiredTaskListPresenterOps {
+interface RequiredDisplayTaskPresenterOps {
     fun getApplicationContext() : Context?
     fun getActivityContext() : Context?
 }

@@ -10,7 +10,6 @@ import no.hyper.reminder.common.model.timer.Timer
 interface Task : Parcelable {
 
     companion object {
-        val PARCELABLE = "Task.PARCELABLE"
         val CREATED = 1
     }
 

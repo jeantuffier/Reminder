@@ -35,7 +35,8 @@ class CreateTaskPresenter(view: RequiredCreateTaskViewOps) : ProvidedCreateTaskP
 
             val rowId = model.saveNewTask(task)
             if (rowId != null) {
-
+                val position = model.getTaskCount()
+                viewReference.get()?.notifyNewItem(position)
             }
 
         } else {
@@ -54,7 +55,7 @@ class CreateTaskPresenter(view: RequiredCreateTaskViewOps) : ProvidedCreateTaskP
         }
     }
 
-    override fun getContext() = viewReference.get()?.getContext()
+    override fun getContext() = viewReference.get()?.getActivityContext()
 
     override fun notifyTaskCreated(position: Int) {
         viewReference.get()?.notifyNewItem(position)

@@ -1,4 +1,4 @@
-package no.hyper.reminder.list.view
+package no.hyper.reminder.display.view
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -12,32 +12,35 @@ import no.hyper.reminder.R
 import no.hyper.reminder.common.Reminder
 import no.hyper.reminder.common.extension.getInteger
 import no.hyper.reminder.common.extension.toDp
-import no.hyper.reminder.list.injection.TaskListActivityModule
+import no.hyper.reminder.display.injection.DisplayTaskActivityModule
 import no.hyper.reminder.common.recycler.SpaceItemDecoration
 import no.hyper.reminder.create.view.activity.CreateTaskActivity
-import no.hyper.reminder.list.presenter.ProvidedTaskListPresenterOps
+import no.hyper.reminder.display.presenter.ProvidedDisplayTaskPresenterOps
 import javax.inject.Inject
 
-class TaskListActivity : AppCompatActivity(), RequiredTaskListViewOps {
+class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
 
-    lateinit var taskRecycler : RecyclerView
+    companion object {
+        val TASK_LIST_POSITION = "DisplayTaskActivity.TASK_LIST_POSITION"
+    }
 
     @Inject
-    lateinit var presenter : ProvidedTaskListPresenterOps
+    lateinit var presenter : ProvidedDisplayTaskPresenterOps
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.list_task_activity)
 
-        taskRecycler = task_recycler
+        setComponent()
+        setToolbar()
+        setRecyclerView()
+
         task_create_button.setOnClickListener {
             val intent = Intent(this, CreateTaskActivity::class.java)
             startActivityForResult(intent, getInteger(R.integer.request_create_task))
         }
 
-        setComponent()
-        setToolbar()
-        setRecyclerView()
+        presenter.loadData()
     }
 
     override fun getActivityContext() = this
@@ -53,7 +56,7 @@ class TaskListActivity : AppCompatActivity(), RequiredTaskListViewOps {
 
     private fun setComponent() {
         Reminder.get(this).component
-                .getTaskListComponent(TaskListActivityModule(this))
+                .getTaskListComponent(DisplayTaskActivityModule(this))
                 .inject(this)
     }
 
@@ -65,9 +68,9 @@ class TaskListActivity : AppCompatActivity(), RequiredTaskListViewOps {
 
     private fun setRecyclerView() {
         val layout = LinearLayoutManager(this)
-        taskRecycler.layoutManager = layout
-        taskRecycler.addItemDecoration(SpaceItemDecoration(16.toDp(this)))
-        taskRecycler.adapter = TaskAdapter()
+        task_recycler.layoutManager = layout
+        task_recycler.addItemDecoration(SpaceItemDecoration(16.toDp(this)))
+        task_recycler.adapter = TaskAdapter()
     }
 
     private inner class TaskAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

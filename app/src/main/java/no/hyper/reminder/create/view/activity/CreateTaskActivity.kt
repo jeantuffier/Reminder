@@ -19,6 +19,7 @@ import no.hyper.reminder.create.presenter.ProvidedCreateTaskPresenterOps
 import no.hyper.reminder.create.view.fragment.CreateTaskFrequencyFragment
 import no.hyper.reminder.create.view.fragment.CreateTaskPriorityFragment
 import no.hyper.reminder.create.view.fragment.CreateTaskTitleFragment
+import no.hyper.reminder.display.view.DisplayTaskActivity
 import javax.inject.Inject
 
 class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
@@ -53,14 +54,16 @@ class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
 
     override fun getResourceString(id: Int) : String = getString(id)
 
-    override fun notifyNewItem(task: Task) {
-        setResult(Task.CREATED, Intent().withExtras(Task.PARCELABLE to task))
+    override fun notifyNewItem(position: Int) {
+        setResult(Task.CREATED, Intent().withExtras(DisplayTaskActivity.TASK_LIST_POSITION to position))
         finish()
     }
 
     override fun error(message: String) {
         Snackbar.make(task_creator_root, message, Snackbar.LENGTH_SHORT).show()
     }
+
+    override fun getActivityContext() = this
 
     private fun setComponent() {
         Reminder.get(this).component

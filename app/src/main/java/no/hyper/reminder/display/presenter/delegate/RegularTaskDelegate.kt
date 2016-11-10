@@ -1,4 +1,4 @@
-package no.hyper.reminder.list.presenter.delegate
+package no.hyper.reminder.display.presenter.delegate
 
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.RecyclerView
