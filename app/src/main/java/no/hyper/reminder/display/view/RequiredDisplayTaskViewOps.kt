@@ -8,5 +8,4 @@ import android.content.Context
 interface RequiredDisplayTaskViewOps {
     fun getApplicationContext() : Context
     fun getActivityContext() : Context
-    fun notifyItemInserted()
 }

@@ -2,6 +2,7 @@ package no.hyper.reminder.create.model
 
 import no.hyper.memoryorm.Memory
 import no.hyper.reminder.common.model.task.Task
+import no.hyper.reminder.common.model.task.regular.RegularTask
 import no.hyper.reminder.create.presenter.RequiredCreateTaskPresenterOps
 
 /**
@@ -9,14 +10,18 @@ import no.hyper.reminder.create.presenter.RequiredCreateTaskPresenterOps
  */
 class CreateTaskModel(val presenter: RequiredCreateTaskPresenterOps) : ProvidedCreateTaskModelOps {
 
-    val memory by lazy { Memory(presenter.getContext()) }
-
     override fun saveNewTask(task: Task) : Long? {
-        return memory.save(task)
+        presenter.getActivityContext()?.let {
+            return Memory(it).save(task)
+        }
+        return null
     }
 
-    override fun getTaskCount(): Int {
-        return 3
+    override fun getTaskCount(): Int? {
+        presenter.getActivityContext()?.let {
+            return Memory(it).getTableCount(RegularTask.javaClass.simpleName)
+        }
+        return null
     }
 
 }

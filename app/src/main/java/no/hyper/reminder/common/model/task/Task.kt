@@ -11,35 +11,12 @@ interface Task : Parcelable {
 
     companion object {
         val CREATED = 1
-    }
-
-    enum class Priority {
-
-        LOW {
-            override fun getLevel() = LOW
-            override fun getColorId() = R.color.colorPriorityLow
-            override fun getIconId() = R.drawable.ic_priority_low
-        },
-
-        MIDDLE {
-            override fun getLevel() = MIDDLE
-            override fun getColorId() = R.color.colorPriorityMiddle
-            override fun getIconId() = R.drawable.ic_priority_middle
-        },
-
-        HIGH {
-            override fun getLevel() = LOW
-            override fun getColorId() = R.color.colorPriorityHigh
-            override fun getIconId() = R.drawable.ic_priority_high
-        };
-
-        abstract fun getLevel() : Priority
-        abstract fun getColorId() : Int
-        abstract fun getIconId() : Int
+        val PARCELABLE = "Task.PARCELABLE"
     }
 
     fun getViewType(factory: ViewTypeFactory) : Int?
     fun getTitle() : String
     fun getPriority() : Priority
     fun getTimer() : Timer
+
 }

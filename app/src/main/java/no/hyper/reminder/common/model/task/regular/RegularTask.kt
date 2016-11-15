@@ -2,6 +2,7 @@ package no.hyper.reminder.common.model.task.regular
 
 import android.os.Parcel
 import android.os.Parcelable
+import no.hyper.reminder.common.model.task.Priority
 import no.hyper.reminder.common.model.task.Task
 import no.hyper.reminder.common.model.task.ViewTypeFactory
 import no.hyper.reminder.common.model.timer.Timer
@@ -11,8 +12,9 @@ import no.hyper.reminder.common.model.timer.Timer
  */
 
 data class RegularTask(
+        private val id : String,
         private val title: String,
-        private val priority: Task.Priority,
+        private val priority: Priority,
         private val timer: Timer
 ) : Task {
 
@@ -29,7 +31,8 @@ data class RegularTask(
 
     constructor(parcel: Parcel) : this (
             parcel.readString(),
-            Task.Priority.valueOf(parcel.readString()),
+            parcel.readString(),
+            Priority.valueOf(parcel.readString()),
             Timer (
                 Timer.Frequency.valueOf(parcel.readString()),
                 parcel.readInt(),
@@ -46,6 +49,7 @@ data class RegularTask(
     override fun getTimer() = timer
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(id)
         parcel.writeString(title)
         parcel.writeString(priority.toString())
         parcel.writeString(timer.frequency.toString())

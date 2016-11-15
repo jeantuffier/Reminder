@@ -2,12 +2,35 @@
   "tables": [{
     "name": "RegularTask",
     "columns": [{
-      "label": "name",
+      "label": "id",
       "type": "text",
       "primary": true
     }, {
+      "label": "title",
+      "type": "text"
+    }, {
       "label": "priority",
+      "type": "text"
+    }, {
+      "label": "timer",
+      "custom": true,
+      "type": "Timer"
+    }]
+  }, {
+    "name": "Timer",
+    "columns": [{
+      "label": "id",
+      "type": "text",
+      "primary": true
+    }, {
+      "label": "frequency",
+      "type": "text"
+    }, {
+      "label": "delay",
       "type": "integer"
+    }, {
+      "label": "alarm",
+      "type": "text"
     }]
   }]
 }

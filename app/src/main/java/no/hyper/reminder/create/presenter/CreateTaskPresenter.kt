@@ -18,9 +18,7 @@ class CreateTaskPresenter(view: RequiredCreateTaskViewOps) : ProvidedCreateTaskP
     private var viewReference : WeakReference<RequiredCreateTaskViewOps>
     lateinit var model : ProvidedCreateTaskModelOps
 
-    init {
-        viewReference = WeakReference(view)
-    }
+    init { viewReference = WeakReference(view) }
 
     override fun createTask() {
         val title = viewReference.get()?.getTaskTitle()
@@ -35,8 +33,7 @@ class CreateTaskPresenter(view: RequiredCreateTaskViewOps) : ProvidedCreateTaskP
 
             val rowId = model.saveNewTask(task)
             if (rowId != null) {
-                val position = model.getTaskCount()
-                viewReference.get()?.notifyNewItem(position)
+                viewReference.get()?.notifyNewItem(task)
             }
 
         } else {
@@ -47,18 +44,16 @@ class CreateTaskPresenter(view: RequiredCreateTaskViewOps) : ProvidedCreateTaskP
 
     }
 
-    private fun getPriority(priorityForm: Int?) : Task.Priority {
-        return when(priorityForm) {
-            0 -> Task.Priority.LOW
-            1 -> Task.Priority.MIDDLE
-            else -> Task.Priority.HIGH
-        }
+    override fun getActivityContext() = viewReference.get()?.getActivityContext()
+
+    override fun notifyTaskCreated(task: Task) {
+        viewReference.get()?.notifyNewItem(task)
     }
 
-    override fun getContext() = viewReference.get()?.getActivityContext()
-
-    override fun notifyTaskCreated(position: Int) {
-        viewReference.get()?.notifyNewItem(position)
+    private fun getPriority(priorityForm: Int?) = when(priorityForm) {
+        0 -> Task.Priority.LOW
+        1 -> Task.Priority.MIDDLE
+        else -> Task.Priority.HIGH
     }
 
 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.list_task_activity.*
 import no.hyper.reminder.R
@@ -20,9 +21,7 @@ import javax.inject.Inject
 
 class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
 
-    companion object {
-        val TASK_LIST_POSITION = "DisplayTaskActivity.TASK_LIST_POSITION"
-    }
+    val LOG_TAG = this.javaClass.simpleName
 
     @Inject
     lateinit var presenter : ProvidedDisplayTaskPresenterOps
@@ -43,16 +42,14 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
         presenter.loadData()
     }
 
-    override fun getActivityContext() = this
-
-    override fun notifyItemInserted() { }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
         if (requestCode == getInteger(R.integer.request_create_task) &&
                 resultCode == getInteger(R.integer.result_create_task_success)) {
-
+            notifyItemInserted()
         }
     }
+
+    override fun getActivityContext() = this
 
     private fun setComponent() {
         Reminder.get(this).component
@@ -71,6 +68,12 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
         task_recycler.layoutManager = layout
         task_recycler.addItemDecoration(SpaceItemDecoration(16.toDp(this)))
         task_recycler.adapter = TaskAdapter()
+    }
+
+    private fun notifyItemInserted() {
+        presenter.loadData()
+        val count = task_recycler.adapter.itemCount
+        task_recycler.adapter.notifyItemInserted(count)
     }
 
     private inner class TaskAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

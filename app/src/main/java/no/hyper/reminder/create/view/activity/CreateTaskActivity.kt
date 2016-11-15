@@ -54,8 +54,8 @@ class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
 
     override fun getResourceString(id: Int) : String = getString(id)
 
-    override fun notifyNewItem(position: Int) {
-        setResult(Task.CREATED, Intent().withExtras(DisplayTaskActivity.TASK_LIST_POSITION to position))
+    override fun notifyNewItem(task: Task) {
+        setResult(Task.CREATED, Intent().withExtras(Task.PARCELABLE to task))
         finish()
     }
 

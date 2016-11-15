@@ -4,6 +4,7 @@ package no.hyper.reminder.common.model.timer
  * Created by jean on 01.11.2016.
  */
 data class Timer (
+        var id : String,
         val frequency: Frequency,
         val delay: Int,
         val alarm: Alarm = Timer.Alarm.NOTIFICATION
