@@ -44,16 +44,16 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
         presenter.loadData()
     }
 
-    override fun getActivityContext() = this
-
-    override fun notifyItemInserted() { }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == getInteger(R.integer.request_create_task) &&
                 resultCode == getInteger(R.integer.result_create_task_success)) {
-
+            updateRecycler()
         }
     }
+
+    override fun getActivityContext() = this
+
+    override fun notifyItemInserted() { }
 
     private fun setComponent() {
         Reminder.get(this).component
@@ -72,6 +72,12 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
         task_recycler.layoutManager = layout
         task_recycler.addItemDecoration(SpaceItemDecoration(16.toDp(this)))
         task_recycler.adapter = TaskAdapter()
+    }
+
+    private fun updateRecycler() {
+        presenter.loadData()
+        val position = presenter.getTasksCount()
+        task_recycler.adapter.notifyItemInserted(position)
     }
 
     private inner class TaskAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

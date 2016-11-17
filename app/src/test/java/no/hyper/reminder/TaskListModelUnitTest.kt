@@ -29,7 +29,7 @@ class TaskListModelUnitTest : FunSpec() {
     fun setup() {
         val presenter = Mockito.mock(RequiredDisplayTaskPresenterOps::class.java)
         model = DisplayTaskModel(presenter)
-        Memory(RuntimeEnvironment.application).cleanTable(Task::class.java.simpleName, null)
+        Memory(RuntimeEnvironment.application).emptyTable(Task::class.java.simpleName, null)
     }
 
     @Test

@@ -11,15 +11,13 @@ import android.support.v7.widget.Toolbar
 import kotlinx.android.synthetic.main.create_task_activity.*
 import no.hyper.reminder.R
 import no.hyper.reminder.common.Reminder
+import no.hyper.reminder.common.extension.getInteger
 import no.hyper.reminder.common.extension.toDp
-import no.hyper.reminder.common.extension.withExtras
-import no.hyper.reminder.common.model.task.Task
 import no.hyper.reminder.create.injection.CreateTaskActivityModule
 import no.hyper.reminder.create.presenter.ProvidedCreateTaskPresenterOps
 import no.hyper.reminder.create.view.fragment.CreateTaskFrequencyFragment
 import no.hyper.reminder.create.view.fragment.CreateTaskPriorityFragment
 import no.hyper.reminder.create.view.fragment.CreateTaskTitleFragment
-import no.hyper.reminder.display.view.DisplayTaskActivity
 import javax.inject.Inject
 
 class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
@@ -54,8 +52,8 @@ class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
 
     override fun getResourceString(id: Int) : String = getString(id)
 
-    override fun notifyNewItem(position: Int) {
-        setResult(Task.CREATED, Intent().withExtras(DisplayTaskActivity.TASK_LIST_POSITION to position))
+    override fun notifyNewItem() {
+        setResult(getInteger(R.integer.result_create_task_success), intent)
         finish()
     }
 

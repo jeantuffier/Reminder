@@ -8,5 +8,4 @@ import android.content.Context
 interface RequiredCreateTaskPresenterOps {
     fun getActivityContext() : Context?
     fun getApplicationContext() : Context?
-    fun notifyTaskCreated(position: Int)
 }

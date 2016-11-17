@@ -1,11 +1,11 @@
 package no.hyper.reminder.display.model
 
+import android.util.Log
 import no.hyper.memoryorm.Memory
 import no.hyper.reminder.common.extension.editPreferences
 import no.hyper.reminder.common.extension.readPreference
 import no.hyper.reminder.common.model.task.Task
 import no.hyper.reminder.common.model.task.regular.RegularTask
-import no.hyper.reminder.common.model.timer.Timer
 import no.hyper.reminder.display.presenter.RequiredDisplayTaskPresenterOps
 
 /**
@@ -21,6 +21,7 @@ class DisplayTaskModel(val presenter : RequiredDisplayTaskPresenterOps) : Provid
     private val memory by lazy { Memory(presenter.getApplicationContext()) }
 
     override fun createDatabase() {
+        Log.d(LOG_TAG, "createDatabase")
         val localVersion = presenter.getApplicationContext()?.readPreference {
             it.getInt(LOCAL_DB_VERSION, 0)
         }
@@ -38,6 +39,7 @@ class DisplayTaskModel(val presenter : RequiredDisplayTaskPresenterOps) : Provid
     override fun saveTask(task: RegularTask) = memory.save(task)
 
     override fun loadData() {
+        Log.d(LOG_TAG, "loadData")
         val fetchedTasks = memory.fetchAll(RegularTask::class.java)
         fetchedTasks?.let {
             tasks.addAll(fetchedTasks)

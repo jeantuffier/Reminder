@@ -15,6 +15,6 @@ interface RequiredCreateTaskViewOps {
     fun getActivityContext() : Context?
     fun getApplicationContext() : Context?
 
-    fun notifyNewItem(position: Int)
+    fun notifyNewItem()
     fun error(message: String)
 }

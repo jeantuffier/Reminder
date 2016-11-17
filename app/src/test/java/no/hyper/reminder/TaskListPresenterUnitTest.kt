@@ -31,9 +31,9 @@ class TaskListPresenterUnitTest {
         model = Mockito.mock(ProvidedDisplayTaskModelOps::class.java)
         presenter = DisplayTaskPresenter(view)
 
-        mockMethod(model.loadData()).thenReturn(true)
+        //mockMethod(model.loadData()).thenReturn(true)
 
-        Memory(RuntimeEnvironment.application).cleanTable(Task::class.java.simpleName, null)
+        Memory(RuntimeEnvironment.application).emptyTable(Task::class.java.simpleName, null)
     }
 
 }
