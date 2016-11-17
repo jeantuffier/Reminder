@@ -1,6 +1,7 @@
 package no.hyper.reminder.create.view.activity
 
 import android.content.Context
+import no.hyper.reminder.common.model.task.Task
 
 /**
  * Created by jean on 01.11.2016.

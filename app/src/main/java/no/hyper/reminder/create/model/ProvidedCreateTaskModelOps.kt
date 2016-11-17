@@ -7,4 +7,5 @@ import no.hyper.reminder.common.model.task.Task
  */
 interface ProvidedCreateTaskModelOps {
     fun saveNewTask(task: Task) : Long?
+    fun getTaskCount() : Int
 }

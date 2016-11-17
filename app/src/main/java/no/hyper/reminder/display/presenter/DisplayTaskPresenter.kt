@@ -24,9 +24,7 @@ class DisplayTaskPresenter(view: RequiredDisplayTaskViewOps) : ProvidedDisplayTa
     private var viewReference : WeakReference<RequiredDisplayTaskViewOps>
     lateinit var model : ProvidedDisplayTaskModelOps
 
-    init {
-        viewReference = WeakReference(view)
-    }
+    init { viewReference = WeakReference(view) }
 
     override fun createDatabase() {
         model.createDatabase()

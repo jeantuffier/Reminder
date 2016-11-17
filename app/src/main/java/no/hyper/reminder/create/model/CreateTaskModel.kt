@@ -14,8 +14,14 @@ class CreateTaskModel(val presenter: RequiredCreateTaskPresenterOps) : ProvidedC
         presenter.getApplicationContext()?.let {
             return Memory(it).save(task)
         }
-
         return null
+    }
+
+    override fun getTaskCount(): Int {
+        presenter.getActivityContext()?.let {
+            return Memory(it).getTableCount(RegularTask.javaClass.simpleName)
+        }
+        return 0
     }
 
 }

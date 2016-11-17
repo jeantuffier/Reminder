@@ -32,6 +32,7 @@ interface Task : Parcelable {
         abstract fun getLevel() : Priority
         abstract fun getColorId() : Int
         abstract fun getIconId() : Int
+
     }
 
     fun getId(): String

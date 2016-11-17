@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.list_task_activity.*
 import no.hyper.reminder.R
@@ -20,9 +21,7 @@ import javax.inject.Inject
 
 class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
 
-    companion object {
-        val TASK_LIST_POSITION = "DisplayTaskActivity.TASK_LIST_POSITION"
-    }
+    val LOG_TAG = this.javaClass.simpleName
 
     @Inject
     lateinit var presenter : ProvidedDisplayTaskPresenterOps
@@ -52,8 +51,6 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
     }
 
     override fun getActivityContext() = this
-
-    override fun notifyItemInserted() { }
 
     private fun setComponent() {
         Reminder.get(this).component

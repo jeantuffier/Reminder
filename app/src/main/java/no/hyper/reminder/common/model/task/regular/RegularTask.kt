@@ -51,7 +51,7 @@ data class RegularTask(
     override fun getTimer() = timer
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.readString()
+        parcel.writeString(id)
         parcel.writeString(title)
         parcel.writeString(priority.toString())
         parcel.writeString(timer.frequency.toString())

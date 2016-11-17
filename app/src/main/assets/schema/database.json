@@ -37,7 +37,7 @@
     }, {
       "label": "id_RegularTask",
       "foreign_key": true,
-      "type": "integer"
+      "type": "text"
     }]
   }]
 }
