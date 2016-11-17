@@ -10,6 +10,7 @@
       "type": "text"
     }, {
       "label": "priority",
+      "enum": true,
       "type": "text"
     }, {
       "label": "timer",
@@ -24,12 +25,18 @@
       "primary": true
     }, {
       "label": "frequency",
-      "type": "text"
+      "type": "text",
+      "enum": true
     }, {
       "label": "delay",
       "type": "integer"
     }, {
       "label": "alarm",
+      "enum": true,
+      "type": "text"
+    }, {
+      "label": "id_RegularTask",
+      "foreign_key": true,
       "type": "text"
     }]
   }]

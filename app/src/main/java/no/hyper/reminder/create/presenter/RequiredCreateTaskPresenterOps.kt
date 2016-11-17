@@ -8,5 +8,5 @@ import no.hyper.reminder.common.model.task.Task
  */
 interface RequiredCreateTaskPresenterOps {
     fun getActivityContext() : Context?
-    fun notifyTaskCreated(task: Task)
+    fun getApplicationContext() : Context?
 }

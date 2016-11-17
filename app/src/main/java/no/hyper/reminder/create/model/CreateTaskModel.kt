@@ -11,17 +11,17 @@ import no.hyper.reminder.create.presenter.RequiredCreateTaskPresenterOps
 class CreateTaskModel(val presenter: RequiredCreateTaskPresenterOps) : ProvidedCreateTaskModelOps {
 
     override fun saveNewTask(task: Task) : Long? {
-        presenter.getActivityContext()?.let {
+        presenter.getApplicationContext()?.let {
             return Memory(it).save(task)
         }
         return null
     }
 
-    override fun getTaskCount(): Int? {
+    override fun getTaskCount(): Int {
         presenter.getActivityContext()?.let {
             return Memory(it).getTableCount(RegularTask.javaClass.simpleName)
         }
-        return null
+        return 0
     }
 
 }

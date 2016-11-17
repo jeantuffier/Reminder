@@ -7,6 +7,7 @@ import no.hyper.reminder.common.model.timer.Timer
 import no.hyper.reminder.create.model.ProvidedCreateTaskModelOps
 import no.hyper.reminder.create.view.activity.RequiredCreateTaskViewOps
 import java.lang.ref.WeakReference
+import java.util.UUID
 
 /**
  * Created by jean on 01.11.2016.
@@ -29,11 +30,13 @@ class CreateTaskPresenter(view: RequiredCreateTaskViewOps) : ProvidedCreateTaskP
         if (title != null && delay != null && typeForm != null) {
             val priority = getPriority(priorityForm)
             val type = Timer.Frequency.valueOf(typeForm.toUpperCase())
-            val task = RegularTask(title, priority, Timer(type, delay.toInt()))
+
+            val timer = Timer(UUID.randomUUID().toString(), type, delay.toInt())
+            val task = RegularTask(UUID.randomUUID().toString(), title, priority, timer)
 
             val rowId = model.saveNewTask(task)
             if (rowId != null) {
-                viewReference.get()?.notifyNewItem(task)
+                viewReference.get()?.notifyNewItem()
             }
 
         } else {
@@ -46,9 +49,7 @@ class CreateTaskPresenter(view: RequiredCreateTaskViewOps) : ProvidedCreateTaskP
 
     override fun getActivityContext() = viewReference.get()?.getActivityContext()
 
-    override fun notifyTaskCreated(task: Task) {
-        viewReference.get()?.notifyNewItem(task)
-    }
+    override fun getApplicationContext() = viewReference.get()?.getApplicationContext()
 
     private fun getPriority(priorityForm: Int?) = when(priorityForm) {
         0 -> Task.Priority.LOW

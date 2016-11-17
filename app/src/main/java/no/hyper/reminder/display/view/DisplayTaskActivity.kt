@@ -39,13 +39,14 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
             startActivityForResult(intent, getInteger(R.integer.request_create_task))
         }
 
+        presenter.createDatabase()
         presenter.loadData()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == getInteger(R.integer.request_create_task) &&
                 resultCode == getInteger(R.integer.result_create_task_success)) {
-            notifyItemInserted()
+            updateRecycler()
         }
     }
 
@@ -70,10 +71,10 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
         task_recycler.adapter = TaskAdapter()
     }
 
-    private fun notifyItemInserted() {
+    private fun updateRecycler() {
         presenter.loadData()
-        val count = task_recycler.adapter.itemCount
-        task_recycler.adapter.notifyItemInserted(count)
+        val position = presenter.getTasksCount()
+        task_recycler.adapter.notifyItemInserted(position)
     }
 
     private inner class TaskAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
