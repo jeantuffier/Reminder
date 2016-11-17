@@ -38,6 +38,7 @@ interface Task : Parcelable {
         abstract fun getIconId() : Int
     }
 
+    fun getId(): String
     fun getViewType(factory: ViewTypeFactory) : Int?
     fun getTitle() : String
     fun getPriority() : Priority

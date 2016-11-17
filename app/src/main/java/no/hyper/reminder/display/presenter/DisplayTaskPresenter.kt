@@ -28,6 +28,10 @@ class DisplayTaskPresenter(view: RequiredDisplayTaskViewOps) : ProvidedDisplayTa
         viewReference = WeakReference(view)
     }
 
+    override fun createDatabase() {
+        model.createDatabase()
+    }
+
     override fun loadData() = model.loadData()
 
     override fun getTasksCount() = model.getTaskCount()

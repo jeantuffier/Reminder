@@ -11,6 +11,7 @@ import no.hyper.reminder.common.model.timer.Timer
  */
 
 data class RegularTask(
+        private val id: String,
         private val title: String,
         private val priority: Task.Priority,
         private val timer: Timer
@@ -29,13 +30,17 @@ data class RegularTask(
 
     constructor(parcel: Parcel) : this (
             parcel.readString(),
+            parcel.readString(),
             Task.Priority.valueOf(parcel.readString()),
             Timer (
+                parcel.readString(),
                 Timer.Frequency.valueOf(parcel.readString()),
                 parcel.readInt(),
                 Timer.Alarm.valueOf(parcel.readString())
             )
     )
+
+    override fun getId() = id
 
     override fun getViewType(factory: ViewTypeFactory) = factory.type(this)
 
@@ -46,6 +51,7 @@ data class RegularTask(
     override fun getTimer() = timer
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.readString()
         parcel.writeString(title)
         parcel.writeString(priority.toString())
         parcel.writeString(timer.frequency.toString())

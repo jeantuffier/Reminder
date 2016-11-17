@@ -40,6 +40,7 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
             startActivityForResult(intent, getInteger(R.integer.request_create_task))
         }
 
+        presenter.createDatabase()
         presenter.loadData()
     }
 

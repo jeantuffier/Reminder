@@ -6,6 +6,7 @@ import android.content.Context
  * Created by jean on 08.11.2016.
  */
 interface RequiredCreateTaskPresenterOps {
-    fun getContext() : Context?
+    fun getActivityContext() : Context?
+    fun getApplicationContext() : Context?
     fun notifyTaskCreated(position: Int)
 }
