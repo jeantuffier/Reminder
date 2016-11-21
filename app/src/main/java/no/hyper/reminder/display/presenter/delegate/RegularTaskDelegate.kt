@@ -34,7 +34,10 @@ class RegularTaskDelegate {
         holder.icon.setBackgroundColor(color)
 
         holder.title.text = task.getTitle()
-        holder.frequency.text = context.getString(R.string.task_frequency)
+
+        val timer = task.getTimer()
+        holder.frequency.text = context.getString(R.string.task_frequency, timer.delay,
+                timer.frequency.toString().toLowerCase())
     }
 
 }

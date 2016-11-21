@@ -7,7 +7,8 @@ data class Timer (
         val id: String,
         val frequency: Frequency,
         val delay: Int,
-        val alarm: Alarm = Timer.Alarm.NOTIFICATION
+        val alarm: Alarm = Timer.Alarm.NOTIFICATION,
+        val activated: Boolean = true
 ) {
 
     enum class Frequency { HOURS, MINUTES }

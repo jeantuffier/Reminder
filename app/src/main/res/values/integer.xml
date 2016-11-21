@@ -3,6 +3,7 @@
 
     <!-- REQUEST -->
     <integer name="request_create_task">1</integer>
+    <integer name="request_intent_service_notification">2</integer>
 
     <!-- RESULT -->
     <integer name="result_create_task_success">1</integer>

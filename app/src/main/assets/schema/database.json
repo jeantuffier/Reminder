@@ -35,6 +35,9 @@
       "enum": true,
       "type": "text"
     }, {
+      "label": "activated",
+      "type": "integer"
+    }, {
       "label": "id_RegularTask",
       "foreign_key": true,
       "type": "text"

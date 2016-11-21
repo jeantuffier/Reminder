@@ -13,9 +13,9 @@
     <string name="create_task_priority_high">High</string>
 
     <string name="create_task_frequency">Every :</string>
-    <string name="create_task_frequency_delay">Delay</string>
-    <string name="create_task_frequency_hours">Hours</string>
-    <string name="create_task_frequency_minutes">Minutes</string>
+    <string name="create_task_frequency_delay">delay</string>
+    <string name="create_task_frequency_hours">hours</string>
+    <string name="create_task_frequency_minutes">minutes</string>
 
     <string name="create_task_alarm">Alarm :</string>
     <string name="create_task_alarm_notification">Notification</string>
@@ -26,6 +26,6 @@
 
     <!-- LIST -->
     <string name="task_deadline">Deadline</string>
-    <string name="task_frequency">Frequency : </string>
+    <string name="task_frequency">Every %1$d %2$s</string>
 
 </resources>

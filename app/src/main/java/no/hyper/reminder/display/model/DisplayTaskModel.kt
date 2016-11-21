@@ -14,7 +14,7 @@ import no.hyper.reminder.display.presenter.RequiredDisplayTaskPresenterOps
 class DisplayTaskModel(val presenter : RequiredDisplayTaskPresenterOps) : ProvidedDisplayTaskModelOps {
 
     private val LOG_TAG = this.javaClass.simpleName
-    private val DB_VERSION = 1
+    private val DB_VERSION = 2
     private val LOCAL_DB_VERSION = "DisplayTaskModel.LOCAL_DB_VERSION"
 
     private val tasks = mutableListOf<Task>()
@@ -42,6 +42,7 @@ class DisplayTaskModel(val presenter : RequiredDisplayTaskPresenterOps) : Provid
         Log.d(LOG_TAG, "loadData")
         val fetchedTasks = memory.fetchAll(RegularTask::class.java)
         fetchedTasks?.let {
+            tasks.clear()
             tasks.addAll(fetchedTasks)
         }
     }
