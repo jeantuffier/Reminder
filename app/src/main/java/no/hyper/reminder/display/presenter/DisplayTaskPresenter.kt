@@ -49,13 +49,14 @@ class DisplayTaskPresenter(view: RequiredDisplayTaskViewOps) : ProvidedDisplayTa
     override fun bindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
             R.layout.list_task_view_item -> {
-                regularTaskDelegate.bindViewHolder(holder, model.getTask(position))
-                holder.itemView.setOnLongClickListener { addDeleteActionToMenu() }
+                val task = model.getTask(position)
+                regularTaskDelegate.bindViewHolder(holder, task)
+                holder.itemView.setOnLongClickListener { addDeleteActionToMenu(task?.getId()) }
             }
         }
     }
 
-    override fun deleteItem(itemId: Long) {
+    override fun deleteItem(itemId: String?) {
         model.deleteTask(itemId)
     }
 
@@ -63,8 +64,8 @@ class DisplayTaskPresenter(view: RequiredDisplayTaskViewOps) : ProvidedDisplayTa
 
     override fun getActivityContext() = viewReference.get()?.getActivityContext()
 
-    private fun addDeleteActionToMenu() : Boolean {
-        viewReference.get()?.addLongItemClickMenuOptions()
+    private fun addDeleteActionToMenu(taskId: String?) : Boolean {
+        viewReference.get()?.addLongItemClickMenuOptionsFor(taskId)
         return true
     }
 

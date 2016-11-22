@@ -27,7 +27,7 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
     var shouldShowLongItemClickOptions = false
     val menuIdAdd = Menu.FIRST
     val menuIdDelete = menuIdAdd + 1
-    var selectedId : Long = 0
+    var selectedId : String? = null
 
     @Inject
     lateinit var presenter : ProvidedDisplayTaskPresenterOps
@@ -79,7 +79,7 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
 
     override fun getActivityContext() = this
 
-    override fun addLongItemClickMenuOptionsFor(itemId: Long) {
+    override fun addLongItemClickMenuOptionsFor(itemId: String?) {
         shouldShowLongItemClickOptions = true
         selectedId = itemId
         supportInvalidateOptionsMenu()
