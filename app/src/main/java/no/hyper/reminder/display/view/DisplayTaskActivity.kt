@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.list_task_activity.*
 import no.hyper.reminder.R
@@ -34,11 +36,6 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
         setToolbar()
         setRecyclerView()
 
-        task_create_button.setOnClickListener {
-            val intent = Intent(this, CreateTaskActivity::class.java)
-            startActivityForResult(intent, getInteger(R.integer.request_create_task))
-        }
-
         presenter.createDatabase()
         presenter.loadData()
     }
@@ -48,6 +45,21 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
                 resultCode == getInteger(R.integer.result_create_task_success)) {
             updateRecycler()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.display, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_create_task -> {
+                val intent = Intent(this, CreateTaskActivity::class.java)
+                startActivityForResult(intent, getInteger(R.integer.request_create_task))
+            }
+        }
+        return true
     }
 
     override fun getActivityContext() = this

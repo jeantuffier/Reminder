@@ -9,6 +9,10 @@ import no.hyper.reminder.common.model.timer.Timer
  */
 interface Task : Parcelable {
 
+    companion object {
+        val TITLE = "Task.TITLE"
+    }
+
     enum class Priority {
 
         LOW {

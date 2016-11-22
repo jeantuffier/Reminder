@@ -36,7 +36,6 @@ class DisplayTaskPresenter(view: RequiredDisplayTaskViewOps) : ProvidedDisplayTa
 
     override fun getViewType(position: Int): Int {
         val task = model.getTask(position)
-        Log.d(LOG_TAG, "get view type for task ${task?.getTitle()} at position $position")
         return task?.getViewType(factory) ?: throw Exception("No view type for this position")
     }
 
