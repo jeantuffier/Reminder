@@ -48,12 +48,24 @@ class DisplayTaskPresenter(view: RequiredDisplayTaskViewOps) : ProvidedDisplayTa
 
     override fun bindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
-            R.layout.list_task_view_item -> regularTaskDelegate.bindViewHolder(holder, model.getTask(position))
+            R.layout.list_task_view_item -> {
+                regularTaskDelegate.bindViewHolder(holder, model.getTask(position))
+                holder.itemView.setOnLongClickListener { addDeleteActionToMenu() }
+            }
         }
+    }
+
+    override fun deleteItem(itemId: Long) {
+        model.deleteTask(itemId)
     }
 
     override fun getApplicationContext() = viewReference.get()?.getApplicationContext()
 
     override fun getActivityContext() = viewReference.get()?.getActivityContext()
+
+    private fun addDeleteActionToMenu() : Boolean {
+        viewReference.get()?.addLongItemClickMenuOptions()
+        return true
+    }
 
 }

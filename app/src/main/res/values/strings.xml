@@ -27,7 +27,8 @@
     <!-- LIST -->
     <string name="task_deadline">Deadline</string>
     <string name="task_frequency">Every %1$d %2$s</string>
-    <string name="task_create">Create new task</string>
+    <string name="task_create">Create</string>
+    <string name="task_delete">Delete</string>
 
     <!-- NOTIFICATION -->
     <string name="notification_title">Task reminder</string>

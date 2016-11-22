@@ -47,4 +47,7 @@ class DisplayTaskModel(val presenter : RequiredDisplayTaskPresenterOps) : Provid
         }
     }
 
+    override fun deleteTask(taskId: Long) {
+        //memory.
+    }
 }

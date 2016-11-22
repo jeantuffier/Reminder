@@ -12,4 +12,5 @@ interface ProvidedDisplayTaskModelOps {
     fun getTask(position: Int) : Task?
     fun saveTask(task: RegularTask) : Long
     fun loadData()
+    fun deleteTask(taskId: Long)
 }

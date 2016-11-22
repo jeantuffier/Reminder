@@ -24,6 +24,10 @@ import javax.inject.Inject
 class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
 
     val LOG_TAG = this.javaClass.simpleName
+    var shouldShowLongItemClickOptions = false
+    val menuIdAdd = Menu.FIRST
+    val menuIdDelete = menuIdAdd + 1
+    var selectedId : Long = 0
 
     @Inject
     lateinit var presenter : ProvidedDisplayTaskPresenterOps
@@ -47,6 +51,16 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
         }
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        if (shouldShowLongItemClickOptions) {
+            menu?.add(0, menuIdDelete, Menu.NONE, R.string.task_delete)
+                    ?.setIcon(R.drawable.ic_delete)
+                    ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+        }
+
+        return super.onPrepareOptionsMenu(menu)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.display, menu)
         return true
@@ -58,11 +72,18 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
                 val intent = Intent(this, CreateTaskActivity::class.java)
                 startActivityForResult(intent, getInteger(R.integer.request_create_task))
             }
+            menuIdDelete -> presenter.deleteItem(selectedId)
         }
         return true
     }
 
     override fun getActivityContext() = this
+
+    override fun addLongItemClickMenuOptionsFor(itemId: Long) {
+        shouldShowLongItemClickOptions = true
+        selectedId = itemId
+        supportInvalidateOptionsMenu()
+    }
 
     private fun setComponent() {
         Reminder.get(this).component
