@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
@@ -23,11 +22,10 @@ import javax.inject.Inject
 
 class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
 
-    val LOG_TAG = this.javaClass.simpleName
     var shouldShowLongItemClickOptions = false
     val menuIdAdd = Menu.FIRST
     val menuIdDelete = menuIdAdd + 1
-    var selectedId : String? = null
+    var itemPosition = -1
 
     @Inject
     lateinit var presenter : ProvidedDisplayTaskPresenterOps
@@ -47,7 +45,7 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == getInteger(R.integer.request_create_task) &&
                 resultCode == getInteger(R.integer.result_create_task_success)) {
-            updateRecycler()
+            updateRecyclerWithInsertion()
         }
     }
 
@@ -68,20 +66,17 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_create_task -> {
-                val intent = Intent(this, CreateTaskActivity::class.java)
-                startActivityForResult(intent, getInteger(R.integer.request_create_task))
-            }
-            menuIdDelete -> presenter.deleteItem(selectedId)
+            R.id.menu_create_task -> createTask()
+            menuIdDelete -> deleteTask()
         }
         return true
     }
 
     override fun getActivityContext() = this
 
-    override fun addLongItemClickMenuOptionsFor(itemId: String?) {
+    override fun addLongItemClickMenuOptionsFor(position: Int) {
         shouldShowLongItemClickOptions = true
-        selectedId = itemId
+        itemPosition = position
         supportInvalidateOptionsMenu()
     }
 
@@ -104,11 +99,23 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
         task_recycler.adapter = TaskAdapter()
     }
 
-    private fun updateRecycler() {
+    private fun createTask() {
+        val intent = Intent(this, CreateTaskActivity::class.java)
+        startActivityForResult(intent, getInteger(R.integer.request_create_task))
+    }
+
+    private fun deleteTask() {
+        presenter.deleteItem(itemPosition)
+        updateRecyclerWithDeletion()
+    }
+
+    private fun updateRecyclerWithInsertion() {
         presenter.loadData()
         val position = presenter.getTasksCount()
         task_recycler.adapter.notifyItemInserted(position)
     }
+
+    private fun updateRecyclerWithDeletion() = task_recycler.adapter.notifyItemRemoved(itemPosition)
 
     private inner class TaskAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

@@ -12,7 +12,6 @@ import android.support.v4.app.TaskStackBuilder
 import no.hyper.reminder.R
 import no.hyper.reminder.common.model.task.Task
 import no.hyper.reminder.display.view.DisplayTaskActivity
-import java.util.concurrent.TimeUnit
 
 
 /**
@@ -20,18 +19,20 @@ import java.util.concurrent.TimeUnit
  */
 class DisplayNotificationService : JobService() {
 
+    private val VIBRATION_TIME : Long = 500
+    private val BLINKING_TIME = 3000
+
     override fun onStartJob(params: JobParameters?): Boolean {
 
         val text = params?.extras?.getString(Task.TITLE)
-        val vb = TimeUnit.SECONDS.toMillis(1)
 
         val mBuilder = NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_replay)
                 .setContentTitle(getString(R.string.notification_title))
                 .setContentText(text)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setVibrate(longArrayOf(vb, vb, vb, vb))
-                .setLights(Color.RED, 3000, 3000)
+                .setVibrate(longArrayOf(VIBRATION_TIME, VIBRATION_TIME, VIBRATION_TIME, VIBRATION_TIME))
+                .setLights(Color.RED, BLINKING_TIME, BLINKING_TIME)
         val resultIntent = Intent(this, DisplayTaskActivity::class.java)
 
         val stackBuilder = TaskStackBuilder.create(this)

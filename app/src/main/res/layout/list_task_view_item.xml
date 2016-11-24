@@ -6,6 +6,7 @@
     android:id="@+id/root_item_task"
     android:layout_width="match_parent"
     android:layout_height="96dp"
+    android:foreground="?android:attr/selectableItemBackground"
     card_view:cardCornerRadius="4dp">
 
     <RelativeLayout

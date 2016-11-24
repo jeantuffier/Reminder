@@ -1,6 +1,5 @@
 package no.hyper.reminder.display.model
 
-import android.util.Log
 import no.hyper.memoryorm.Memory
 import no.hyper.reminder.common.extension.editPreferences
 import no.hyper.reminder.common.extension.readPreference
@@ -13,7 +12,6 @@ import no.hyper.reminder.display.presenter.RequiredDisplayTaskPresenterOps
  */
 class DisplayTaskModel(val presenter : RequiredDisplayTaskPresenterOps) : ProvidedDisplayTaskModelOps {
 
-    private val LOG_TAG = this.javaClass.simpleName
     private val DB_VERSION = 2
     private val LOCAL_DB_VERSION = "DisplayTaskModel.LOCAL_DB_VERSION"
 
@@ -21,7 +19,6 @@ class DisplayTaskModel(val presenter : RequiredDisplayTaskPresenterOps) : Provid
     private val memory by lazy { Memory(presenter.getApplicationContext()) }
 
     override fun createDatabase() {
-        Log.d(LOG_TAG, "createDatabase")
         val localVersion = presenter.getApplicationContext()?.readPreference {
             it.getInt(LOCAL_DB_VERSION, 0)
         }
@@ -38,8 +35,9 @@ class DisplayTaskModel(val presenter : RequiredDisplayTaskPresenterOps) : Provid
 
     override fun saveTask(task: RegularTask) = memory.save(task)
 
+    override fun getPosition(task: Task) = tasks.indexOf(task)
+
     override fun loadData() {
-        Log.d(LOG_TAG, "loadData")
         val fetchedTasks = memory.fetchAll(RegularTask::class.java)
         fetchedTasks?.let {
             tasks.clear()
@@ -47,8 +45,9 @@ class DisplayTaskModel(val presenter : RequiredDisplayTaskPresenterOps) : Provid
         }
     }
 
-    override fun deleteTask(taskId: String?) {
-        //memory.
+    override fun deleteTask(task: Task) {
+        tasks.remove(task)
+        memory.deleteById(task.javaClass.simpleName, task.getId())
     }
 
 }

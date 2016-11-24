@@ -1,22 +1,14 @@
 package no.hyper.reminder.create.presenter
 
-import android.content.Context
 import no.hyper.reminder.R
 import no.hyper.reminder.common.model.task.Task
 import no.hyper.reminder.common.model.task.regular.RegularTask
 import no.hyper.reminder.common.model.timer.Timer
 import no.hyper.reminder.create.model.ProvidedCreateTaskModelOps
-import no.hyper.reminder.create.presenter.service.DisplayNotificationService
 import no.hyper.reminder.create.view.activity.RequiredCreateTaskViewOps
 import java.lang.ref.WeakReference
 import java.util.*
-import android.content.ComponentName
-import android.app.job.JobInfo
-import android.app.job.JobScheduler
-import android.os.Bundle
-import android.os.PersistableBundle
-import no.hyper.reminder.common.extension.withExtras
-import java.util.concurrent.TimeUnit
+import no.hyper.reminder.common.jobscheduler.JobManager
 
 
 /**
@@ -75,26 +67,7 @@ class CreateTaskPresenter(view: RequiredCreateTaskViewOps) : ProvidedCreateTaskP
         val context = viewReference.get()?.getActivityContext()
         context ?: return
 
-        val componentName = ComponentName(context, DisplayNotificationService::class.java)
-        val builder = JobInfo.Builder(1, componentName)
-
-        val delay = task.getTimer().delay
-        val frequency = task.getTimer().frequency
-        val period = if (frequency == Timer.Frequency.HOURS) {
-            TimeUnit.HOURS.toMillis(delay.toLong())
-        } else {
-            TimeUnit.MINUTES.toMillis(delay.toLong())
-        }
-
-        builder.setPeriodic(period)
-        builder.setRequiresDeviceIdle(false)
-        builder.setRequiresCharging(false)
-
-        val bundle = PersistableBundle().withExtras(Task.TITLE to task.getTitle())
-        builder.setExtras(bundle)
-
-        val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-        jobScheduler.schedule(builder.build())
+        JobManager.registerNewJob(context, task)
     }
 
 }

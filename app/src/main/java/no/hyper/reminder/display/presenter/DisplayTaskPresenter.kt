@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.ViewGroup
 import no.hyper.reminder.R
+import no.hyper.reminder.common.jobscheduler.JobManager
+import no.hyper.reminder.common.model.task.Task
 import no.hyper.reminder.display.model.ProvidedDisplayTaskModelOps
 import no.hyper.reminder.common.model.task.ViewTypeFactory
 import no.hyper.reminder.common.model.task.regular.RegularTaskViewHolder
@@ -48,25 +50,39 @@ class DisplayTaskPresenter(view: RequiredDisplayTaskViewOps) : ProvidedDisplayTa
 
     override fun bindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
-            R.layout.list_task_view_item -> {
-                val task = model.getTask(position)
-                regularTaskDelegate.bindViewHolder(holder, task)
-                holder.itemView.setOnLongClickListener { addDeleteActionToMenu(task?.getId()) }
-            }
+            R.layout.list_task_view_item -> bindToRegularTask(holder, position)
         }
     }
 
-    override fun deleteItem(itemId: String?) {
-        model.deleteTask(itemId)
+    override fun deleteItem(position: Int) {
+        model.getTask(position)?.let { task ->
+            model.deleteTask(task)
+            viewReference.get()?.getApplicationContext()?.let {
+                JobManager.unregisterJob(it, task)
+            }
+        }
     }
 
     override fun getApplicationContext() = viewReference.get()?.getApplicationContext()
 
     override fun getActivityContext() = viewReference.get()?.getActivityContext()
 
-    private fun addDeleteActionToMenu(taskId: String?) : Boolean {
-        viewReference.get()?.addLongItemClickMenuOptionsFor(taskId)
+    private fun addDeleteActionToMenu(position: Int) : Boolean {
+        viewReference.get()?.addLongItemClickMenuOptionsFor(position)
         return true
+    }
+
+    private fun bindToRegularTask(holder: RecyclerView.ViewHolder, position: Int) {
+        val task = model.getTask(position)
+        regularTaskDelegate.bindViewHolder(holder, task)
+        holder.itemView.setOnLongClickListener {
+            task?.let {
+                model.getPosition(it)?.let {
+                    addDeleteActionToMenu(it)
+                }
+            }
+            true
+        }
     }
 
 }

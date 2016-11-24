@@ -10,7 +10,8 @@ interface ProvidedDisplayTaskModelOps {
     fun createDatabase()
     fun getTaskCount() : Int
     fun getTask(position: Int) : Task?
+    fun getPosition(task: Task) : Int?
     fun saveTask(task: RegularTask) : Long
     fun loadData()
-    fun deleteTask(taskId: String?)
+    fun deleteTask(task: Task)
 }
