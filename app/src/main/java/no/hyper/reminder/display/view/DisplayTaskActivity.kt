@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.list_task_activity.*
+import kotlinx.android.synthetic.main.display_task_activity.*
 import no.hyper.reminder.R
 import no.hyper.reminder.common.Reminder
 import no.hyper.reminder.common.extension.getInteger
@@ -32,7 +32,7 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.list_task_activity)
+        setContentView(R.layout.display_task_activity)
 
         setComponent()
         setToolbar()

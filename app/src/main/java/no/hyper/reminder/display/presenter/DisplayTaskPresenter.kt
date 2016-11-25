@@ -43,14 +43,14 @@ class DisplayTaskPresenter(view: RequiredDisplayTaskViewOps) : ProvidedDisplayTa
 
     override fun createViewHolder(parent: ViewGroup?, viewType: Int): RegularTaskViewHolder {
         return when (viewType) {
-            R.layout.list_task_view_item -> regularTaskDelegate.createViewHolder(parent, viewType)
+            R.layout.display_task_view_item -> regularTaskDelegate.createViewHolder(parent, viewType)
             else -> throw Exception("No view holder type for this view type")
         }
     }
 
     override fun bindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
-            R.layout.list_task_view_item -> bindToRegularTask(holder, position)
+            R.layout.display_task_view_item -> bindToRegularTask(holder, position)
         }
     }
 

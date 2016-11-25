@@ -13,10 +13,11 @@
         android:layout_gravity="center"
         android:hint="@string/create_task_title">
 
-        <android.support.design.widget.TextInputEditText
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            android:inputType="text"/>
 
     </android.support.design.widget.TextInputLayout>
 
