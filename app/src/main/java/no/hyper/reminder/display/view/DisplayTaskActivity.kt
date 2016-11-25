@@ -106,6 +106,8 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
 
     private fun deleteTask() {
         presenter.deleteItem(itemPosition)
+        shouldShowLongItemClickOptions = false
+        invalidateOptionsMenu()
         updateRecyclerWithDeletion()
     }
 
