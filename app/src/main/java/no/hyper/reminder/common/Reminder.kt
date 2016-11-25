@@ -2,6 +2,7 @@ package no.hyper.reminder.common
 
 import android.app.Application
 import android.content.Context
+import com.squareup.leakcanary.LeakCanary
 import no.hyper.reminder.common.injection.ApplicationComponent
 import no.hyper.reminder.common.injection.ApplicationModule
 import no.hyper.reminder.common.injection.DaggerApplicationComponent
@@ -20,6 +21,7 @@ class Reminder : Application() {
     override fun onCreate() {
         super.onCreate()
         initApplicationComponent()
+        LeakCanary.install(this)
     }
 
     private fun initApplicationComponent() {
