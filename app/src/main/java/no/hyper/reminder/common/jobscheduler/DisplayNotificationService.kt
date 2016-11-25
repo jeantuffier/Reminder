@@ -1,4 +1,4 @@
-package no.hyper.reminder.create.presenter.service
+package no.hyper.reminder.common.jobscheduler
 
 import android.app.job.JobParameters
 import android.app.job.JobService
@@ -19,12 +19,19 @@ import no.hyper.reminder.display.view.DisplayTaskActivity
  */
 class DisplayNotificationService : JobService() {
 
-    private val VIBRATION_TIME : Long = 500
+    private val VIBRATION_TIME : Long = 250
     private val BLINKING_TIME = 3000
 
-    override fun onStartJob(params: JobParameters?): Boolean {
+    override fun onStartJob(params: JobParameters): Boolean {
+        val taskId = params.extras?.getString(Task.ID)
+        if (!JobManager.isRegistered(this, taskId)) {
+            JobManager.unregisterJob(this, taskId)
+            jobFinished(params, false)
+            return true
+        }
 
-        val text = params?.extras?.getString(Task.TITLE)
+        val jobId = params.jobId
+        val text = params.extras?.getString(Task.TITLE)
 
         val mBuilder = NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_replay)
@@ -40,7 +47,7 @@ class DisplayNotificationService : JobService() {
         val resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
         mBuilder.setContentIntent(resultPendingIntent)
         val mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        mNotificationManager.notify(0, mBuilder.build())
+        mNotificationManager.notify(jobId, mBuilder.build())
 
         jobFinished(params, false)
         return true

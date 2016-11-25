@@ -6,10 +6,10 @@ import android.content.ComponentName
 import android.content.Context
 import android.os.PersistableBundle
 import no.hyper.reminder.common.extension.editPreferences
+import no.hyper.reminder.common.extension.readPreference
 import no.hyper.reminder.common.extension.withExtras
 import no.hyper.reminder.common.model.task.Task
 import no.hyper.reminder.common.model.timer.Timer
-import no.hyper.reminder.create.presenter.service.DisplayNotificationService
 import java.util.concurrent.TimeUnit
 
 /**
@@ -17,16 +17,19 @@ import java.util.concurrent.TimeUnit
  */
 object JobManager {
 
-    private val LIMIT_JOB = 50
-    private val jobs = mutableMapOf<String, Int>()
+    private fun getNewJobId(jobScheduler: JobScheduler) : Int {
+        val listJobInfo = jobScheduler.allPendingJobs
+        if (listJobInfo.isEmpty()) return 0
 
-    private fun getNewJobId() = Array(LIMIT_JOB, { i -> i }).filter { !jobs.containsValue(it) }.first()
+        val jobInfo = listJobInfo.maxBy { it.id }
+        return (jobInfo?.id  ?: -1) + 1
+    }
 
     private fun persistJob(context: Context, taskId: String, jobId: Int) {
         context.editPreferences { it.putInt(context.packageName + taskId, jobId) }
     }
 
-    private fun unPersistJob(context: Context, taskId: String) {
+    private fun unPersistJob(context: Context, taskId: String?) {
         context.editPreferences { it.remove(context.packageName + taskId) }
     }
 
@@ -39,8 +42,8 @@ object JobManager {
             TimeUnit.MINUTES.toMillis(delay.toLong())
         }
 
-        val jobId = getNewJobId()
-        jobs.put(task.getId(), jobId)
+        val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+        val jobId = getNewJobId(jobScheduler)
 
         val componentName = ComponentName(context, DisplayNotificationService::class.java)
         val builder = JobInfo.Builder(jobId, componentName)
@@ -48,20 +51,25 @@ object JobManager {
         builder.setRequiresDeviceIdle(false)
         builder.setRequiresCharging(false)
 
-        val bundle = PersistableBundle().withExtras(Task.TITLE to task.getTitle())
+        val bundle = PersistableBundle().withExtras(Task.ID to task.getId(), Task.TITLE to task.getTitle())
         builder.setExtras(bundle)
 
-        val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-        jobScheduler.schedule(builder.build())
         persistJob(context, task.getId(), jobId)
+        jobScheduler.schedule(builder.build())
     }
 
-    fun unregisterJob(context:Context, task: Task) {
-        jobs[task.getId()]?.let {
-            val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-            jobScheduler.cancel(it)
-            unPersistJob(context, task.getId())
+    fun unregisterJob(context:Context, taskId: String?) {
+        val jobId = context.readPreference { it.getInt(context.packageName + taskId, -1) }
+        val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+        if (jobScheduler.allPendingJobs.filter { it.id == jobId  }.isNotEmpty()) {
+            unPersistJob(context, taskId)
+            jobScheduler.cancel(jobId)
         }
+    }
+
+    fun isRegistered(context:Context, taskId: String?) : Boolean {
+        val jobId = context.readPreference { it.getInt(context.packageName + taskId, -1) }
+        return jobId != -1
     }
 
 }

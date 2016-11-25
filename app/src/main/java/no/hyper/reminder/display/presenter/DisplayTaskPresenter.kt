@@ -58,7 +58,7 @@ class DisplayTaskPresenter(view: RequiredDisplayTaskViewOps) : ProvidedDisplayTa
         model.getTask(position)?.let { task ->
             model.deleteTask(task)
             viewReference.get()?.getApplicationContext()?.let {
-                JobManager.unregisterJob(it, task)
+                JobManager.unregisterJob(it, task.getId())
             }
         }
     }

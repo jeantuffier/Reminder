@@ -11,6 +11,7 @@ interface Task : Parcelable {
 
     companion object {
         val TITLE = "Task.TITLE"
+        val ID = "Task.ID"
     }
 
     enum class Priority {
