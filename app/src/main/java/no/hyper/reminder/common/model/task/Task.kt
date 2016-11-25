@@ -17,24 +17,24 @@ interface Task : Parcelable {
     enum class Priority {
 
         LOW {
-            override fun getLevel() = LOW
+            override fun getLevel() = 1
             override fun getColorId() = R.color.colorPriorityLow
             override fun getIconId() = R.drawable.ic_priority_low
         },
 
         MIDDLE {
-            override fun getLevel() = MIDDLE
+            override fun getLevel() = 2
             override fun getColorId() = R.color.colorPriorityMiddle
             override fun getIconId() = R.drawable.ic_priority_middle
         },
 
         HIGH {
-            override fun getLevel() = LOW
+            override fun getLevel() = 3
             override fun getColorId() = R.color.colorPriorityHigh
             override fun getIconId() = R.drawable.ic_priority_high
         };
 
-        abstract fun getLevel() : Priority
+        abstract fun getLevel() : Int
         abstract fun getColorId() : Int
         abstract fun getIconId() : Int
 

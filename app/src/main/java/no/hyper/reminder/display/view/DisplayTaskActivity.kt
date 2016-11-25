@@ -113,8 +113,7 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
 
     private fun updateRecyclerWithInsertion() {
         presenter.loadData()
-        val position = presenter.getTasksCount()
-        task_recycler.adapter.notifyItemInserted(position)
+        task_recycler.adapter.notifyDataSetChanged()
     }
 
     private fun updateRecyclerWithDeletion() = task_recycler.adapter.notifyItemRemoved(itemPosition)

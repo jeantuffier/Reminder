@@ -42,6 +42,8 @@ class DisplayTaskModel(val presenter : RequiredDisplayTaskPresenterOps) : Provid
         fetchedTasks?.let {
             tasks.clear()
             tasks.addAll(fetchedTasks)
+            tasks.sortBy { it.getPriority().getLevel() }
+            tasks.reverse()
         }
     }
 
