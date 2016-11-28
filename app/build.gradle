@@ -11,11 +11,11 @@ android {
     compileSdkVersion 25
     buildToolsVersion "24.0.1"
     defaultConfig {
-        applicationId "no.hyper.reminder"
+        applicationId "fr.jeantuffier.reminder"
         minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
@@ -28,9 +28,21 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.reminderKey
+        }
+    }
+    productFlavors {
+        free {
+            applicationId "fr.jeantuffier.reminder.free"
+            versionName "0.1-free"
+            resValue "string", "app_name", "Reminder free"
+        }
+        full {
+            applicationId "fr.jeantuffier.reminder.full"
+            versionName "0.1-full"
+            resValue "string", "app_name", "Reminder"
         }
     }
     sourceSets {
