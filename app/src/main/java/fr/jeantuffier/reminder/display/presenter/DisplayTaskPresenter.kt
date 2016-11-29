@@ -1,11 +1,9 @@
 package fr.jeantuffier.reminder.display.presenter
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.ViewGroup
 import fr.jeantuffier.reminder.R
 import fr.jeantuffier.reminder.common.jobscheduler.JobManager
-import fr.jeantuffier.reminder.common.model.task.Task
 import fr.jeantuffier.reminder.display.model.ProvidedDisplayTaskModelOps
 import fr.jeantuffier.reminder.common.model.task.ViewTypeFactory
 import fr.jeantuffier.reminder.common.model.task.regular.RegularTaskViewHolder

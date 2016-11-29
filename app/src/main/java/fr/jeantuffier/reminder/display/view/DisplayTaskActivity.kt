@@ -38,9 +38,9 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
         setToolbar()
 
         presenter.createDatabase()
-        //presenter.loadData()
+        presenter.loadData()
 
-        //setRecyclerView()
+        setRecyclerView()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
