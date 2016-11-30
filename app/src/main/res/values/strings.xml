@@ -6,19 +6,23 @@
     <string name="create_task_title">Title</string>
     <string name="create_task_deadline">Deadline</string>
 
-    <string name="create_task_priority">Priority :</string>
+    <string name="create_task_priority">Priority: %s</string>
     <string name="create_task_priority_low">Low</string>
     <string name="create_task_priority_middle">Middle</string>
     <string name="create_task_priority_high">High</string>
 
-    <string name="create_task_frequency">Every :</string>
+    <string name="create_task_frequency">Every:</string>
     <string name="create_task_frequency_delay">delay</string>
     <string name="create_task_frequency_hours">hours</string>
     <string name="create_task_frequency_minutes">minutes</string>
 
-    <string name="create_task_alarm">Alarm :</string>
+    <string name="create_task_alarm">Alarm:</string>
     <string name="create_task_alarm_notification">Notification</string>
     <string name="create_task_alarm_vibration">Vibration</string>
+
+    <string name="create_task_time">Time:</string>
+    <string name="create_task_time_from">From</string>
+    <string name="create_task_time_to">To</string>
 
     <string name="create_task_confirmation">Create</string>
     <string name="create_task_error_field_empty">Every field must be complete</string>

@@ -6,12 +6,28 @@
     android:layout_height="match_parent"
     cardview:contentPadding="8dp">
 
-    <SeekBar
-        android:id="@+id/progress_priority"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:progress="1"
-        android:max="2"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/progress_priority_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="center"
+            android:text="@string/create_task_priority"
+            android:textSize="18sp"/>
+
+        <SeekBar
+            android:id="@+id/progress_priority"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:progress="1"
+            android:max="2"/>
+
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>

@@ -1,7 +1,7 @@
 package fr.jeantuffier.reminder.display.model
 
 import fr.jeantuffier.reminder.common.model.task.Task
-import fr.jeantuffier.reminder.common.model.task.regular.RegularTask
+import fr.jeantuffier.reminder.common.model.task.RegularTask
 
 /**
  * Created by jean on 14.10.2016.

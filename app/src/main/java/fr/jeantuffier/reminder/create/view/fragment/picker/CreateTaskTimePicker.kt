@@ -1,19 +1,20 @@
 package fr.jeantuffier.reminder.create.view.fragment.picker
 
 import android.app.Dialog
-import android.app.DialogFragment
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.support.v4.app.DialogFragment
 import android.text.format.DateFormat
 import android.widget.TimePicker
-import fr.jeantuffier.reminder.create.view.fragment.DateTimePickerListener
+import java.lang.ref.WeakReference
 import java.util.*
 
 /**
  * Created by jean on 30.11.2016.
  */
 
-class CreateTaskTimePicker : DialogFragment(), TimePickerDialog.OnTimeSetListener {
+class CreateTaskTimePicker(private val listener: WeakReference<DateTimePickerListener>) : DialogFragment(),
+        TimePickerDialog.OnTimeSetListener {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val c = Calendar.getInstance()
@@ -26,7 +27,7 @@ class CreateTaskTimePicker : DialogFragment(), TimePickerDialog.OnTimeSetListene
     override fun onTimeSet(p0: TimePicker?, hour: Int, minute: Int) {
         activity?.let {
             val time = "$hour:$minute"
-            (it as DateTimePickerListener).onTimePicked(time)
+            listener.get()?.onTimePicked(time)
         }
     }
 

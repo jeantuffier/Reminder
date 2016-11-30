@@ -2,11 +2,11 @@ package fr.jeantuffier.reminder.create.view.fragment.picker
 
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.app.DialogFragment
 import android.os.Bundle
+import android.support.v4.app.DialogFragment
 import android.text.format.DateFormat
 import android.widget.DatePicker
-import fr.jeantuffier.reminder.create.view.fragment.DateTimePickerListener
+import java.lang.ref.WeakReference
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -14,7 +14,8 @@ import java.util.*
  * Created by jean on 30.11.2016.
  */
 
-class CreateTaskDatePicker : DialogFragment(), DatePickerDialog.OnDateSetListener {
+class CreateTaskDatePicker(private val listener: WeakReference<DateTimePickerListener>) : DialogFragment(),
+        DatePickerDialog.OnDateSetListener {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val c = Calendar.getInstance()
@@ -31,7 +32,7 @@ class CreateTaskDatePicker : DialogFragment(), DatePickerDialog.OnDateSetListene
             val sdf = SimpleDateFormat("dd/MM/yyyy")
             val date = sdf.parse(stringDate)
             val dateFormat = DateFormat.getDateFormat(it)
-            (it as DateTimePickerListener).onDatePicked(dateFormat.format(date))
+            listener.get()?.onDatePicked(dateFormat.format(date))
         }
     }
 

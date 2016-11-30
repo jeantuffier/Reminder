@@ -1,13 +1,13 @@
 package fr.jeantuffier.reminder.common.model.task
 
-import android.os.Parcelable
 import fr.jeantuffier.reminder.R
 import fr.jeantuffier.reminder.common.model.timer.Timer
+import fr.jeantuffier.reminder.display.presenter.ViewTypeFactory
 
 /**
  * Created by jean on 14.10.2016.
  */
-interface Task : Parcelable {
+interface Task {
 
     companion object {
         val TITLE = "Task.TITLE"
@@ -45,5 +45,7 @@ interface Task : Parcelable {
     fun getTitle() : String
     fun getPriority() : Priority
     fun getTimer() : Timer
+    fun getFromTime() : String
+    fun getToTime() : String
 
 }

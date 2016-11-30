@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import fr.jeantuffier.reminder.R
 import fr.jeantuffier.reminder.common.model.task.Task
-import fr.jeantuffier.reminder.common.model.task.regular.RegularTaskViewHolder
+import fr.jeantuffier.reminder.display.model.viewholder.RegularTaskViewHolder
 
 /**
  * Created by jean on 14.10.2016.

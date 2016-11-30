@@ -2,7 +2,7 @@ package fr.jeantuffier.reminder.create.presenter
 
 import fr.jeantuffier.reminder.R
 import fr.jeantuffier.reminder.common.model.task.Task
-import fr.jeantuffier.reminder.common.model.task.regular.RegularTask
+import fr.jeantuffier.reminder.common.model.task.RegularTask
 import fr.jeantuffier.reminder.common.model.timer.Timer
 import fr.jeantuffier.reminder.create.model.ProvidedCreateTaskModelOps
 import fr.jeantuffier.reminder.create.view.activity.RequiredCreateTaskViewOps
@@ -35,7 +35,7 @@ class CreateTaskPresenter(view: RequiredCreateTaskViewOps) : ProvidedCreateTaskP
             val type = Timer.Frequency.valueOf(typeForm.toUpperCase())
 
             val timer = Timer(UUID.randomUUID().toString(), type, delay.toInt())
-            val task = RegularTask(UUID.randomUUID().toString(), title, priority, timer)
+            val task = RegularTask(UUID.randomUUID().toString(), title, priority, timer, "", "")
 
             val rowId = model.saveNewTask(task)
             if (rowId != null) {

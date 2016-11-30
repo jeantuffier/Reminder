@@ -14,31 +14,10 @@ data class RegularTask(
         private val id: String,
         private val title: String,
         private val priority: Task.Priority,
-        private val timer: Timer
+        private val timer: Timer,
+        private val fromTime: String,
+        private val toTime: String
 ) : Task {
-
-    companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<RegularTask> = object : Parcelable.Creator<RegularTask> {
-            override fun createFromParcel(parcel: Parcel) = RegularTask(parcel)
-
-            override fun newArray(size: Int): Array<RegularTask?> {
-                return arrayOfNulls(size)
-            }
-        }
-    }
-
-    constructor(parcel: Parcel) : this (
-            parcel.readString(),
-            parcel.readString(),
-            Task.Priority.valueOf(parcel.readString()),
-            Timer (
-                parcel.readString(),
-                Timer.Frequency.valueOf(parcel.readString()),
-                parcel.readInt(),
-                Timer.Alarm.valueOf(parcel.readString())
-            )
-    )
 
     override fun getId() = id
 
@@ -50,15 +29,8 @@ data class RegularTask(
 
     override fun getTimer() = timer
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
-        parcel.writeString(title)
-        parcel.writeString(priority.toString())
-        parcel.writeString(timer.frequency.toString())
-        parcel.writeInt(timer.delay)
-        parcel.writeString(timer.alarm.toString())
-    }
+    override fun getFromTime() = fromTime
 
-    override fun describeContents() = 0
+    override fun getToTime() = toTime
 
 }

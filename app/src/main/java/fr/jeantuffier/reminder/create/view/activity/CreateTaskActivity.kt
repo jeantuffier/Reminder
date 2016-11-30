@@ -17,6 +17,7 @@ import fr.jeantuffier.reminder.create.injection.CreateTaskActivityModule
 import fr.jeantuffier.reminder.create.presenter.ProvidedCreateTaskPresenterOps
 import fr.jeantuffier.reminder.create.view.fragment.CreateTaskFrequencyFragment
 import fr.jeantuffier.reminder.create.view.fragment.CreateTaskPriorityFragment
+import fr.jeantuffier.reminder.create.view.fragment.CreateTaskTimeFragment
 import fr.jeantuffier.reminder.create.view.fragment.CreateTaskTitleFragment
 import javax.inject.Inject
 
@@ -25,6 +26,7 @@ class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
     private val createTaskTitleFragment = CreateTaskTitleFragment()
     private val createTaskFrequencyFragment = CreateTaskFrequencyFragment()
     private val createTaskPriorityFragment = CreateTaskPriorityFragment()
+    private val createTaskTimeFragment = CreateTaskTimeFragment()
 
     @Inject
     lateinit var presenter : ProvidedCreateTaskPresenterOps
@@ -87,11 +89,12 @@ class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
             return when (position) {
                 0 -> createTaskTitleFragment
                 1 -> createTaskFrequencyFragment
-                else -> createTaskPriorityFragment
+                2 -> createTaskPriorityFragment
+                else -> createTaskTimeFragment
             }
         }
 
-        override fun getCount() = 3
+        override fun getCount() = 4
 
     }
 

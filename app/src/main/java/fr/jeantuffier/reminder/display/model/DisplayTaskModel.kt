@@ -4,7 +4,7 @@ import no.hyper.memoryorm.Memory
 import fr.jeantuffier.reminder.common.extension.editPreferences
 import fr.jeantuffier.reminder.common.extension.readPreference
 import fr.jeantuffier.reminder.common.model.task.Task
-import fr.jeantuffier.reminder.common.model.task.regular.RegularTask
+import fr.jeantuffier.reminder.common.model.task.RegularTask
 import fr.jeantuffier.reminder.display.presenter.RequiredDisplayTaskPresenterOps
 
 /**
@@ -12,7 +12,7 @@ import fr.jeantuffier.reminder.display.presenter.RequiredDisplayTaskPresenterOps
  */
 class DisplayTaskModel(val presenter : RequiredDisplayTaskPresenterOps) : ProvidedDisplayTaskModelOps {
 
-    private val DB_VERSION = 2
+    private val DB_VERSION = 4
     private val LOCAL_DB_VERSION = "DisplayTaskModel.LOCAL_DB_VERSION"
 
     private val tasks = mutableListOf<Task>()

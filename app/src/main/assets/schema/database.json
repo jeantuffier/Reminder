@@ -16,6 +16,12 @@
       "label": "timer",
       "custom": true,
       "type": "Timer"
+    }, {
+      "label": "fromTime",
+      "type": "text"
+    }, {
+      "label": "toTime",
+      "type": "text"
     }]
   }, {
     "name": "Timer",

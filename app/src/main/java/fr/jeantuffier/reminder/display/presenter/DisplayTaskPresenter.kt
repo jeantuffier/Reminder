@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import fr.jeantuffier.reminder.R
 import fr.jeantuffier.reminder.common.jobscheduler.JobManager
 import fr.jeantuffier.reminder.display.model.ProvidedDisplayTaskModelOps
-import fr.jeantuffier.reminder.common.model.task.ViewTypeFactory
-import fr.jeantuffier.reminder.common.model.task.regular.RegularTaskViewHolder
+import fr.jeantuffier.reminder.display.presenter.ViewTypeFactory
+import fr.jeantuffier.reminder.display.model.viewholder.RegularTaskViewHolder
 import fr.jeantuffier.reminder.display.presenter.delegate.RegularTaskDelegate
 import fr.jeantuffier.reminder.display.view.RequiredDisplayTaskViewOps
 import java.lang.ref.WeakReference
