@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.common.model.task.regular
+package fr.jeantuffier.reminder.display.model.viewholder
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

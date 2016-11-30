@@ -1,9 +1,9 @@
-package fr.jeantuffier.reminder.common.model.task.regular
+package fr.jeantuffier.reminder.common.model.task
 
 import android.os.Parcel
 import android.os.Parcelable
 import fr.jeantuffier.reminder.common.model.task.Task
-import fr.jeantuffier.reminder.common.model.task.ViewTypeFactory
+import fr.jeantuffier.reminder.display.presenter.ViewTypeFactory
 import fr.jeantuffier.reminder.common.model.timer.Timer
 
 /**

@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.common.model.task
+package fr.jeantuffier.reminder.display.presenter
 
 import fr.jeantuffier.reminder.R
 import fr.jeantuffier.reminder.common.model.task.regular.RegularTask
