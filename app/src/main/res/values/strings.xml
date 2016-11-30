@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Reminder</string>
 
     <!-- CREATOR -->
     <string name="activity_create_task_name">Create a task</string>

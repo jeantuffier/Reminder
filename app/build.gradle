@@ -11,11 +11,11 @@ android {
     compileSdkVersion 25
     buildToolsVersion "24.0.1"
     defaultConfig {
-        applicationId "no.hyper.reminder"
+        applicationId "fr.jeantuffier.reminder"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
@@ -28,9 +28,21 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.reminderKey
+        }
+    }
+    productFlavors {
+        free {
+            applicationId "fr.jeantuffier.reminder.free"
+            versionName "0.2-free"
+            resValue "string", "app_name", "Reminder"
+        }
+        full {
+            applicationId "fr.jeantuffier.reminder.full"
+            versionName "0.2-full"
+            resValue "string", "app_name", "Reminder"
         }
     }
     sourceSets {
@@ -63,7 +75,7 @@ dependencies {
     compile 'com.android.support:design:25.0.1'
     compile 'com.android.support:cardview-v7:25.0.1'
     compile 'com.android.support:recyclerview-v7:25.0.1'
-    compile 'no.hyper.memoryorm:memoryorm:0.5.3'
+    compile 'no.hyper.memoryorm:memoryorm:0.6.0'
 }
 repositories {
     mavenCentral()

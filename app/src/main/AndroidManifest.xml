@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="no.hyper.reminder">
+          package="fr.jeantuffier.reminder">
 
     <application
-        android:name=".common.Reminder"
+        android:name="fr.jeantuffier.reminder.common.Reminder"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".display.view.DisplayTaskActivity"
+        <activity android:name="fr.jeantuffier.reminder.display.view.DisplayTaskActivity"
                   android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>
@@ -20,17 +20,17 @@
 
         </activity>
 
-        <activity android:name=".create.view.activity.CreateTaskActivity"
+        <activity android:name="fr.jeantuffier.reminder.create.view.activity.CreateTaskActivity"
                   android:label="@string/activity_create_task_name"
                   android:theme="@style/AppTheme.NoActionBar">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".display.view.DisplayTaskActivity" />
+                android:value="fr.jeantuffier.reminder.display.view.DisplayTaskActivity" />
 
         </activity>
 
-        <service android:name=".common.jobscheduler.DisplayNotificationService"
+        <service android:name="fr.jeantuffier.reminder.common.jobscheduler.DisplayNotificationService"
                  android:permission="android.permission.BIND_JOB_SERVICE"
                  android:exported="true"/>
 
