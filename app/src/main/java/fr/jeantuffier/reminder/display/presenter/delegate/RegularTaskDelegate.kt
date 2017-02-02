@@ -5,15 +5,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import fr.jeantuffier.reminder.R
-import fr.jeantuffier.reminder.common.model.task.Task
+import fr.jeantuffier.reminder.common.model.Task
 import fr.jeantuffier.reminder.display.model.viewholder.RegularTaskViewHolder
 
 /**
  * Created by jean on 14.10.2016.
  */
 class RegularTaskDelegate {
-
-    private val LOG_TAG = this.javaClass.simpleName
 
     fun createViewHolder(parent: ViewGroup?, viewType: Int): RegularTaskViewHolder {
         val layout = LayoutInflater.from(parent?.context).inflate(viewType, parent, false)
@@ -25,19 +23,20 @@ class RegularTaskDelegate {
         holder as RegularTaskViewHolder
         val context = holder.itemView.context
 
-        val drawableId = task.getPriority().getIconId()
+        val drawableId = task.priority.getIconId()
         val drawable = ResourcesCompat.getDrawable(context.resources, drawableId, null)
         holder.icon.setImageDrawable(drawable)
 
-        val colorId = task.getPriority().getColorId()
+        val colorId = task.priority.getColorId()
         val color = ResourcesCompat.getColor(context.resources, colorId, null)
         holder.icon.setBackgroundColor(color)
 
-        holder.title.text = task.getTitle()
+        holder.title.text = task.title
 
-        val timer = task.getTimer()
-        holder.frequency.text = context.getString(R.string.task_frequency, timer.delay,
-                timer.frequency.toString().toLowerCase())
+        val frequency = if (task.frequency == Task.HOURS)
+            R.string.create_task_frequency_hours else R.string.create_task_frequency_minutes
+        holder.frequency.text = context.getString(R.string.task_frequency, task.delay,
+                context.getString(frequency))
     }
 
 }

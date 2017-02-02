@@ -1,6 +1,6 @@
 {
   "tables": [{
-    "name": "RegularTask",
+    "name": "Task",
     "columns": [{
       "label": "id",
       "type": "text",
@@ -13,39 +13,16 @@
       "enum": true,
       "type": "text"
     }, {
-      "label": "timer",
-      "custom": true,
-      "type": "Timer"
+      "label": "delay",
+      "type": "integer"
+    }, {
+      "label": "frequency",
+      "type": "integer"
     }, {
       "label": "fromTime",
       "type": "text"
     }, {
       "label": "toTime",
-      "type": "text"
-    }]
-  }, {
-    "name": "Timer",
-    "columns": [{
-      "label": "id",
-      "type": "text",
-      "primary": true
-    }, {
-      "label": "frequency",
-      "type": "text",
-      "enum": true
-    }, {
-      "label": "delay",
-      "type": "integer"
-    }, {
-      "label": "alarm",
-      "enum": true,
-      "type": "text"
-    }, {
-      "label": "activated",
-      "type": "integer"
-    }, {
-      "label": "id_RegularTask",
-      "foreign_key": true,
       "type": "text"
     }]
   }]

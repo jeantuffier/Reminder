@@ -1,7 +1,7 @@
 package fr.jeantuffier.reminder.create.model
 
 import no.hyper.memoryorm.Memory
-import fr.jeantuffier.reminder.common.model.task.Task
+import fr.jeantuffier.reminder.common.model.Task
 import fr.jeantuffier.reminder.create.presenter.RequiredCreateTaskPresenterOps
 
 /**

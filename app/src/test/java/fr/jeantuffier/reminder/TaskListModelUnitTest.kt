@@ -2,7 +2,7 @@ package fr.jeantuffier.reminder
 
 import io.kotlintest.specs.FunSpec
 import no.hyper.memoryorm.Memory
-import fr.jeantuffier.reminder.common.model.task.Task
+import fr.jeantuffier.reminder.common.model.Task
 import fr.jeantuffier.reminder.display.model.ProvidedDisplayTaskModelOps
 import fr.jeantuffier.reminder.display.model.DisplayTaskModel
 import fr.jeantuffier.reminder.display.presenter.RequiredDisplayTaskPresenterOps
@@ -35,9 +35,9 @@ class TaskListModelUnitTest : FunSpec() {
     @Test
     private fun loadData() {
         /*val timer = Timer(Timer.Frequency.HOURS, 1, "", "", Timer.Alarm.NOTIFICATION)
-        model.saveTask(RegularTask("task 1", Priority.LOW, "01/01/2016", timer))
-        model.saveTask(RegularTask("task 2", Priority.LOW, "01/01/2016", timer))
-        model.saveTask(RegularTask("task 3", Priority.LOW, "01/01/2016", timer))
+        model.saveTask(Task("task 1", Priority.LOW, "01/01/2016", timer))
+        model.saveTask(Task("task 2", Priority.LOW, "01/01/2016", timer))
+        model.saveTask(Task("task 3", Priority.LOW, "01/01/2016", timer))
 
         model.loadData()
 
@@ -57,7 +57,7 @@ class TaskListModelUnitTest : FunSpec() {
     @Test
     fun getTask() {
         /*val timer = Timer(Timer.Frequency.HOURS, 1, "", "", Timer.Alarm.NOTIFICATION)
-        model.saveTask(RegularTask("task 1", Priority.LOW, "01/01/2016", timer))
+        model.saveTask(Task("task 1", Priority.LOW, "01/01/2016", timer))
         val task = model.getTask(0)
         test("task should be the same > to 0") {
             (task != null) shouldBe true

@@ -7,6 +7,7 @@ import fr.jeantuffier.reminder.display.model.DisplayTaskModel
 import fr.jeantuffier.reminder.display.presenter.ProvidedDisplayTaskPresenterOps
 import fr.jeantuffier.reminder.display.presenter.DisplayTaskPresenter
 import fr.jeantuffier.reminder.display.view.DisplayTaskActivity
+import java.lang.ref.WeakReference
 
 /**
  * Created by jean on 25.10.2016.
@@ -21,7 +22,7 @@ class DisplayTaskActivityModule(private val activity : DisplayTaskActivity) {
     @Provides
     @ActivityScope
     fun providesTaskListPresenter() : ProvidedDisplayTaskPresenterOps {
-        val presenter = DisplayTaskPresenter(activity)
+        val presenter = DisplayTaskPresenter(WeakReference(activity))
         val model = DisplayTaskModel(presenter)
         presenter.model = model
 

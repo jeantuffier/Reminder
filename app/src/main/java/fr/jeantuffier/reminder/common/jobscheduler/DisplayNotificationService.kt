@@ -10,7 +10,7 @@ import android.graphics.Color
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.TaskStackBuilder
 import fr.jeantuffier.reminder.R
-import fr.jeantuffier.reminder.common.model.task.Task
+import fr.jeantuffier.reminder.common.model.Task
 import fr.jeantuffier.reminder.display.view.DisplayTaskActivity
 
 /**

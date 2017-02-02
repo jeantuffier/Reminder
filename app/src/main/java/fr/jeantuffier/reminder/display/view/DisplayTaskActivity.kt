@@ -119,11 +119,9 @@ class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
 
     private fun updateRecyclerWithDeletion() = task_recycler.adapter.notifyItemRemoved(itemPosition)
 
-    private inner class TaskAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private inner class TaskAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         override fun getItemCount() = presenter.getTasksCount()
-
-        override fun getItemViewType(position: Int) = presenter.getViewType(position)
 
         override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
             return presenter.createViewHolder(parent, viewType)

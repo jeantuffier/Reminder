@@ -8,8 +8,7 @@ import android.os.PersistableBundle
 import fr.jeantuffier.reminder.common.extension.editPreferences
 import fr.jeantuffier.reminder.common.extension.readPreference
 import fr.jeantuffier.reminder.common.extension.withExtras
-import fr.jeantuffier.reminder.common.model.task.Task
-import fr.jeantuffier.reminder.common.model.timer.Timer
+import fr.jeantuffier.reminder.common.model.Task
 import java.util.concurrent.TimeUnit
 
 /**
@@ -34,9 +33,9 @@ object JobManager {
     }
 
     fun registerNewJob(context: Context, task: Task) {
-        val delay = task.getTimer().delay
-        val frequency = task.getTimer().frequency
-        val period = if (frequency == Timer.Frequency.HOURS) {
+        val delay = task.delay
+        val frequency = task.frequency
+        val period = if (frequency == Task.HOURS) {
             TimeUnit.HOURS.toMillis(delay.toLong())
         } else {
             TimeUnit.MINUTES.toMillis(delay.toLong())
@@ -51,10 +50,10 @@ object JobManager {
         builder.setRequiresDeviceIdle(false)
         builder.setRequiresCharging(false)
 
-        val bundle = PersistableBundle().withExtras(Task.ID to task.getId(), Task.TITLE to task.getTitle())
+        val bundle = PersistableBundle().withExtras(Task.ID to task.id, Task.TITLE to task.title)
         builder.setExtras(bundle)
 
-        persistJob(context, task.getId(), jobId)
+        persistJob(context, task.id, jobId)
         jobScheduler.schedule(builder.build())
     }
 

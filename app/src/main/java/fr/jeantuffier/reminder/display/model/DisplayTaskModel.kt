@@ -3,8 +3,7 @@ package fr.jeantuffier.reminder.display.model
 import no.hyper.memoryorm.Memory
 import fr.jeantuffier.reminder.common.extension.editPreferences
 import fr.jeantuffier.reminder.common.extension.readPreference
-import fr.jeantuffier.reminder.common.model.task.Task
-import fr.jeantuffier.reminder.common.model.task.RegularTask
+import fr.jeantuffier.reminder.common.model.Task
 import fr.jeantuffier.reminder.display.presenter.RequiredDisplayTaskPresenterOps
 
 /**
@@ -33,23 +32,23 @@ class DisplayTaskModel(val presenter : RequiredDisplayTaskPresenterOps) : Provid
 
     override fun getTask(position: Int) : Task? = tasks[position]
 
-    override fun saveTask(task: RegularTask) = memory.save(task)
+    override fun saveTask(task: Task) = memory.save(task)
 
     override fun getPosition(task: Task) = tasks.indexOf(task)
 
     override fun loadData() {
-        val fetchedTasks = memory.fetchAll(RegularTask::class.java)
+        val fetchedTasks = memory.fetchAll(Task::class.java)
         fetchedTasks?.let {
             tasks.clear()
             tasks.addAll(fetchedTasks)
-            tasks.sortBy { it.getPriority().getLevel() }
+            tasks.sortBy { it.priority.getLevel() }
             tasks.reverse()
         }
     }
 
     override fun deleteTask(task: Task) {
         tasks.remove(task)
-        memory.deleteById(task.javaClass.simpleName, task.getId())
+        memory.deleteById(task.javaClass.simpleName, task.id)
     }
 
 }

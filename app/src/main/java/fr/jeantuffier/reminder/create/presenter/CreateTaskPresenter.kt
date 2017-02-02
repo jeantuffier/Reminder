@@ -1,70 +1,63 @@
 package fr.jeantuffier.reminder.create.presenter
 
 import fr.jeantuffier.reminder.R
-import fr.jeantuffier.reminder.common.model.task.Task
-import fr.jeantuffier.reminder.common.model.task.RegularTask
-import fr.jeantuffier.reminder.common.model.timer.Timer
 import fr.jeantuffier.reminder.create.model.ProvidedCreateTaskModelOps
 import fr.jeantuffier.reminder.create.view.activity.RequiredCreateTaskViewOps
 import java.lang.ref.WeakReference
 import java.util.*
 import fr.jeantuffier.reminder.common.jobscheduler.JobManager
+import fr.jeantuffier.reminder.common.model.Priority
+import fr.jeantuffier.reminder.common.model.Task
 
 
 /**
  * Created by jean on 01.11.2016.
  */
 
-class CreateTaskPresenter(view: RequiredCreateTaskViewOps) : ProvidedCreateTaskPresenterOps,
+class CreateTaskPresenter(val view: WeakReference<RequiredCreateTaskViewOps>) : ProvidedCreateTaskPresenterOps,
         RequiredCreateTaskPresenterOps {
 
-    private val LOG_TAG = this.javaClass.simpleName
-    private var viewReference : WeakReference<RequiredCreateTaskViewOps>
     lateinit var model : ProvidedCreateTaskModelOps
 
-    init { viewReference = WeakReference(view) }
-
     override fun createTask() {
-        val title = viewReference.get()?.getTaskTitle()
-        val delay = viewReference.get()?.getTaskFrequencyDelay()
-        val typeForm = viewReference.get()?.getTaskFrequencyType()
-        val priorityForm = viewReference.get()?.getTaskPriority()
+        val title = view.get()?.getTaskTitle()
+        val delay = view.get()?.getTaskFrequencyDelay()
+        val frequency = view.get()?.getTaskFrequencyType()
+        val priorityForm = view.get()?.getTaskPriority()
 
-        if (title != null && delay != null && typeForm != null) {
+        if (title != null && delay != null && frequency != null) {
             val priority = getPriority(priorityForm)
-            val type = Timer.Frequency.valueOf(typeForm.toUpperCase())
 
-            val timer = Timer(UUID.randomUUID().toString(), type, delay.toInt())
-            val task = RegularTask(UUID.randomUUID().toString(), title, priority, timer, "", "")
+            val task = Task(UUID.randomUUID().toString(), title, priority, delay, frequency, "", "")
 
             val rowId = model.saveNewTask(task)
             if (rowId != null) {
                 registerAlarm(task)
-                viewReference.get()?.notifyNewItem()
+                view.get()?.notifyNewItem()
             }
 
         } else {
-            viewReference.get()?.getResourceString(R.string.create_task_error_field_empty)?.let {
-                viewReference.get()?.error(it)
+            view.get()?.getResourceString(R.string.create_task_error_field_empty)?.let {
+                view.get()?.error(it)
             }
         }
 
     }
 
-    override fun getActivityContext() = viewReference.get()?.getActivityContext()
+    override fun getActivityContext() = view.get()?.getActivityContext()
 
-    override fun getApplicationContext() = viewReference.get()?.getApplicationContext()
+    override fun getApplicationContext() = view.get()?.getApplicationContext()
 
-    private fun getPriority(priorityForm: Int?) : Task.Priority {
+    private fun getPriority(priorityForm: Int?) : Priority {
         return when(priorityForm) {
-            0 -> Task.Priority.LOW
-            1 -> Task.Priority.MIDDLE
-            else -> Task.Priority.HIGH
+            0 -> Priority.LOW
+            1 -> Priority.MIDDLE
+            else -> Priority.HIGH
         }
     }
 
     private fun registerAlarm(task: Task) {
-        val context = viewReference.get()?.getActivityContext()
+        val context = view.get()?.getActivityContext()
         context ?: return
 
         JobManager.registerNewJob(context, task)
