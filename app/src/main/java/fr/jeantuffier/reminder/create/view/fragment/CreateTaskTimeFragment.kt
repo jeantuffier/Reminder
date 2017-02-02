@@ -18,42 +18,49 @@ import java.lang.ref.WeakReference
 
 class CreateTaskTimeFragment : Fragment(), DateTimePickerListener {
 
+    private val FROM = "CreateTaskTimeFragment.FROM"
+    private val TO = "CreateTaskTimeFragment.TO"
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.create_task_fragment_time, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        setListener(from_time?.editText)
-        setListener(to_time?.editText)
+        setListener(from_time?.editText, FROM)
+        setListener(to_time?.editText, TO)
     }
 
-    override fun onDatePicked(date: String) {
-        showTimePickerDialog()
+    override fun onDatePicked(date: String, tag: String) {
+        showTimePickerDialog(tag)
     }
 
-    override fun onTimePicked(time: String) {
-
+    override fun onTimePicked(time: String, tag: String) {
+        if (tag == FROM) {
+            from_time.editText?.setText(time)
+        } else {
+            to_time.editText?.setText(time)
+        }
     }
 
-    private fun setListener(view: View?) {
+    private fun setListener(view: View?, tag: String) {
         view?.setOnFocusChangeListener { view, focused ->
             if (focused) {
-                showDatePickerDialog()
+                showTimePickerDialog(tag)
             }
         }
         view?.setOnClickListener {
-            showDatePickerDialog()
+            showTimePickerDialog(tag)
         }
     }
 
-    private fun showDatePickerDialog() {
+    private fun showDatePickerDialog(tag: String) {
         val newFragment = CreateTaskDatePicker(WeakReference(this))
-        newFragment.show(fragmentManager, "datePicker")
+        newFragment.show(fragmentManager, tag)
     }
 
-    private fun showTimePickerDialog() {
+    private fun showTimePickerDialog(tag: String) {
         val newFragment = CreateTaskTimePicker(WeakReference(this))
-        newFragment.show(fragmentManager, "timePicker")
+        newFragment.show(fragmentManager, tag)
     }
 
 }

@@ -21,8 +21,8 @@
     <string name="create_task_alarm_vibration">Vibration</string>
 
     <string name="create_task_time">Time:</string>
-    <string name="create_task_time_from">From</string>
-    <string name="create_task_time_to">To</string>
+    <string name="create_task_time_between">Between</string>
+    <string name="create_task_time_and">And</string>
 
     <string name="create_task_confirmation">Create</string>
     <string name="create_task_error_field_empty">Every field must be complete</string>

@@ -5,6 +5,6 @@ package fr.jeantuffier.reminder.create.view.fragment.picker
  */
 
 interface DateTimePickerListener {
-    fun onDatePicked(date: String)
-    fun onTimePicked(time: String)
+    fun onDatePicked(date: String, tag: String)
+    fun onTimePicked(time: String, tag: String)
 }

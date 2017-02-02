@@ -32,7 +32,7 @@ class CreateTaskDatePicker(private val listener: WeakReference<DateTimePickerLis
             val sdf = SimpleDateFormat("dd/MM/yyyy")
             val date = sdf.parse(stringDate)
             val dateFormat = DateFormat.getDateFormat(it)
-            listener.get()?.onDatePicked(dateFormat.format(date))
+            listener.get()?.onDatePicked(dateFormat.format(date), tag)
         }
     }
 

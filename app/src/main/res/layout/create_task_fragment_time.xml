@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:hint="@string/create_task_time_from">
+            android:hint="@string/create_task_time_between">
 
             <EditText
                 android:layout_width="match_parent"
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:hint="@string/create_task_time_to">
+            android:hint="@string/create_task_time_and">
 
             <EditText
                 android:layout_width="match_parent"

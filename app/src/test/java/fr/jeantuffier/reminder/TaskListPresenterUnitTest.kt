@@ -12,6 +12,7 @@ import org.mockito.Mockito
 import org.robolectric.RobolectricGradleTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
+import java.lang.ref.WeakReference
 
 /**
  * Created by jean on 21.10.2016.
@@ -29,7 +30,7 @@ class TaskListPresenterUnitTest {
     fun setup() {
         view = Mockito.mock(RequiredDisplayTaskViewOps::class.java)
         model = Mockito.mock(ProvidedDisplayTaskModelOps::class.java)
-        presenter = DisplayTaskPresenter(view)
+        presenter = DisplayTaskPresenter(WeakReference(view))
 
         //mockMethod(model.loadData()).thenReturn(true)
 
