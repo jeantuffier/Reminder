@@ -18,7 +18,13 @@ class CreateTaskFrequencyFragment : Fragment() {
         return inflater.inflate(R.layout.create_task_fragment_frequency, container, false)
     }
 
-    fun getFrequencyDelay() : Int = Integer.valueOf(create_task_frequency_delay.editText?.text?.toString())
+    fun getFrequencyDelay() : Int {
+        try {
+            return Integer.valueOf(create_task_frequency_delay.editText?.text?.toString())
+        } catch (exception: Exception){
+            return 1
+        }
+    }
 
     fun getFrequencyType() = group_frequency.checkedRadioButtonId
 

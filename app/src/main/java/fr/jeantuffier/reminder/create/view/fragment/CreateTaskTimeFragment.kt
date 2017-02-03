@@ -42,6 +42,12 @@ class CreateTaskTimeFragment : Fragment(), DateTimePickerListener {
         }
     }
 
+    fun getTaskTime() : Array<String?> {
+        val from = from_time?.editText?.text?.toString()
+        val to = to_time?.editText?.text?.toString()
+        return arrayOf(from, to)
+    }
+
     private fun setListener(view: View?, tag: String) {
         view?.setOnFocusChangeListener { view, focused ->
             if (focused) {

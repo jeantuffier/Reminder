@@ -11,6 +11,7 @@ interface RequiredCreateTaskViewOps {
     fun getTaskFrequencyDelay() : Int?
     fun getTaskFrequencyType() : Int?
     fun getTaskPriority() : Int
+    fun getTaskTime() : Array<String?>
 
     fun getResourceString(id: Int) : String
     fun getActivityContext() : Context?

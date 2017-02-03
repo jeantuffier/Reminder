@@ -14,7 +14,7 @@ import fr.jeantuffier.reminder.display.model.viewholder.RegularTaskViewHolder
 class RegularTaskDelegate {
 
     fun createViewHolder(parent: ViewGroup?, viewType: Int): RegularTaskViewHolder {
-        val layout = LayoutInflater.from(parent?.context).inflate(viewType, parent, false)
+        val layout = LayoutInflater.from(parent?.context).inflate(R.layout.display_task_view_item, parent, false)
         return RegularTaskViewHolder(layout)
     }
 

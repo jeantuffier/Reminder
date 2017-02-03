@@ -51,6 +51,8 @@ class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
 
     override fun getTaskPriority() = createTaskPriorityFragment.getTaskPriority()
 
+    override fun getTaskTime() = createTaskTimeFragment.getTaskTime()
+
     override fun getResourceString(id: Int) : String = getString(id)
 
     override fun notifyNewItem() {

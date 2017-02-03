@@ -24,11 +24,13 @@ class CreateTaskPresenter(val view: WeakReference<RequiredCreateTaskViewOps>) : 
         val delay = view.get()?.getTaskFrequencyDelay()
         val frequency = view.get()?.getTaskFrequencyType()
         val priorityForm = view.get()?.getTaskPriority()
+        val time = view.get()?.getTaskTime()
 
         if (title != null && delay != null && frequency != null) {
             val priority = getPriority(priorityForm)
 
-            val task = Task(UUID.randomUUID().toString(), title, priority, delay, frequency, "", "")
+            val task = Task(UUID.randomUUID().toString(), title, priority, delay, frequency, time?.get(0) ?: "",
+                    time?.get(1) ?: "")
 
             val rowId = model.saveNewTask(task)
             if (rowId != null) {
