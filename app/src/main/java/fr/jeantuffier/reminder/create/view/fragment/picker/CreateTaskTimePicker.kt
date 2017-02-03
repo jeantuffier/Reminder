@@ -26,7 +26,9 @@ class CreateTaskTimePicker(private val listener: WeakReference<DateTimePickerLis
 
     override fun onTimeSet(p0: TimePicker?, hour: Int, minute: Int) {
         activity?.let {
-            val time = "$hour:$minute"
+            val correctHour = if (hour < 10) "0$hour" else hour.toString()
+            val correctMinute = if (minute < 10) "0$minute" else minute.toString()
+            val time = "$correctHour:$correctMinute"
             listener.get()?.onTimePicked(time, tag)
         }
     }
