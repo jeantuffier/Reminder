@@ -11,7 +11,7 @@ import fr.jeantuffier.reminder.display.presenter.RequiredDisplayTaskPresenterOps
  */
 class DisplayTaskModel(val presenter : RequiredDisplayTaskPresenterOps) : ProvidedDisplayTaskModelOps {
 
-    private val DB_VERSION = 4
+    private val DB_VERSION = 5
     private val LOCAL_DB_VERSION = "DisplayTaskModel.LOCAL_DB_VERSION"
 
     private val tasks = mutableListOf<Task>()

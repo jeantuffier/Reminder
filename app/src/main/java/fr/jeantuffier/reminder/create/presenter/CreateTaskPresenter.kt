@@ -21,27 +21,27 @@ class CreateTaskPresenter(val view: WeakReference<RequiredCreateTaskViewOps>) : 
 
     override fun createTask() {
         val title = view.get()?.getTaskTitle()
-        val delay = view.get()?.getTaskFrequencyDelay()
-        val frequency = view.get()?.getTaskFrequencyType()
-        val priorityForm = view.get()?.getTaskPriority()
+        val delay = view.get()?.getDelay()
+        val frequency = view.get()?.getFrequency()
+        val priorityForm = view.get()?.getPriority()
         val time = view.get()?.getTaskTime()
 
-        if (title != null && delay != null && frequency != null) {
-            val priority = getPriority(priorityForm)
+        if (title == null || title.isEmpty() ||
+                delay == null || delay.isEmpty() ||
+                frequency == null || delay.isEmpty() ||
+                time == null || delay.isEmpty())  {
+            showError()
+            return
+        }
 
-            val task = Task(UUID.randomUUID().toString(), title, priority, delay, frequency, time?.get(0) ?: "",
-                    time?.get(1) ?: "")
+        val priority = getPriority(priorityForm)
+        val task = Task(UUID.randomUUID().toString(), title, priority, delay.toInt(), frequency, time[0] ?: "",
+                time[1] ?: "")
 
-            val rowId = model.saveNewTask(task)
-            if (rowId != null) {
-                registerAlarm(task)
-                view.get()?.notifyNewItem()
-            }
-
-        } else {
-            view.get()?.getResourceString(R.string.create_task_error_field_empty)?.let {
-                view.get()?.error(it)
-            }
+        val rowId = model.saveNewTask(task)
+        if (rowId != null) {
+            registerAlarm(task)
+            view.get()?.notifyNewItem()
         }
 
     }
@@ -49,6 +49,12 @@ class CreateTaskPresenter(val view: WeakReference<RequiredCreateTaskViewOps>) : 
     override fun getActivityContext() = view.get()?.getActivityContext()
 
     override fun getApplicationContext() = view.get()?.getApplicationContext()
+
+    private fun showError() {
+        view.get()?.getResourceString(R.string.create_task_error_field_empty)?.let {
+            view.get()?.error(it)
+        }
+    }
 
     private fun getPriority(priorityForm: Int?) : Priority {
         return when(priorityForm) {

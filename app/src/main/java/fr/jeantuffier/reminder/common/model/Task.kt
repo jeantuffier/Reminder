@@ -9,17 +9,17 @@ data class Task(
         val title: String,
         val priority: Priority,
         val delay: Int,
-        val frequency: Int,
+        val frequency: String,
         val fromTime: String,
         val toTime: String
 ) {
 
     companion object {
-        val TITLE = "Task.TITLE"
         val ID = "Task.ID"
-
-        val HOURS = 0
-        val MINUTES = 1
+        val TITLE = "Task.TITLE"
+        val FROM = "Task.FROM"
+        val TO = "Task.TO"
+        val HOURS = "hours"
     }
 
 }

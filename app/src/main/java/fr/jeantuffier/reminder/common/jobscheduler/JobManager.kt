@@ -16,29 +16,11 @@ import java.util.concurrent.TimeUnit
  */
 object JobManager {
 
-    private fun getNewJobId(jobScheduler: JobScheduler) : Int {
-        val listJobInfo = jobScheduler.allPendingJobs
-        if (listJobInfo.isEmpty()) return 0
-
-        val jobInfo = listJobInfo.maxBy { it.id }
-        return (jobInfo?.id  ?: -1) + 1
-    }
-
-    private fun persistJob(context: Context, taskId: String, jobId: Int) {
-        context.editPreferences { it.putInt(context.packageName + taskId, jobId) }
-    }
-
-    private fun unPersistJob(context: Context, taskId: String?) {
-        context.editPreferences { it.remove(context.packageName + taskId) }
-    }
-
     fun registerNewJob(context: Context, task: Task) {
-        val delay = task.delay
-        val frequency = task.frequency
-        val period = if (frequency == Task.HOURS) {
-            TimeUnit.HOURS.toMillis(delay.toLong())
+        val period = if (task.frequency == Task.HOURS) {
+            TimeUnit.HOURS.toMillis(task.delay.toLong())
         } else {
-            TimeUnit.MINUTES.toMillis(delay.toLong())
+            TimeUnit.MINUTES.toMillis(task.delay.toLong())
         }
 
         val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
@@ -50,7 +32,8 @@ object JobManager {
         builder.setRequiresDeviceIdle(false)
         builder.setRequiresCharging(false)
 
-        val bundle = PersistableBundle().withExtras(Task.ID to task.id, Task.TITLE to task.title)
+        val bundle = PersistableBundle().withExtras(Task.ID to task.id, Task.TITLE to task.title,
+                Task.FROM to task.fromTime, Task.TO to task.toTime)
         builder.setExtras(bundle)
 
         persistJob(context, task.id, jobId)
@@ -69,6 +52,22 @@ object JobManager {
     fun isRegistered(context: Context, taskId: String?) : Boolean {
         val jobId = context.readPreference { it.getInt(context.packageName + taskId, -1) }
         return jobId != -1
+    }
+
+    private fun getNewJobId(jobScheduler: JobScheduler) : Int {
+        val listJobInfo = jobScheduler.allPendingJobs
+        if (listJobInfo.isEmpty()) return 0
+
+        val jobInfo = listJobInfo.maxBy { it.id }
+        return (jobInfo?.id  ?: -1) + 1
+    }
+
+    private fun persistJob(context: Context, taskId: String, jobId: Int) {
+        context.editPreferences { it.putInt(context.packageName + taskId, jobId) }
+    }
+
+    private fun unPersistJob(context: Context, taskId: String?) {
+        context.editPreferences { it.remove(context.packageName + taskId) }
     }
 
 }

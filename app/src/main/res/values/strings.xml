@@ -2,19 +2,17 @@
 
     <!-- CREATOR -->
     <string name="activity_create_task_name">Create a task</string>
-    <string name="create_task_success">The task has been created</string>
-    <string name="create_task_title">Title</string>
-    <string name="create_task_deadline">Deadline</string>
+    <string name="create_task_title">Title :</string>
+
+    <string name="create_task_frequency">Every :</string>
+    <string name="create_task_frequency_delay">delay</string>
+    <string name="create_task_frequency_hours">hours</string>
+    <string name="create_task_frequency_minutes">minutes</string>
 
     <string name="create_task_priority">Priority: %s</string>
     <string name="create_task_priority_low">Low</string>
     <string name="create_task_priority_middle">Middle</string>
     <string name="create_task_priority_high">High</string>
-
-    <string name="create_task_frequency">Every:</string>
-    <string name="create_task_frequency_delay">delay</string>
-    <string name="create_task_frequency_hours">hours</string>
-    <string name="create_task_frequency_minutes">minutes</string>
 
     <string name="create_task_alarm">Alarm:</string>
     <string name="create_task_alarm_notification">Notification</string>
@@ -30,6 +28,7 @@
     <!-- LIST -->
     <string name="task_deadline">Deadline</string>
     <string name="task_frequency">Every %1$d %2$s</string>
+    <string name="task_between">%1$s\n%2$s</string>
     <string name="task_create">Create</string>
     <string name="task_delete">Delete</string>
 

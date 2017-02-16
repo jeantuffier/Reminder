@@ -29,7 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:inputType="datetime"/>
+                android:inputType="datetime"
+                android:imeOptions="actionDone"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -44,7 +45,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:inputType="datetime"/>
+                android:inputType="datetime"
+                android:imeOptions="actionDone"/>
 
         </android.support.design.widget.TextInputLayout>
 

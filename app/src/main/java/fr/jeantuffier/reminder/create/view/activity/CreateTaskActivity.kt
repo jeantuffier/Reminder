@@ -2,7 +2,6 @@ package fr.jeantuffier.reminder.create.view.activity
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.app.AppCompatActivity
@@ -14,18 +13,15 @@ import fr.jeantuffier.reminder.common.extension.getInteger
 import fr.jeantuffier.reminder.common.extension.toDp
 import fr.jeantuffier.reminder.create.injection.CreateTaskActivityModule
 import fr.jeantuffier.reminder.create.presenter.ProvidedCreateTaskPresenterOps
-import fr.jeantuffier.reminder.create.view.fragment.CreateTaskFrequencyFragment
-import fr.jeantuffier.reminder.create.view.fragment.CreateTaskPriorityFragment
 import fr.jeantuffier.reminder.create.view.fragment.CreateTaskTimeFragment
-import fr.jeantuffier.reminder.create.view.fragment.CreateTaskTitleFragment
+import fr.jeantuffier.reminder.create.view.fragment.CreateTaskMandatoryFragment
 import javax.inject.Inject
 
 class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
 
-    private val createTaskTitleFragment = CreateTaskTitleFragment()
-    private val createTaskFrequencyFragment = CreateTaskFrequencyFragment()
-    private val createTaskPriorityFragment = CreateTaskPriorityFragment()
-    private val createTaskTimeFragment = CreateTaskTimeFragment()
+    private val mandatoryFragment = CreateTaskMandatoryFragment()
+    private val timeFragment = CreateTaskTimeFragment()
+    private val fragments = arrayOf(mandatoryFragment, timeFragment)
 
     @Inject
     lateinit var presenter : ProvidedCreateTaskPresenterOps
@@ -43,15 +39,15 @@ class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
         setViewPager()
     }
 
-    override fun getTaskTitle() = createTaskTitleFragment.getTitle()
+    override fun getTaskTitle() = mandatoryFragment.getTitle()
 
-    override fun getTaskFrequencyDelay() = createTaskFrequencyFragment.getFrequencyDelay()
+    override fun getDelay() = mandatoryFragment.getDelay()
 
-    override fun getTaskFrequencyType() = createTaskFrequencyFragment.getFrequencyType()
+    override fun getFrequency() = mandatoryFragment.getFrequency()
 
-    override fun getTaskPriority() = createTaskPriorityFragment.getTaskPriority()
+    override fun getPriority() = mandatoryFragment.getPriority()
 
-    override fun getTaskTime() = createTaskTimeFragment.getTaskTime()
+    override fun getTaskTime() = timeFragment.getTaskTime()
 
     override fun getResourceString(id: Int) : String = getString(id)
 
@@ -86,16 +82,9 @@ class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
 
     private inner class CreateTaskPager(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
-        override fun getItem(position: Int) : Fragment {
-            return when (position) {
-                0 -> createTaskTitleFragment
-                1 -> createTaskFrequencyFragment
-                2 -> createTaskPriorityFragment
-                else -> createTaskTimeFragment
-            }
-        }
+        override fun getItem(position: Int) = fragments[position]
 
-        override fun getCount() = 4
+        override fun getCount() = fragments.size
 
     }
 

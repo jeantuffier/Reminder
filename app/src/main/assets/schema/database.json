@@ -17,7 +17,7 @@
       "type": "integer"
     }, {
       "label": "frequency",
-      "type": "integer"
+      "type": "text"
     }, {
       "label": "fromTime",
       "type": "text"

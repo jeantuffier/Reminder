@@ -20,6 +20,14 @@ class CreateTaskTimeFragment : Fragment(), DateTimePickerListener {
 
     private val FROM = "CreateTaskTimeFragment.FROM"
     private val TO = "CreateTaskTimeFragment.TO"
+    private var from = ""
+    private var to = ""
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.create_task_fragment_time, container, false)
@@ -42,9 +50,23 @@ class CreateTaskTimeFragment : Fragment(), DateTimePickerListener {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        if (from_time?.editText?.text?.toString() != null) {
+            from = from_time?.editText?.text?.toString() ?: ""
+        }
+        if (to_time?.editText?.text?.toString() != null) {
+            to = to_time?.editText?.text?.toString() ?: ""
+        }
+    }
+
     fun getTaskTime() : Array<String?> {
-        val from = from_time?.editText?.text?.toString()
-        val to = to_time?.editText?.text?.toString()
+        if (from_time?.editText?.text?.toString() != null) {
+            from = from_time?.editText?.text?.toString() ?: ""
+        }
+        if (to_time?.editText?.text?.toString() != null) {
+            to = to_time?.editText?.text?.toString() ?: ""
+        }
         return arrayOf(from, to)
     }
 
