@@ -1,15 +1,15 @@
 package fr.jeantuffier.reminder.common.jobscheduler
 
-import android.app.job.JobInfo
-import android.app.job.JobScheduler
-import android.content.ComponentName
+import android.app.AlarmManager
 import android.content.Context
-import android.os.PersistableBundle
-import fr.jeantuffier.reminder.common.extension.editPreferences
 import fr.jeantuffier.reminder.common.extension.readPreference
-import fr.jeantuffier.reminder.common.extension.withExtras
 import fr.jeantuffier.reminder.common.model.Task
 import java.util.concurrent.TimeUnit
+import android.app.PendingIntent
+import android.content.Intent
+import fr.jeantuffier.reminder.common.extension.withExtras
+import java.util.*
+
 
 /**
  * Created by jean on 24.11.2016.
@@ -23,30 +23,17 @@ object JobManager {
             TimeUnit.MINUTES.toMillis(task.delay.toLong())
         }
 
-        val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-        val jobId = getNewJobId(jobScheduler)
+        val manager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmIntent = getPendingIntent(context, task)
 
-        val componentName = ComponentName(context, DisplayNotificationService::class.java)
-        val builder = JobInfo.Builder(jobId, componentName)
-        builder.setPeriodic(period)
-        builder.setRequiresDeviceIdle(false)
-        builder.setRequiresCharging(false)
-
-        val bundle = PersistableBundle().withExtras(Task.ID to task.id, Task.TITLE to task.title,
-                Task.FROM to task.fromTime, Task.TO to task.toTime)
-        builder.setExtras(bundle)
-
-        persistJob(context, task.id, jobId)
-        jobScheduler.schedule(builder.build())
+        val triggerAt = Date().time + period
+        manager.setRepeating(AlarmManager.RTC, triggerAt, period, alarmIntent)
     }
 
-    fun unregisterJob(context: Context, taskId: String?) {
-        val jobId = context.readPreference { it.getInt(context.packageName + taskId, -1) }
-        val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-        if (jobScheduler.allPendingJobs.filter { it.id == jobId  }.isNotEmpty()) {
-            unPersistJob(context, taskId)
-            jobScheduler.cancel(jobId)
-        }
+    fun unregisterJob(context: Context, task: Task) {
+        val manager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmIntent = getPendingIntent(context, task)
+        manager.cancel(alarmIntent)
     }
 
     fun isRegistered(context: Context, taskId: String?) : Boolean {
@@ -54,20 +41,11 @@ object JobManager {
         return jobId != -1
     }
 
-    private fun getNewJobId(jobScheduler: JobScheduler) : Int {
-        val listJobInfo = jobScheduler.allPendingJobs
-        if (listJobInfo.isEmpty()) return 0
-
-        val jobInfo = listJobInfo.maxBy { it.id }
-        return (jobInfo?.id  ?: -1) + 1
-    }
-
-    private fun persistJob(context: Context, taskId: String, jobId: Int) {
-        context.editPreferences { it.putInt(context.packageName + taskId, jobId) }
-    }
-
-    private fun unPersistJob(context: Context, taskId: String?) {
-        context.editPreferences { it.remove(context.packageName + taskId) }
+    private fun getPendingIntent(context: Context, task: Task) : PendingIntent {
+        val intent = Intent(context, DisplayNotificationService::class.java)
+                .withExtras(Task.ID to task.id, Task.TITLE to task.title,
+                        Task.FROM to task.fromTime, Task.TO to task.toTime)
+        return PendingIntent.getService(context, task.id.toInt(), intent, 0)
     }
 
 }

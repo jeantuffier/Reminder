@@ -17,6 +17,7 @@ fun Intent.withExtras(vararg extras: Pair<String, Any>) : Intent {
             is Boolean -> bundle.putBoolean(key, value)
             is Int -> bundle.putInt(key, value)
             is Float -> bundle.putFloat(key, value)
+            is String -> bundle.putString(key, value)
             else -> throw Exception("Bundle.with: $key to ${value.javaClass} not supported")
         }
     }

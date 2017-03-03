@@ -9,7 +9,7 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "24.0.1"
+    buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "fr.jeantuffier.reminder"
         minSdkVersion 21

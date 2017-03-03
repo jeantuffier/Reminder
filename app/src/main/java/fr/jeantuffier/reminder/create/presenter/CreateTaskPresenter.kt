@@ -35,15 +35,14 @@ class CreateTaskPresenter(val view: WeakReference<RequiredCreateTaskViewOps>) : 
         }
 
         val priority = getPriority(priorityForm)
-        val task = Task(UUID.randomUUID().toString(), title, priority, delay.toInt(), frequency, time[0] ?: "",
-                time[1] ?: "")
-
-        val rowId = model.saveNewTask(task)
-        if (rowId != null) {
-            registerAlarm(task)
-            view.get()?.notifyNewItem()
+        model.getHighestTaskId()?.let {
+            val task = Task((it + 1).toString(), title, priority, delay.toInt(), frequency, time[0] ?: "",
+                    time[1] ?: "")
+            model.saveNewTask(task)?.let {
+                registerAlarm(task)
+                view.get()?.notifyNewItem()
+            }
         }
-
     }
 
     override fun getActivityContext() = view.get()?.getActivityContext()

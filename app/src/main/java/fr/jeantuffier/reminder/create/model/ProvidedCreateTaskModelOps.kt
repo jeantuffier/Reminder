@@ -8,4 +8,5 @@ import fr.jeantuffier.reminder.common.model.Task
 interface ProvidedCreateTaskModelOps {
     fun saveNewTask(task: Task) : Long?
     fun getTaskCount() : Int
+    fun getHighestTaskId() : Int?
 }

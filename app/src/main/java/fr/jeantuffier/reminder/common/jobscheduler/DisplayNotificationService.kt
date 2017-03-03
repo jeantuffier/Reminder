@@ -1,7 +1,7 @@
 package fr.jeantuffier.reminder.common.jobscheduler
 
+import android.app.IntentService
 import android.app.job.JobParameters
-import android.app.job.JobService
 import android.content.Intent
 import android.app.PendingIntent
 import android.app.NotificationManager
@@ -12,31 +12,36 @@ import android.support.v4.app.TaskStackBuilder
 import fr.jeantuffier.reminder.R
 import fr.jeantuffier.reminder.common.model.Task
 import fr.jeantuffier.reminder.display.view.DisplayTaskActivity
+import no.hyper.memoryorm.Memory
 import java.util.*
 
 /**
  * Created by jean on 21.11.2016.
  */
-class DisplayNotificationService : JobService() {
+class DisplayNotificationService : IntentService("DisplayNotificationService") {
 
     private val VIBRATION_TIME : Long = 250
     private val BLINKING_TIME = 3000
 
-    override fun onStartJob(params: JobParameters): Boolean {
-        val taskId = params.extras?.getString(Task.ID)
+    override fun onHandleIntent(intent: Intent) {
+        super.onCreate()
+
+        val params = intent.extras
+        val taskId = params?.getString(Task.ID)
+        taskId ?: return
+
         if (!JobManager.isRegistered(this, taskId)) {
-            JobManager.unregisterJob(this, taskId)
-            jobFinished(params, false)
-            return true
+            Memory(this).fetchById(Task::class.java, taskId)?.let {
+                JobManager.unregisterJob(this, it)
+            }
         }
 
-        val jobId = params.jobId
-        val text = params.extras?.getString(Task.TITLE)
+        val text = params?.getString(Task.TITLE)
 
-        val from = params.extras?.getString(Task.FROM)
+        val from = params?.getString(Task.FROM)
         val fromValues = getTimeValues(from)
 
-        val to = params.extras?.getString(Task.TO)
+        val to = params?.getString(Task.TO)
         val toValues = getTimeValues(to)
 
         val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
@@ -48,17 +53,12 @@ class DisplayNotificationService : JobService() {
             val isUnderMaximal = currentHour < toValues[0]
                     || (currentHour == toValues[1] && currentMinute <= toValues[1])
             if (isOverMinimal && isUnderMaximal) {
-                createNotification(text, jobId)
+                createNotification(text, taskId.toInt())
             }
         } else {
-            createNotification(text, jobId)
+            createNotification(text, taskId.toInt())
         }
-
-        jobFinished(params, false)
-        return true
     }
-
-    override fun onStopJob(params: JobParameters?) = true
 
     private fun getTimeValues(base: String?) : IntArray {
         var hours = 0
