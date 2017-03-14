@@ -1,23 +1,33 @@
 package fr.jeantuffier.reminder.create.presenter
 
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.os.IBinder
 import fr.jeantuffier.reminder.R
 import fr.jeantuffier.reminder.create.model.ProvidedCreateTaskModelOps
 import fr.jeantuffier.reminder.create.view.activity.RequiredCreateTaskViewOps
 import java.lang.ref.WeakReference
-import java.util.*
-import fr.jeantuffier.reminder.common.jobscheduler.JobManager
 import fr.jeantuffier.reminder.common.model.Priority
 import fr.jeantuffier.reminder.common.model.Task
-
+import fr.jeantuffier.reminder.common.services.DisplayNotificationService
+import fr.jeantuffier.reminder.common.services.ServiceConnectionObserver
 
 /**
  * Created by jean on 01.11.2016.
  */
 
 class CreateTaskPresenter(val view: WeakReference<RequiredCreateTaskViewOps>) : ProvidedCreateTaskPresenterOps,
-        RequiredCreateTaskPresenterOps {
+        RequiredCreateTaskPresenterOps, ServiceConnectionObserver {
 
     lateinit var model : ProvidedCreateTaskModelOps
+    private var taskId : String? = null
+
+    override var bound = false
+        get() = field
+        set(value) { field = value}
+
+    private var dnsLocalService : DisplayNotificationService.LocalBinder? = null
 
     override fun createTask() {
         val title = view.get()?.getTaskTitle()
@@ -35,19 +45,32 @@ class CreateTaskPresenter(val view: WeakReference<RequiredCreateTaskViewOps>) : 
         }
 
         val priority = getPriority(priorityForm)
-        model.getHighestTaskId()?.let {
-            val task = Task((it + 1).toString(), title, priority, delay.toInt(), frequency, time[0] ?: "",
-                    time[1] ?: "")
-            model.saveNewTask(task)?.let {
-                registerAlarm(task)
-                view.get()?.notifyNewItem()
-            }
-        }
+
+        taskId = model.getHighestTaskId().toString()
+        taskId ?: return
+
+        val task = Task((taskId + 1), title, priority, delay.toInt(), frequency, time[0] ?: "", time[1] ?: "")
+        model.saveNewTask(task)
+
+        val context = view.get()?.getActivityContext()
+        context ?: return
+
+        val intent = Intent(context, DisplayNotificationService::class.java)
+        context.bindService(intent, getServiceConnection(), Context.BIND_AUTO_CREATE)
+
+        view.get()?.notifyNewItem()
     }
 
     override fun getActivityContext() = view.get()?.getActivityContext()
 
     override fun getApplicationContext() = view.get()?.getApplicationContext()
+
+    override fun onObserverConnected(className: ComponentName, service: IBinder) {
+        dnsLocalService = service as DisplayNotificationService.LocalBinder
+        registerAlarm()
+    }
+
+    override fun onObserverDisconnected(className: ComponentName) = Unit
 
     private fun showError() {
         view.get()?.getResourceString(R.string.create_task_error_field_empty)?.let {
@@ -63,11 +86,8 @@ class CreateTaskPresenter(val view: WeakReference<RequiredCreateTaskViewOps>) : 
         }
     }
 
-    private fun registerAlarm(task: Task) {
-        val context = view.get()?.getActivityContext()
-        context ?: return
-
-        JobManager.registerNewJob(context, task)
+    private fun registerAlarm() {
+        taskId?.let { dnsLocalService?.service?.scheduleNewTask(it) }
     }
 
 }

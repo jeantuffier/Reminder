@@ -1,8 +1,11 @@
 package fr.jeantuffier.reminder.display.presenter
 
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import fr.jeantuffier.reminder.common.jobscheduler.JobManager
+import fr.jeantuffier.reminder.common.extension.withExtras
+import fr.jeantuffier.reminder.common.model.Task
+import fr.jeantuffier.reminder.common.services.DisplayNotificationService
 import fr.jeantuffier.reminder.display.model.ProvidedDisplayTaskModelOps
 import fr.jeantuffier.reminder.display.presenter.delegate.RegularTaskDelegate
 import fr.jeantuffier.reminder.display.view.RequiredDisplayTaskViewOps
@@ -21,7 +24,17 @@ class DisplayTaskPresenter(val view: WeakReference<RequiredDisplayTaskViewOps>) 
         model.createDatabase()
     }
 
-    override fun loadData() = model.loadData()
+    override fun loadData() {
+        if (!DisplayNotificationService.isRunning) {
+            val context = getActivityContext()
+            context ?: return
+
+            val intent = Intent(context, DisplayNotificationService::class.java)
+            context.startService(intent)
+        }
+
+        model.loadData()
+    }
 
     override fun getTasksCount() = model.getTaskCount()
 
@@ -43,10 +56,13 @@ class DisplayTaskPresenter(val view: WeakReference<RequiredDisplayTaskViewOps>) 
 
     override fun deleteItem(position: Int) {
         model.getTask(position)?.let { task ->
-            model.deleteTask(task)
             view.get()?.getApplicationContext()?.let {
-                JobManager.unregisterJob(it, task)
+                val intent = Intent(it, DisplayNotificationService::class.java)
+                        .withExtras(Task.ID to task.id,
+                                DisplayNotificationService.ACTION to DisplayNotificationService.DELETE_EXISTING_TASK)
+                it.startService(intent)
             }
+            model.deleteTask(task)
         }
     }
 

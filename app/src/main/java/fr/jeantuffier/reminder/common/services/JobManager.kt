@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.common.jobscheduler
+package fr.jeantuffier.reminder.common.services
 
 import android.app.AlarmManager
 import android.content.Context
@@ -7,8 +7,8 @@ import fr.jeantuffier.reminder.common.model.Task
 import java.util.concurrent.TimeUnit
 import android.app.PendingIntent
 import android.content.Intent
+import android.os.SystemClock
 import fr.jeantuffier.reminder.common.extension.withExtras
-import java.util.*
 
 
 /**
@@ -26,8 +26,8 @@ object JobManager {
         val manager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val alarmIntent = getPendingIntent(context, task)
 
-        val triggerAt = Date().time + period
-        manager.setRepeating(AlarmManager.RTC, triggerAt, period, alarmIntent)
+        manager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() + 3000, alarmIntent)
     }
 
     fun unregisterJob(context: Context, task: Task) {
