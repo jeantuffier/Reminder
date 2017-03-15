@@ -11,7 +11,7 @@ import fr.jeantuffier.reminder.display.presenter.RequiredDisplayTaskPresenterOps
  */
 class DisplayTaskModel(val presenter : RequiredDisplayTaskPresenterOps) : ProvidedDisplayTaskModelOps {
 
-    private val DB_VERSION = 5
+    private val DB_VERSION = 6
     private val LOCAL_DB_VERSION = "DisplayTaskModel.LOCAL_DB_VERSION"
 
     private val tasks = mutableListOf<Task>()
@@ -46,9 +46,11 @@ class DisplayTaskModel(val presenter : RequiredDisplayTaskPresenterOps) : Provid
         }
     }
 
-    override fun deleteTask(task: Task) {
-        tasks.remove(task)
-        memory.deleteById(task.javaClass.simpleName, task.id)
+    override fun deleteTask(position: Int) {
+        getTask(position)?.let {
+            tasks.remove(it)
+            memory.deleteById(Task::class.java.simpleName, it.id)
+        }
     }
 
 }

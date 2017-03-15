@@ -24,6 +24,9 @@
     }, {
       "label": "toTime",
       "type": "text"
+    }, {
+      "label": "createdAtTime",
+      "type": "text"
     }]
   }]
 }

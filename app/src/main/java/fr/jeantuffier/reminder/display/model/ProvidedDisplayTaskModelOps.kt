@@ -13,5 +13,5 @@ interface ProvidedDisplayTaskModelOps {
     fun getPosition(task: Task) : Int?
     fun saveTask(task: Task) : Long
     fun loadData()
-    fun deleteTask(task: Task)
+    fun deleteTask(position: Int)
 }

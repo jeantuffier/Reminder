@@ -19,9 +19,8 @@ import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.ScheduledThreadPoolExecutor
 import java.util.concurrent.TimeUnit
-
-
-
+import android.os.Looper
+import android.os.HandlerThread
 
 /**
  * Created by jean on 21.11.2016.
@@ -39,17 +38,19 @@ class DisplayNotificationService : Service() {
     private val VIBRATION_TIME : Long = 250
     private val BLINKING_TIME = 3000
 
-    private lateinit var sch : ScheduledThreadPoolExecutor
+    private val sch = Executors.newScheduledThreadPool(THREAD_NUMBER) as ScheduledThreadPoolExecutor
     private val futurePool = hashMapOf<String, ScheduledFuture<*>>()
     private val localBinder = LocalBinder()
 
-    override fun onCreate() {
-        sch = Executors.newScheduledThreadPool(THREAD_NUMBER) as ScheduledThreadPoolExecutor
-    }
-
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         isRunning = true
-        return super.onStartCommand(intent, flags, startId)
+        Log.d("DNS", "onStartCommand done")
+
+        Memory(this).fetchAll(Task::class.java)?.forEach {
+            createFuture(it, 10)
+        }
+
+        return START_STICKY
     }
 
     override fun onBind(intent: Intent?) = localBinder
@@ -68,23 +69,21 @@ class DisplayNotificationService : Service() {
         super.onCreate()
         Log.e("DNS", "DisplayNotificationService started")
 
-        val task = Memory(this).fetchById(Task::class.java, taskId)
-        task ?: return
-
-        val unit = if (task.frequency == Task.HOURS) TimeUnit.HOURS else TimeUnit.MINUTES
-        val runnable = Runnable { verifyData(task) }
-        val future = sch.scheduleAtFixedRate(runnable, task.delay.toLong(), task.delay.toLong(), unit)
-        futurePool.put(task.id, future)
+        Memory(this).fetchById(Task::class.java, taskId)?.let { createFuture(it, null) }
     }
 
-    fun deleteExistingTask(intent: Intent) {
-        val taskId = intent.extras.getString(Task.ID)
-        taskId ?: return
-
+    fun deleteExistingTask(taskId: String) {
         futurePool[taskId]?.get()?.let {
             sch.remove(it as Runnable)
         }
         futurePool.remove(taskId)
+    }
+
+    private fun createFuture(task: Task, recreationDelay: Long?) {
+        val unit = if (task.frequency == Task.HOURS) TimeUnit.HOURS else TimeUnit.MINUTES
+        val runnable = Runnable { verifyData(task) }
+        val future = sch.scheduleAtFixedRate(runnable, recreationDelay ?: 3, 3, TimeUnit.SECONDS)//task.delay.toLong(), task.delay.toLong(), unit)
+        futurePool.put(task.id, future)
     }
 
     private fun verifyData(task: Task) {

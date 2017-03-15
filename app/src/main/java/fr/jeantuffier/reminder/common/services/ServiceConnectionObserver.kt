@@ -8,10 +8,12 @@ import android.util.Log
 /**
  * Created by jean on 14.03.2017.
  */
-interface ServiceConnectionObserver {
-    var bound : Boolean
+abstract class ServiceConnectionObserver {
+    var bound = false
+        get() = field
+        set(value) { field = value}
 
-    fun getServiceConnection() = object : ServiceConnection {
+    val serviceConnection = object : ServiceConnection {
 
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             Log.d("DNS", "service is connected")
@@ -27,6 +29,6 @@ interface ServiceConnectionObserver {
 
     }
 
-    fun onObserverConnected(className: ComponentName, service: IBinder)
-    fun onObserverDisconnected(className: ComponentName)
+    abstract fun onObserverConnected(className: ComponentName, service: IBinder)
+    abstract fun onObserverDisconnected(className: ComponentName)
 }

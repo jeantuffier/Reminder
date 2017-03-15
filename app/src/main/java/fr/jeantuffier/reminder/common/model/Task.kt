@@ -11,7 +11,8 @@ data class Task(
         val delay: Int,
         val frequency: String,
         val fromTime: String,
-        val toTime: String
+        val toTime: String,
+        val createdAtTime: String
 ) {
 
     companion object {

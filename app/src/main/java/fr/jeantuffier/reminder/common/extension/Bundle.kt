@@ -1,12 +1,12 @@
 package fr.jeantuffier.reminder.common.extension
 
-import android.os.PersistableBundle
+import android.os.Bundle
 
 /**
  * Created by jean on 22.11.2016.
  */
 
-fun PersistableBundle.withExtras(vararg extras: Pair<String, Any>) : PersistableBundle {
+fun Bundle.withExtras(vararg extras: Pair<String, Any>) : Bundle {
     extras.forEach {
         val (key, value) = it
         when (value) {
