@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.common.services
+package fr.jeantuffier.reminder.common.service
 
 import android.content.ComponentName
 import android.content.ServiceConnection

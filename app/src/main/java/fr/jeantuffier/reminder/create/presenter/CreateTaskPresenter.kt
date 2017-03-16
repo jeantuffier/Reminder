@@ -10,8 +10,9 @@ import fr.jeantuffier.reminder.create.view.activity.RequiredCreateTaskViewOps
 import java.lang.ref.WeakReference
 import fr.jeantuffier.reminder.common.model.Priority
 import fr.jeantuffier.reminder.common.model.Task
-import fr.jeantuffier.reminder.common.services.DisplayNotificationService
-import fr.jeantuffier.reminder.common.services.ServiceConnectionObserver
+import fr.jeantuffier.reminder.common.service.DisplayNotificationService
+import fr.jeantuffier.reminder.common.service.ServiceConnectionObserver
+import java.util.*
 
 /**
  * Created by jean on 01.11.2016.
@@ -41,9 +42,10 @@ class CreateTaskPresenter(val view: WeakReference<RequiredCreateTaskViewOps>) : 
         }
 
         val priority = getPriority(priorityForm)
+        val createdAt = Calendar.getInstance().timeInMillis.toString()
 
         taskId = ((model.getHighestTaskId() ?: 0) + 1).toString()
-        val task = Task(taskId, title, priority, delay.toInt(), frequency, time[0] ?: "", time[1] ?: "", "")
+        val task = Task(taskId, title, priority, delay.toInt(), frequency, time[0] ?: "", time[1] ?: "", createdAt)
         model.saveNewTask(task)
 
         val context = view.get()?.getActivityContext()

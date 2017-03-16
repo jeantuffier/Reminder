@@ -8,8 +8,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import fr.jeantuffier.reminder.common.extension.withExtras
 import fr.jeantuffier.reminder.common.model.Task
-import fr.jeantuffier.reminder.common.services.DisplayNotificationService
-import fr.jeantuffier.reminder.common.services.ServiceConnectionObserver
+import fr.jeantuffier.reminder.common.service.DisplayNotificationService
+import fr.jeantuffier.reminder.common.service.ServiceConnectionObserver
 import fr.jeantuffier.reminder.display.model.ProvidedDisplayTaskModelOps
 import fr.jeantuffier.reminder.display.presenter.delegate.RegularTaskDelegate
 import fr.jeantuffier.reminder.display.view.RequiredDisplayTaskViewOps

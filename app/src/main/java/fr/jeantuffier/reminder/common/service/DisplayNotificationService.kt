@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.common.services
+package fr.jeantuffier.reminder.common.service
 
 import android.content.Intent
 import android.app.PendingIntent
@@ -47,7 +47,7 @@ class DisplayNotificationService : Service() {
         Log.d("DNS", "onStartCommand done")
 
         Memory(this).fetchAll(Task::class.java)?.forEach {
-            createFuture(it, 10)
+            createFuture(it, getRecreationDelay(it))
         }
 
         return START_STICKY
@@ -69,7 +69,9 @@ class DisplayNotificationService : Service() {
         super.onCreate()
         Log.e("DNS", "DisplayNotificationService started")
 
-        Memory(this).fetchById(Task::class.java, taskId)?.let { createFuture(it, null) }
+        Memory(this).fetchById(Task::class.java, taskId)?.let {
+            createFuture(it, null)
+        }
     }
 
     fun deleteExistingTask(taskId: String) {
@@ -77,6 +79,22 @@ class DisplayNotificationService : Service() {
             sch.remove(it as Runnable)
         }
         futurePool.remove(taskId)
+    }
+
+    private fun getRecreationDelay(task: Task) : Long {
+        val currentTime = Calendar.getInstance().timeInMillis
+        val diff = (currentTime - task.createdAtTime.toLong())
+        val delayInMs = if (task.frequency == Task.HOURS) {
+            TimeUnit.HOURS.toMillis(task.delay.toLong())
+        } else {
+            TimeUnit.MINUTES.toMillis(task.delay.toLong())
+        }
+
+        if (diff < delayInMs) {
+            return delayInMs - diff
+        } else {
+            return ((1 - (diff.toDouble() / delayInMs.toDouble()) % 1) * delayInMs).toLong()
+        }
     }
 
     private fun createFuture(task: Task, recreationDelay: Long?) {

@@ -32,7 +32,7 @@
 
         </activity>
 
-        <service android:name="fr.jeantuffier.reminder.common.services.DisplayNotificationService"/>
+        <service android:name="fr.jeantuffier.reminder.common.service.DisplayNotificationService"/>
 
     </application>
 
