@@ -47,7 +47,8 @@ class DisplayNotificationService : Service() {
         Log.d("DNS", "onStartCommand done")
 
         Memory(this).fetchAll(Task::class.java)?.forEach {
-            createFuture(it, getRecreationDelay(it))
+            val recreationDelay = getRecreationDelay(it)
+            createFuture(it, TimeUnit.MILLISECONDS.toSeconds(recreationDelay))
         }
 
         return START_STICKY
@@ -98,9 +99,13 @@ class DisplayNotificationService : Service() {
     }
 
     private fun createFuture(task: Task, recreationDelay: Long?) {
-        val unit = if (task.frequency == Task.HOURS) TimeUnit.HOURS else TimeUnit.MINUTES
         val runnable = Runnable { verifyData(task) }
-        val future = sch.scheduleAtFixedRate(runnable, recreationDelay ?: 3, 3, TimeUnit.SECONDS)//task.delay.toLong(), task.delay.toLong(), unit)
+        val delay = if (task.frequency == Task.HOURS) {
+            TimeUnit.HOURS.toSeconds(task.delay.toLong())
+        } else {
+            TimeUnit.MINUTES.toSeconds(task.delay.toLong())
+        }
+        val future = sch.scheduleAtFixedRate(runnable, recreationDelay ?: delay, delay, TimeUnit.SECONDS)
         futurePool.put(task.id, future)
     }
 
