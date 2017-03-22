@@ -77,7 +77,7 @@ class DisplayTaskPresenter(val view: WeakReference<RequiredDisplayTaskViewOps>) 
 
     override fun onObserverConnected(className: ComponentName, service: IBinder) {
         dnsLocalService = service as DisplayNotificationService.LocalBinder
-        unregisterAlarm()
+        dnsLocalService?.service?.deleteExistingTask(taskId)
     }
 
     override fun onObserverDisconnected(className: ComponentName) = Unit
@@ -87,7 +87,4 @@ class DisplayTaskPresenter(val view: WeakReference<RequiredDisplayTaskViewOps>) 
         return true
     }
 
-    private fun unregisterAlarm() {
-        dnsLocalService?.service?.deleteExistingTask(taskId)
-    }
 }

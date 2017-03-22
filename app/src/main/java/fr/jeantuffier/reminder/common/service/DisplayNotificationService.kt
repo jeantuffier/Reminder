@@ -76,7 +76,8 @@ class DisplayNotificationService : Service() {
     }
 
     fun deleteExistingTask(taskId: String) {
-        futurePool[taskId]?.get()?.let {
+        futurePool[taskId]?.let {
+            it.cancel(true)
             sch.remove(it as Runnable)
         }
         futurePool.remove(taskId)
@@ -122,10 +123,10 @@ class DisplayNotificationService : Service() {
             val isUnderMaximal = currentHour < toValues[0]
                     || (currentHour == toValues[1] && currentMinute <= toValues[1])
             if (isOverMinimal && isUnderMaximal) {
-                createNotification(task.title, 0)
+                createNotification(task.title, task.id.toInt())
             }
         } else {
-            createNotification(task.title, 0)
+            createNotification(task.title, task.id.toInt())
         }
     }
 
