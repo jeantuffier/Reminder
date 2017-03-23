@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import fr.jeantuffier.mom.common.extension.withExtras
 import fr.jeantuffier.mom.common.model.Task
 import fr.jeantuffier.mom.common.service.DisplayNotificationService
-import fr.jeantuffier.mom.common.service.ServiceConnectionObserver
+import fr.jeantuffier.mom.common.service.AbstractConnectionObserver
 import fr.jeantuffier.mom.display.model.ProvidedDisplayTaskModelOps
 import fr.jeantuffier.mom.display.presenter.delegate.RegularTaskDelegate
 import fr.jeantuffier.mom.display.view.RequiredDisplayTaskViewOps
@@ -18,7 +18,7 @@ import java.lang.ref.WeakReference
 /**
  * Created by Jean on 10/12/2016.
  */
-class DisplayTaskPresenter(val view: WeakReference<RequiredDisplayTaskViewOps>) : ServiceConnectionObserver(),
+class DisplayTaskPresenter(val view: WeakReference<RequiredDisplayTaskViewOps>) : AbstractConnectionObserver(),
         ProvidedDisplayTaskPresenterOps, RequiredDisplayTaskPresenterOps {
 
     lateinit var model : ProvidedDisplayTaskModelOps

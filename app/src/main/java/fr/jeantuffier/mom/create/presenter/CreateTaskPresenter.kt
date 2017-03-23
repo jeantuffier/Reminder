@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.IBinder
+import android.util.Log
 import fr.jeantuffier.mom.R
 import fr.jeantuffier.mom.create.model.ProvidedCreateTaskModelOps
 import fr.jeantuffier.mom.create.view.activity.RequiredCreateTaskViewOps
@@ -11,14 +12,14 @@ import java.lang.ref.WeakReference
 import fr.jeantuffier.mom.common.model.Priority
 import fr.jeantuffier.mom.common.model.Task
 import fr.jeantuffier.mom.common.service.DisplayNotificationService
-import fr.jeantuffier.mom.common.service.ServiceConnectionObserver
+import fr.jeantuffier.mom.common.service.AbstractConnectionObserver
 import java.util.*
 
 /**
  * Created by jean on 01.11.2016.
  */
 
-class CreateTaskPresenter(val view: WeakReference<RequiredCreateTaskViewOps>) : ServiceConnectionObserver(),
+class CreateTaskPresenter(val view: WeakReference<RequiredCreateTaskViewOps>) : AbstractConnectionObserver(),
         ProvidedCreateTaskPresenterOps, RequiredCreateTaskPresenterOps {
 
     lateinit var model : ProvidedCreateTaskModelOps
@@ -27,6 +28,7 @@ class CreateTaskPresenter(val view: WeakReference<RequiredCreateTaskViewOps>) : 
     private var dnsLocalService : DisplayNotificationService.LocalBinder? = null
 
     override fun createTask() {
+        Log.d("MOM", "start createTask")
         val title = view.get()?.getTaskTitle()
         val delay = view.get()?.getDelay()
         val frequency = view.get()?.getFrequency()
@@ -54,6 +56,7 @@ class CreateTaskPresenter(val view: WeakReference<RequiredCreateTaskViewOps>) : 
         val intent = Intent(context, DisplayNotificationService::class.java)
         context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
 
+        Log.d("MOM", "notify view createTask")
         view.get()?.notifyNewItem()
     }
 

@@ -8,7 +8,7 @@ import android.util.Log
 /**
  * Created by jean on 14.03.2017.
  */
-abstract class ServiceConnectionObserver {
+abstract class AbstractConnectionObserver {
     var bound = false
         get() = field
         set(value) { field = value}
