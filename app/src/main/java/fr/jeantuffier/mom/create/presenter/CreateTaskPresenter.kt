@@ -11,14 +11,14 @@ import java.lang.ref.WeakReference
 import fr.jeantuffier.mom.common.model.Priority
 import fr.jeantuffier.mom.common.model.Task
 import fr.jeantuffier.mom.common.service.DisplayNotificationService
-import fr.jeantuffier.mom.common.service.ServiceConnectionObserver
+import fr.jeantuffier.mom.common.service.AbstractConnectionObserver
 import java.util.*
 
 /**
  * Created by jean on 01.11.2016.
  */
 
-class CreateTaskPresenter(val view: WeakReference<RequiredCreateTaskViewOps>) : ServiceConnectionObserver(),
+class CreateTaskPresenter(val view: WeakReference<RequiredCreateTaskViewOps>) : AbstractConnectionObserver(),
         ProvidedCreateTaskPresenterOps, RequiredCreateTaskPresenterOps {
 
     lateinit var model : ProvidedCreateTaskModelOps

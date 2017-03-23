@@ -17,5 +17,10 @@
 #}
 
 # Application classes that will be serialized/deserialized over Gson
--keep class fr.jeantuffier.reminder.common.model.** { *; }
+-keep class fr.jeantuffier.mom.common.model.** { *; }
+-keep class no.hyper.memoryormdemo.model.** { *; }
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
 
