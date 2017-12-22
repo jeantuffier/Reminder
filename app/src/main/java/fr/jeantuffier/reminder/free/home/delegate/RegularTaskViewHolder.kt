@@ -6,9 +6,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import fr.jeantuffier.reminder.R
 
-/**
- * Created by jean on 14.10.2016.
- */
 class RegularTaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     val shape = itemView.findViewById(R.id.task_priority) as ImageView

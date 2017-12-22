@@ -15,16 +15,16 @@ import fr.jeantuffier.reminder.free.common.extension.getInteger
 import fr.jeantuffier.reminder.free.common.extension.toDp
 import fr.jeantuffier.reminder.free.common.recycler.SpaceItemDecoration
 import fr.jeantuffier.reminder.free.create.view.activity.CreateTaskActivity
-import fr.jeantuffier.reminder.free.home.injection.DisplayTaskActivityModule
+import fr.jeantuffier.reminder.free.home.injection.HomeActivityModule
 import kotlinx.android.synthetic.main.display_task_activity.*
 import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity(), HomeContract.View {
 
-    var shouldShowLongItemClickOptions = false
-    val menuIdAdd = Menu.FIRST
-    val menuIdDelete = menuIdAdd + 1
-    var itemPosition = -1
+    private var shouldShowLongItemClickOptions = false
+    private val menuIdAdd = Menu.FIRST
+    private val menuIdDelete = menuIdAdd + 1
+    private var itemPosition = -1
 
     @Inject
     lateinit var presenter: HomeContract.Presenter
@@ -80,7 +80,7 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
 
     private fun setComponent() {
         Reminder.get(this).component
-                .getTaskListComponent(DisplayTaskActivityModule(this))
+                .getTaskListComponent(HomeActivityModule(this))
                 .inject(this)
     }
 

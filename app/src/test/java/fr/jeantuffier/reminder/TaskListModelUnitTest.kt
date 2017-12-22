@@ -4,7 +4,7 @@ import io.kotlintest.specs.FunSpec
 import no.hyper.memoryorm.Memory
 import fr.jeantuffier.reminder.free.common.model.Task
 import fr.jeantuffier.reminder.free.home.presentation.ProvidedDisplayTaskModelOps
-import fr.jeantuffier.reminder.free.home.presentation.DisplayTaskModel
+import fr.jeantuffier.reminder.free.home.presentation.HomeModel
 import fr.jeantuffier.reminder.free.home.presentation.RequiredDisplayTaskPresenterOps
 import org.junit.Before
 import org.junit.Test
@@ -28,7 +28,7 @@ class TaskListModelUnitTest : FunSpec() {
     @Before
     fun setup() {
         val presenter = Mockito.mock(RequiredDisplayTaskPresenterOps::class.java)
-        model = DisplayTaskModel(presenter)
+        model = HomeModel(presenter)
         Memory(RuntimeEnvironment.application).emptyTable(Task::class.java.simpleName, null)
     }
 

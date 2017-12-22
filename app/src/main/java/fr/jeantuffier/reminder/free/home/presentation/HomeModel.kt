@@ -3,10 +3,10 @@ package fr.jeantuffier.reminder.free.home.presentation
 import fr.jeantuffier.reminder.free.common.model.Task
 import no.hyper.memoryorm.Memory
 
-class DisplayTaskModel(private val presenter: HomeContract.Presenter, private val memory: Memory) : HomeContract.Model {
+class HomeModel(private val presenter: HomeContract.Presenter, private val memory: Memory) : HomeContract.Model {
 
     private val DB_VERSION = 6
-    private val LOCAL_DB_VERSION = "DisplayTaskModel.LOCAL_DB_VERSION"
+    private val LOCAL_DB_VERSION = "HomeModel.LOCAL_DB_VERSION"
 
     private val tasks = mutableListOf<Task>()
 

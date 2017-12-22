@@ -4,8 +4,8 @@ import android.app.Application
 import dagger.Component
 import fr.jeantuffier.reminder.free.create.injection.CreateTaskActivityComponent
 import fr.jeantuffier.reminder.free.create.injection.CreateTaskActivityModule
-import fr.jeantuffier.reminder.free.home.injection.DisplayTaskActivityComponent
-import fr.jeantuffier.reminder.free.home.injection.DisplayTaskActivityModule
+import fr.jeantuffier.reminder.free.home.injection.HomeActivityComponent
+import fr.jeantuffier.reminder.free.home.injection.HomeActivityModule
 import javax.inject.Singleton
 
 /**
@@ -17,7 +17,7 @@ import javax.inject.Singleton
 interface ApplicationComponent {
 
     fun application() : Application
-    fun getTaskListComponent(module: DisplayTaskActivityModule) : DisplayTaskActivityComponent
+    fun getTaskListComponent(module: HomeActivityModule) : HomeActivityComponent
     fun getCreateTaskComponent(module: CreateTaskActivityModule) : CreateTaskActivityComponent
 
 }

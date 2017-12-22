@@ -9,9 +9,6 @@ import android.view.ViewGroup
 import fr.jeantuffier.reminder.R
 import fr.jeantuffier.reminder.free.common.model.Task
 
-/**
- * Created by jean on 14.10.2016.
- */
 class RegularTaskDelegate {
 
     fun createViewHolder(parent: ViewGroup?, viewType: Int): RegularTaskViewHolder {
