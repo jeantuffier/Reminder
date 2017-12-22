@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.free.display.model
+package fr.jeantuffier.reminder.free.home.presentation
 
 import fr.jeantuffier.reminder.free.common.model.Task
 

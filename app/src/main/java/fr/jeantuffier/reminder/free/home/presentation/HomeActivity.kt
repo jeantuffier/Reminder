@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.free.display.view
+package fr.jeantuffier.reminder.free.home.presentation
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -14,13 +14,12 @@ import fr.jeantuffier.reminder.R
 import fr.jeantuffier.reminder.free.common.Reminder
 import fr.jeantuffier.reminder.free.common.extension.getInteger
 import fr.jeantuffier.reminder.free.common.extension.toDp
-import fr.jeantuffier.reminder.free.display.injection.DisplayTaskActivityModule
+import fr.jeantuffier.reminder.free.home.injection.DisplayTaskActivityModule
 import fr.jeantuffier.reminder.free.common.recycler.SpaceItemDecoration
 import fr.jeantuffier.reminder.free.create.view.activity.CreateTaskActivity
-import fr.jeantuffier.reminder.free.display.presenter.ProvidedDisplayTaskPresenterOps
 import javax.inject.Inject
 
-class DisplayTaskActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
+class HomeActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
 
     var shouldShowLongItemClickOptions = false
     val menuIdAdd = Menu.FIRST

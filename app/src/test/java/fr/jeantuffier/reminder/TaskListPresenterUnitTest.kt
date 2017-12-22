@@ -2,9 +2,9 @@ package fr.jeantuffier.reminder
 
 import no.hyper.memoryorm.Memory
 import fr.jeantuffier.reminder.free.common.model.Task
-import fr.jeantuffier.reminder.free.display.model.ProvidedDisplayTaskModelOps
-import fr.jeantuffier.reminder.free.display.presenter.DisplayTaskPresenter
-import fr.jeantuffier.reminder.free.display.view.RequiredDisplayTaskViewOps
+import fr.jeantuffier.reminder.free.home.presentation.ProvidedDisplayTaskModelOps
+import fr.jeantuffier.reminder.free.home.presentation.HomePresenter
+import fr.jeantuffier.reminder.free.home.presentation.RequiredDisplayTaskViewOps
 import org.junit.Before
 import org.junit.runner.RunWith
 import org.mockito.Mockito
@@ -23,13 +23,13 @@ class TaskListPresenterUnitTest {
 
     private lateinit var model : ProvidedDisplayTaskModelOps
     private lateinit var view : RequiredDisplayTaskViewOps
-    private lateinit var presenter : DisplayTaskPresenter
+    private lateinit var presenter : HomePresenter
 
     @Before
     fun setup() {
         view = Mockito.mock(RequiredDisplayTaskViewOps::class.java)
         model = Mockito.mock(ProvidedDisplayTaskModelOps::class.java)
-        presenter = DisplayTaskPresenter(WeakReference(view))
+        presenter = HomePresenter(WeakReference(view))
 
         //mockMethod(model.loadData()).thenReturn(true)
 

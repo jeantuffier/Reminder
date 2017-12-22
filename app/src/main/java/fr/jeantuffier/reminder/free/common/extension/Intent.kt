@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.common.extension
+package fr.jeantuffier.reminder.free.common.extension
 
 import android.content.Intent
 import android.os.Bundle

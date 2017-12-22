@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.common.model
+package fr.jeantuffier.reminder.free.common.model
 
 /**
  * Created by jean on 14.10.2016.

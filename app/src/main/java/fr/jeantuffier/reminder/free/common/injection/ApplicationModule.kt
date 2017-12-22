@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.common.injection
+package fr.jeantuffier.reminder.free.common.injection
 
 import android.app.Application
 import dagger.Module

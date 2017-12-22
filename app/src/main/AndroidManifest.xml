@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="fr.jeantuffier.reminder.free.display.view.DisplayTaskActivity"
+        <activity android:name="fr.jeantuffier.reminder.free.home.presentation.HomeActivity"
                   android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>
@@ -28,7 +28,7 @@
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="fr.jeantuffier.reminder.free.display.view.DisplayTaskActivity" />
+                android:value="fr.jeantuffier.reminder.free.home.presentation.HomeActivity" />
 
         </activity>
 

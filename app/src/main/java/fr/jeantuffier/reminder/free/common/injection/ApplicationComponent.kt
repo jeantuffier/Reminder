@@ -1,11 +1,11 @@
-package fr.jeantuffier.reminder.common.injection
+package fr.jeantuffier.reminder.free.common.injection
 
 import android.app.Application
 import dagger.Component
-import fr.jeantuffier.reminder.create.injection.CreateTaskActivityComponent
-import fr.jeantuffier.reminder.create.injection.CreateTaskActivityModule
-import fr.jeantuffier.reminder.display.injection.DisplayTaskActivityComponent
-import fr.jeantuffier.reminder.display.injection.DisplayTaskActivityModule
+import fr.jeantuffier.reminder.free.create.injection.CreateTaskActivityComponent
+import fr.jeantuffier.reminder.free.create.injection.CreateTaskActivityModule
+import fr.jeantuffier.reminder.free.home.injection.DisplayTaskActivityComponent
+import fr.jeantuffier.reminder.free.home.injection.DisplayTaskActivityModule
 import javax.inject.Singleton
 
 /**

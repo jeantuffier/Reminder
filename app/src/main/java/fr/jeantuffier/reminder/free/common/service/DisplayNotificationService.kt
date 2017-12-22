@@ -12,7 +12,7 @@ import android.support.v4.app.TaskStackBuilder
 import android.util.Log
 import fr.jeantuffier.reminder.R
 import fr.jeantuffier.reminder.free.common.model.Task
-import fr.jeantuffier.reminder.free.display.view.DisplayTaskActivity
+import fr.jeantuffier.reminder.free.home.presentation.HomeActivity
 import no.hyper.memoryorm.Memory
 import java.util.*
 import java.util.concurrent.Executors
@@ -149,7 +149,7 @@ class DisplayNotificationService : Service() {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setVibrate(longArrayOf(VIBRATION_TIME, VIBRATION_TIME, VIBRATION_TIME, VIBRATION_TIME))
                 .setLights(Color.RED, BLINKING_TIME, BLINKING_TIME)
-        val resultIntent = Intent(this, DisplayTaskActivity::class.java)
+        val resultIntent = Intent(this, HomeActivity::class.java)
 
         val stackBuilder = TaskStackBuilder.create(this)
         stackBuilder.addNextIntent(resultIntent)

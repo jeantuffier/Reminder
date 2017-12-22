@@ -1,8 +1,8 @@
-package fr.jeantuffier.reminder.free.display.injection
+package fr.jeantuffier.reminder.free.home.injection
 
 import dagger.Subcomponent
 import fr.jeantuffier.reminder.free.common.injection.ActivityScope
-import fr.jeantuffier.reminder.free.display.view.DisplayTaskActivity
+import fr.jeantuffier.reminder.free.home.presentation.HomeActivity
 
 /**
  * Created by jean on 25.10.2016.
@@ -10,5 +10,5 @@ import fr.jeantuffier.reminder.free.display.view.DisplayTaskActivity
 @ActivityScope
 @Subcomponent( modules = arrayOf(DisplayTaskActivityModule::class))
 interface DisplayTaskActivityComponent {
-    fun inject(activity: DisplayTaskActivity)
+    fun inject(activity: HomeActivity)
 }

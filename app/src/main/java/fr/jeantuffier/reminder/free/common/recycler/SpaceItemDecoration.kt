@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.common.recycler
+package fr.jeantuffier.reminder.free.common.recycler
 
 import android.graphics.Rect
 import android.support.v7.widget.RecyclerView

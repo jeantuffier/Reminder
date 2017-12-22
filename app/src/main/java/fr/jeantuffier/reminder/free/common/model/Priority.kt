@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.common.model
+package fr.jeantuffier.reminder.free.common.model
 
 import fr.jeantuffier.reminder.R
 

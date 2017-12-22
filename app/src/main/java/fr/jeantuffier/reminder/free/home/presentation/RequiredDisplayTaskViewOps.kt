@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.free.display.view
+package fr.jeantuffier.reminder.free.home.presentation
 
 import android.content.Context
 

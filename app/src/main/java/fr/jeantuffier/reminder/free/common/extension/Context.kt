@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.common.extension
+package fr.jeantuffier.reminder.free.common.extension
 
 import android.content.Context
 import android.content.SharedPreferences

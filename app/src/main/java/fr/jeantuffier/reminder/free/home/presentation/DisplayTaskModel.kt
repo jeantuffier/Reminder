@@ -1,10 +1,9 @@
-package fr.jeantuffier.reminder.free.display.model
+package fr.jeantuffier.reminder.free.home.presentation
 
 import no.hyper.memoryorm.Memory
 import fr.jeantuffier.reminder.free.common.extension.editPreferences
 import fr.jeantuffier.reminder.free.common.extension.readPreference
 import fr.jeantuffier.reminder.free.common.model.Task
-import fr.jeantuffier.reminder.free.display.presenter.RequiredDisplayTaskPresenterOps
 
 /**
  * Created by jean on 21.10.2016.

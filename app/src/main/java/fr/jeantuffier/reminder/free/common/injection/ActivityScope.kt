@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.common.injection
+package fr.jeantuffier.reminder.free.common.injection
 
 import javax.inject.Scope
 

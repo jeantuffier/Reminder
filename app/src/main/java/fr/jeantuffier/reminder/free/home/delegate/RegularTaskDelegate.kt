@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.display.presenter.delegate
+package fr.jeantuffier.reminder.free.home.delegate
 
 import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import fr.jeantuffier.reminder.R
-import fr.jeantuffier.reminder.common.model.Task
+import fr.jeantuffier.reminder.free.common.model.Task
 
 /**
  * Created by jean on 14.10.2016.

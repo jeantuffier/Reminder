@@ -3,9 +3,9 @@ package fr.jeantuffier.reminder
 import io.kotlintest.specs.FunSpec
 import no.hyper.memoryorm.Memory
 import fr.jeantuffier.reminder.free.common.model.Task
-import fr.jeantuffier.reminder.free.display.model.ProvidedDisplayTaskModelOps
-import fr.jeantuffier.reminder.free.display.model.DisplayTaskModel
-import fr.jeantuffier.reminder.free.display.presenter.RequiredDisplayTaskPresenterOps
+import fr.jeantuffier.reminder.free.home.presentation.ProvidedDisplayTaskModelOps
+import fr.jeantuffier.reminder.free.home.presentation.DisplayTaskModel
+import fr.jeantuffier.reminder.free.home.presentation.RequiredDisplayTaskPresenterOps
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

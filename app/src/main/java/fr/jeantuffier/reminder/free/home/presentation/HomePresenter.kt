@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.free.display.presenter
+package fr.jeantuffier.reminder.free.home.presentation
 
 import android.content.ComponentName
 import android.content.Context
@@ -8,15 +8,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import fr.jeantuffier.reminder.free.common.service.DisplayNotificationService
 import fr.jeantuffier.reminder.free.common.service.AbstractConnectionObserver
-import fr.jeantuffier.reminder.free.display.model.ProvidedDisplayTaskModelOps
-import fr.jeantuffier.reminder.free.display.presenter.delegate.RegularTaskDelegate
-import fr.jeantuffier.reminder.free.display.view.RequiredDisplayTaskViewOps
+import fr.jeantuffier.reminder.free.home.delegate.RegularTaskDelegate
 import java.lang.ref.WeakReference
 
 /**
  * Created by Jean on 10/12/2016.
  */
-class DisplayTaskPresenter(val view: WeakReference<RequiredDisplayTaskViewOps>) : AbstractConnectionObserver(),
+class HomePresenter(val view: WeakReference<RequiredDisplayTaskViewOps>) : AbstractConnectionObserver(),
         ProvidedDisplayTaskPresenterOps, RequiredDisplayTaskPresenterOps {
 
     lateinit var model : ProvidedDisplayTaskModelOps
