@@ -1,25 +1,19 @@
 package fr.jeantuffier.reminder.free.home.presentation
 
 import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
 import android.os.IBinder
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import fr.jeantuffier.reminder.free.common.service.DisplayNotificationService
 import fr.jeantuffier.reminder.free.common.service.AbstractConnectionObserver
+import fr.jeantuffier.reminder.free.common.service.DisplayNotificationService
 import fr.jeantuffier.reminder.free.home.delegate.RegularTaskDelegate
 import java.lang.ref.WeakReference
 
-/**
- * Created by Jean on 10/12/2016.
- */
-class HomePresenter(val view: WeakReference<RequiredDisplayTaskViewOps>) : AbstractConnectionObserver(),
-        ProvidedDisplayTaskPresenterOps, RequiredDisplayTaskPresenterOps {
+class HomePresenter(val view: WeakReference<HomeContract.View>) : HomeContract.Presenter, AbstractConnectionObserver() {
 
-    lateinit var model : ProvidedDisplayTaskModelOps
+    lateinit var model: HomeContract.Model
     private val regularTaskDelegate = RegularTaskDelegate()
-    private var dnsLocalService : DisplayNotificationService.LocalBinder? = null
+    private var dnsLocalService: DisplayNotificationService.LocalBinder? = null
     private var taskId = ""
 
     override fun createDatabase() {
@@ -28,11 +22,10 @@ class HomePresenter(val view: WeakReference<RequiredDisplayTaskViewOps>) : Abstr
 
     override fun loadData() {
         if (!DisplayNotificationService.isRunning) {
-            val context = getActivityContext()
-            context ?: return
+            /*context ?: return
 
             val intent = Intent(context, DisplayNotificationService::class.java)
-            context.startService(intent)
+            context.startService(intent)*/
         }
 
         model.loadData()
@@ -59,17 +52,13 @@ class HomePresenter(val view: WeakReference<RequiredDisplayTaskViewOps>) : Abstr
     override fun deleteItem(position: Int) {
         model.getTask(position)?.let {
             taskId = it.id
-            view.get()?.getApplicationContext()?.let {
+            /*view.get()?.getApplicationContext()?.let {
                 val intent = Intent(it, DisplayNotificationService::class.java)
                 it.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
-            }
+            }*/
             model.deleteTask(position)
         }
     }
-
-    override fun getApplicationContext() = view.get()?.getApplicationContext()
-
-    override fun getActivityContext() = view.get()?.getActivityContext()
 
     override fun onObserverConnected(className: ComponentName, service: IBinder) {
         dnsLocalService = service as DisplayNotificationService.LocalBinder
@@ -78,7 +67,7 @@ class HomePresenter(val view: WeakReference<RequiredDisplayTaskViewOps>) : Abstr
 
     override fun onObserverDisconnected(className: ComponentName) = Unit
 
-    private fun addDeleteActionToMenu(position: Int) : Boolean {
+    private fun addDeleteActionToMenu(position: Int): Boolean {
         view.get()?.addLongItemClickMenuOptionsFor(position)
         return true
     }

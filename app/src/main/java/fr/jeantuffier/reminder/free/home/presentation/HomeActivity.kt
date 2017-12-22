@@ -1,25 +1,25 @@
 package fr.jeantuffier.reminder.free.home.presentation
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.display_task_activity.*
 import fr.jeantuffier.reminder.R
 import fr.jeantuffier.reminder.free.common.Reminder
 import fr.jeantuffier.reminder.free.common.extension.getInteger
 import fr.jeantuffier.reminder.free.common.extension.toDp
-import fr.jeantuffier.reminder.free.home.injection.DisplayTaskActivityModule
 import fr.jeantuffier.reminder.free.common.recycler.SpaceItemDecoration
 import fr.jeantuffier.reminder.free.create.view.activity.CreateTaskActivity
+import fr.jeantuffier.reminder.free.home.injection.DisplayTaskActivityModule
+import kotlinx.android.synthetic.main.display_task_activity.*
 import javax.inject.Inject
 
-class HomeActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
+class HomeActivity : AppCompatActivity(), HomeContract.View {
 
     var shouldShowLongItemClickOptions = false
     val menuIdAdd = Menu.FIRST
@@ -27,7 +27,7 @@ class HomeActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
     var itemPosition = -1
 
     @Inject
-    lateinit var presenter : ProvidedDisplayTaskPresenterOps
+    lateinit var presenter: HomeContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,8 +71,6 @@ class HomeActivity : AppCompatActivity(), RequiredDisplayTaskViewOps {
         }
         return true
     }
-
-    override fun getActivityContext() = this
 
     override fun addLongItemClickMenuOptionsFor(position: Int) {
         shouldShowLongItemClickOptions = true
