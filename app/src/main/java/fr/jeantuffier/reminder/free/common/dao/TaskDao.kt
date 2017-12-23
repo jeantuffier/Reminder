@@ -13,6 +13,9 @@ interface TaskDao {
     @Query("SELECT * FROM task WHERE id LIKE :id LIMIT 1")
     fun getById(id: Int): Flowable<Task>
 
+    @Query("DELETE FROM task WHERE id = :id")
+    fun deleteById(id: Int)
+
     @Insert
     fun insertAll(tasks: Array<Task>)
 

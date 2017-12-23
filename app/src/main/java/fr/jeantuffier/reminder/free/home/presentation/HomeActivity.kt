@@ -27,7 +27,7 @@ class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickLis
     private val menuIdAdd = Menu.FIRST
     private val menuIdDelete = menuIdAdd + 1
     private var itemPosition = -1
-    private var itemId = ""
+    private var itemId = -1
 
     @Inject
     lateinit var presenter: HomeContract.Presenter
@@ -77,7 +77,7 @@ class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickLis
     override fun onLongClick(view: View): Boolean {
         shouldShowLongItemClickOptions = true
         itemPosition = task_recycler.getChildAdapterPosition(view)
-        itemId = view.tag as String
+        itemId = view.tag as Int
         supportInvalidateOptionsMenu()
         return true
     }
