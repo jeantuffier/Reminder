@@ -2,10 +2,6 @@ package fr.jeantuffier.reminder.free.common.model
 
 import fr.jeantuffier.reminder.R
 
-/**
- * Created by jean on 02.02.2017.
- */
-
 enum class Priority {
 
     LOW {
@@ -22,6 +18,16 @@ enum class Priority {
         override fun getLevel() = 3
         override fun getColorId() = R.color.colorPriorityHigh
     };
+
+    companion object {
+        fun getByLevel(level: Int) : Priority {
+            return when(level) {
+                1 -> LOW
+                2 -> MIDDLE
+                else -> HIGH
+            }
+        }
+    }
 
     abstract fun getLevel() : Int
     abstract fun getColorId() : Int

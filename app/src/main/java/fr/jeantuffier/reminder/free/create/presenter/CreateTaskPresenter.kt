@@ -45,7 +45,7 @@ class CreateTaskPresenter(val view: WeakReference<RequiredCreateTaskViewOps>) : 
         val createdAt = Calendar.getInstance().timeInMillis.toString()
 
         taskId = ((model.getHighestTaskId() ?: 0) + 1).toString()
-        val task = Task(taskId, title, priority, delay.toInt(), frequency, time[0] ?: "", time[1] ?: "", createdAt)
+        val task = Task(0/*taskId*/, title, 0/*priority*/, delay.toInt(), frequency, time[0] ?: "", time[1] ?: "", createdAt)
         model.saveNewTask(task)
 
         val context = view.get()?.getActivityContext()

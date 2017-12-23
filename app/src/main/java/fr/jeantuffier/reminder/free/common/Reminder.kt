@@ -10,10 +10,10 @@ import fr.jeantuffier.reminder.free.common.injection.DaggerApplicationComponent
 /**
  * Created by jean on 25.10.2016.
  */
-class Reminder : Application() {
+class Reminder private constructor() : Application() {
 
     companion object {
-        fun get(context: Context) = context.applicationContext as Reminder
+        val instance by lazy { Reminder() }
     }
 
     lateinit var component : ApplicationComponent

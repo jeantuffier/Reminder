@@ -35,7 +35,7 @@ class HomePresenter(private val context: Context, private val view: WeakReferenc
         }
 
         val tasks = model.loadData()
-        tasks.sortedBy { it.priority.getLevel() }
+        tasks.sortedBy { it.priority }
         tasks.reversed()
         view.get()?.let { it.setTasks(tasks) }
     }

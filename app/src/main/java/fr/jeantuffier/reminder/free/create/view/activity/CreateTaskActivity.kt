@@ -63,13 +63,13 @@ class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
     override fun getActivityContext() = this
 
     private fun setComponent() {
-        Reminder.get(this).component
+        Reminder.instance.component
                 .getCreateTaskComponent(CreateTaskActivityModule(this))
                 .inject(this)
     }
 
     private fun setToolbar() {
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = getString(R.string.activity_create_task_name)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

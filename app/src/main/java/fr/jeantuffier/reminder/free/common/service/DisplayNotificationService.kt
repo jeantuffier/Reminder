@@ -101,7 +101,7 @@ class DisplayNotificationService : Service() {
             TimeUnit.MINUTES.toSeconds(task.delay.toLong())
         }
         val future = sch.scheduleAtFixedRate(runnable, recreationDelay ?: delay, delay, TimeUnit.SECONDS)
-        futurePool.put(task.id, future)
+        //futurePool.put(task.id, future)
     }
 
     private fun verifyData(task: Task) {

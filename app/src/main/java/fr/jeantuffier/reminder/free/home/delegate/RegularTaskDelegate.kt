@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import fr.jeantuffier.reminder.R
+import fr.jeantuffier.reminder.free.common.model.Priority
 import fr.jeantuffier.reminder.free.common.model.Task
 
 class RegularTaskDelegate {
@@ -21,7 +22,7 @@ class RegularTaskDelegate {
         holder as RegularTaskViewHolder
         val context = holder.itemView.context
 
-        val colorId = task.priority.getColorId()
+        val colorId = Priority.getByLevel(task.priority).getColorId()
         val color = ResourcesCompat.getColor(context.resources, colorId, null)
 
         val colorStateList = ColorStateList(arrayOf(intArrayOf()), intArrayOf(color))

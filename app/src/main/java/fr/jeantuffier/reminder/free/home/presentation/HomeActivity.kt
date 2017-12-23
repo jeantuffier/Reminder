@@ -87,7 +87,7 @@ class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickLis
     }
 
     private fun setComponent() {
-        Reminder.get(this).component
+        Reminder.instance.component
                 .getTaskListComponent(HomeActivityModule(this))
                 .inject(this)
     }
