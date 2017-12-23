@@ -8,35 +8,37 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
 import fr.jeantuffier.reminder.R
 import fr.jeantuffier.reminder.free.common.Reminder
 import fr.jeantuffier.reminder.free.common.extension.getInteger
 import fr.jeantuffier.reminder.free.common.extension.toDp
+import fr.jeantuffier.reminder.free.common.model.Task
 import fr.jeantuffier.reminder.free.common.recycler.SpaceItemDecoration
 import fr.jeantuffier.reminder.free.create.view.activity.CreateTaskActivity
 import fr.jeantuffier.reminder.free.home.injection.HomeActivityModule
-import kotlinx.android.synthetic.main.display_task_activity.*
+import kotlinx.android.synthetic.main.home_activity.*
 import javax.inject.Inject
 
-class HomeActivity : AppCompatActivity(), HomeContract.View {
+class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickListener {
 
     private var shouldShowLongItemClickOptions = false
     private val menuIdAdd = Menu.FIRST
     private val menuIdDelete = menuIdAdd + 1
     private var itemPosition = -1
+    private var itemId = ""
 
     @Inject
     lateinit var presenter: HomeContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.display_task_activity)
+        setContentView(R.layout.home_activity)
 
         setComponent()
         setToolbar()
 
-        presenter.createDatabase()
         presenter.loadData()
 
         setRecyclerView()
@@ -72,10 +74,16 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
         return true
     }
 
-    override fun addLongItemClickMenuOptionsFor(position: Int) {
+    override fun onLongClick(view: View): Boolean {
         shouldShowLongItemClickOptions = true
-        itemPosition = position
+        itemPosition = task_recycler.getChildAdapterPosition(view)
+        itemId = view.tag as String
         supportInvalidateOptionsMenu()
+        return true
+    }
+
+    override fun setTasks(tasks: List<Task>) {
+        task_recycler.adapter = HomeAdapter(tasks, this)
     }
 
     private fun setComponent() {
@@ -85,7 +93,7 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
     }
 
     private fun setToolbar() {
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = getString(R.string.app_name)
     }
@@ -94,7 +102,6 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
         val layout = LinearLayoutManager(this)
         task_recycler.layoutManager = layout
         task_recycler.addItemDecoration(SpaceItemDecoration(16.toDp(this)))
-        task_recycler.adapter = TaskAdapter()
     }
 
     private fun createTask() {
@@ -103,7 +110,8 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
     }
 
     private fun deleteTask() {
-        presenter.deleteItem(itemPosition)
+        task_recycler
+        presenter.deleteItem(itemId)
         shouldShowLongItemClickOptions = false
         invalidateOptionsMenu()
         updateRecyclerWithDeletion()
@@ -115,19 +123,5 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
     }
 
     private fun updateRecyclerWithDeletion() = task_recycler.adapter.notifyItemRemoved(itemPosition)
-
-    private inner class TaskAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-        override fun getItemCount() = presenter.getTasksCount()
-
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-            return presenter.createViewHolder(parent, viewType)
-        }
-
-        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            presenter.bindViewHolder(holder, position)
-        }
-
-    }
 
 }

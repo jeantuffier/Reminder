@@ -17,7 +17,7 @@ class HomeActivityModule(private val activity : HomeActivity) {
     @Provides
     @ActivityScope
     fun providesTaskListPresenter() : HomeContract.Presenter {
-        val presenter = HomePresenter(WeakReference(activity))
+        val presenter = HomePresenter(activity, WeakReference(activity))
         val model = HomeModel(presenter, Memory(activity))
         presenter.model = model
 
