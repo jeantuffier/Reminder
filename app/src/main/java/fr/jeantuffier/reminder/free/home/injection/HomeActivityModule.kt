@@ -4,7 +4,6 @@ import dagger.Module
 import dagger.Provides
 import fr.jeantuffier.reminder.free.common.injection.ActivityScope
 import fr.jeantuffier.reminder.free.home.presentation.*
-import no.hyper.memoryorm.Memory
 import java.lang.ref.WeakReference
 
 @Module
@@ -18,7 +17,7 @@ class HomeActivityModule(private val activity : HomeActivity) {
     @ActivityScope
     fun providesTaskListPresenter() : HomeContract.Presenter {
         val presenter = HomePresenter(activity, WeakReference(activity))
-        val model = HomeModel(presenter, Memory(activity))
+        val model = HomeModel(presenter)
         presenter.model = model
 
         return presenter

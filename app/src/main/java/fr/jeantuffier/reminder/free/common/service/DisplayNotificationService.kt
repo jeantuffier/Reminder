@@ -13,16 +13,12 @@ import android.util.Log
 import fr.jeantuffier.reminder.R
 import fr.jeantuffier.reminder.free.common.model.Task
 import fr.jeantuffier.reminder.free.home.presentation.HomeActivity
-import no.hyper.memoryorm.Memory
 import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.ScheduledThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 
-/**
- * Created by jean on 21.11.2016.
- */
 class DisplayNotificationService : Service() {
 
     companion object {
@@ -44,10 +40,10 @@ class DisplayNotificationService : Service() {
         isRunning = true
         Log.d("DNS", "onStartCommand done")
 
-        Memory(this).fetchAll(Task::class.java)?.forEach {
+        /*Memory(this).fetchAll(Task::class.java)?.forEach {
             val recreationDelay = getRecreationDelay(it)
             createFuture(it, TimeUnit.MILLISECONDS.toSeconds(recreationDelay))
-        }
+        }*/
 
         return START_STICKY
     }
@@ -68,9 +64,9 @@ class DisplayNotificationService : Service() {
         super.onCreate()
         Log.e("DNS", "DisplayNotificationService started")
 
-        Memory(this).fetchById(Task::class.java, taskId)?.let {
+        /*Memory(this).fetchById(Task::class.java, taskId)?.let {
             createFuture(it, null)
-        }
+        }*/
     }
 
     fun deleteExistingTask(taskId: String) {
