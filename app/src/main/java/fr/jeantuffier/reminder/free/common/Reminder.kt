@@ -7,27 +7,21 @@ import fr.jeantuffier.reminder.free.common.injection.ApplicationComponent
 import fr.jeantuffier.reminder.free.common.injection.ApplicationModule
 import fr.jeantuffier.reminder.free.common.injection.DaggerApplicationComponent
 
-/**
- * Created by jean on 25.10.2016.
- */
-class Reminder private constructor() : Application() {
+class Reminder : Application() {
 
     companion object {
         val instance by lazy { Reminder() }
     }
 
-    lateinit var component : ApplicationComponent
+    val component: ApplicationComponent by lazy {
+        DaggerApplicationComponent.builder()
+                .applicationModule(ApplicationModule(this))
+                .build()
+    }
 
     override fun onCreate() {
         super.onCreate()
-        initApplicationComponent()
         LeakCanary.install(this)
-    }
-
-    private fun initApplicationComponent() {
-        component = DaggerApplicationComponent.builder()
-                .applicationModule(ApplicationModule(this))
-                .build()
     }
 
 }

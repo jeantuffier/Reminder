@@ -23,6 +23,12 @@ import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickListener {
 
+    companion object {
+        const val REQUEST_CREATE_TASK = 1
+        const val REQUEST_SERVICE_NOTIFICATION = 2
+        const val SUCCESS_CREATE_TASK = 3
+    }
+
     private var shouldShowLongItemClickOptions = false
     private val menuIdAdd = Menu.FIRST
     private val menuIdDelete = menuIdAdd + 1
@@ -39,14 +45,12 @@ class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickLis
         setComponent()
         setToolbar()
 
-        presenter.loadData()
-
         setRecyclerView()
+        presenter.loadData()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == getInteger(R.integer.request_create_task) &&
-                resultCode == getInteger(R.integer.result_create_task_success)) {
+        if (requestCode == REQUEST_CREATE_TASK && resultCode == SUCCESS_CREATE_TASK) {
             updateRecyclerWithInsertion()
         }
     }
@@ -106,7 +110,7 @@ class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickLis
 
     private fun createTask() {
         val intent = Intent(this, CreateTaskActivity::class.java)
-        startActivityForResult(intent, getInteger(R.integer.request_create_task))
+        startActivityForResult(intent, REQUEST_CREATE_TASK)
     }
 
     private fun deleteTask() {

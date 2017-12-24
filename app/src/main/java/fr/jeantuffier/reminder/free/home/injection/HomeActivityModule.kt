@@ -23,7 +23,7 @@ class HomeActivityModule(private val activity : HomeActivity) {
     @ActivityScope
     fun providesTaskListPresenter() : HomeContract.Presenter {
         val appDatabase = Room.databaseBuilder(activity, AppDatabase::class.java, DB_NAME).build()
-        return HomePresenter(activity, WeakReference(activity), appDatabase.taskDAO())
+        return HomePresenter(activity, activity, appDatabase.taskDAO())
     }
 
 }

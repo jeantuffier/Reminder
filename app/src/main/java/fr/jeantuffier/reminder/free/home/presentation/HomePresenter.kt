@@ -10,11 +10,10 @@ import fr.jeantuffier.reminder.free.common.service.AbstractConnectionObserver
 import fr.jeantuffier.reminder.free.common.service.DisplayNotificationService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.lang.ref.WeakReference
 
 class HomePresenter(
         private val context: Context,
-        private val view: WeakReference<HomeContract.View>,
+        private val view: HomeContract.View,
         private val taskDao: TaskDao
 ) : HomeContract.Presenter, AbstractConnectionObserver() {
 
@@ -42,7 +41,7 @@ class HomePresenter(
                 .subscribe {
                     it.sortedBy { it.priority }
                     it.reversed()
-                    view.get()?.setTasks(it)
+                    view.setTasks(it)
                 }
     }
 

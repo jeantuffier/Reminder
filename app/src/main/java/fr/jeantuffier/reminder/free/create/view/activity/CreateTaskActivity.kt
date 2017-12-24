@@ -15,6 +15,7 @@ import fr.jeantuffier.reminder.free.create.injection.CreateTaskActivityModule
 import fr.jeantuffier.reminder.free.create.presenter.ProvidedCreateTaskPresenterOps
 import fr.jeantuffier.reminder.free.create.view.fragment.CreateTaskTimeFragment
 import fr.jeantuffier.reminder.free.create.view.fragment.CreateTaskMandatoryFragment
+import fr.jeantuffier.reminder.free.home.presentation.HomeActivity
 import javax.inject.Inject
 
 class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
@@ -52,7 +53,7 @@ class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
     override fun getResourceString(id: Int) : String = getString(id)
 
     override fun notifyNewItem() {
-        setResult(getInteger(R.integer.result_create_task_success), intent)
+        setResult(HomeActivity.SUCCESS_CREATE_TASK, intent)
         finish()
     }
 
