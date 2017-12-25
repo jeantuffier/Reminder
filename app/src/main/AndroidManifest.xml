@@ -22,7 +22,7 @@
 
         </activity>
 
-        <activity android:name="fr.jeantuffier.reminder.free.create.view.activity.CreateTaskActivity"
+        <activity android:name="fr.jeantuffier.reminder.free.create.presentation.CreateTaskActivity"
                   android:label="@string/activity_create_task_name"
                   android:theme="@style/AppTheme.NoActionBar">
 

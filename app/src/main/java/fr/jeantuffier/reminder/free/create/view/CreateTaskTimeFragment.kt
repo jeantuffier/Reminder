@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.free.create.view.fragment
+package fr.jeantuffier.reminder.free.create.view
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

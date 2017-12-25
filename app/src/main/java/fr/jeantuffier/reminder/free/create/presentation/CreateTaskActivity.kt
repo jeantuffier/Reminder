@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.free.create.view.activity
+package fr.jeantuffier.reminder.free.create.presentation
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -6,26 +6,24 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import kotlinx.android.synthetic.main.create_task_activity.*
 import fr.jeantuffier.reminder.R
 import fr.jeantuffier.reminder.free.common.Reminder
-import fr.jeantuffier.reminder.free.common.extension.getInteger
 import fr.jeantuffier.reminder.free.common.extension.toDp
 import fr.jeantuffier.reminder.free.create.injection.CreateTaskActivityModule
-import fr.jeantuffier.reminder.free.create.presenter.ProvidedCreateTaskPresenterOps
-import fr.jeantuffier.reminder.free.create.view.fragment.CreateTaskTimeFragment
-import fr.jeantuffier.reminder.free.create.view.fragment.CreateTaskMandatoryFragment
+import fr.jeantuffier.reminder.free.create.view.CreateTaskMandatoryFragment
+import fr.jeantuffier.reminder.free.create.view.CreateTaskTimeFragment
 import fr.jeantuffier.reminder.free.home.presentation.HomeActivity
+import kotlinx.android.synthetic.main.create_task_activity.*
 import javax.inject.Inject
 
-class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
+class CreateTaskActivity : AppCompatActivity(), CreateTaskContract.View {
 
     private val mandatoryFragment = CreateTaskMandatoryFragment()
     private val timeFragment = CreateTaskTimeFragment()
     private val fragments = arrayOf(mandatoryFragment, timeFragment)
 
     @Inject
-    lateinit var presenter : ProvidedCreateTaskPresenterOps
+    lateinit var presenter: CreateTaskContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +48,7 @@ class CreateTaskActivity : AppCompatActivity(), RequiredCreateTaskViewOps {
 
     override fun getTaskTime() = timeFragment.getTaskTime()
 
-    override fun getResourceString(id: Int) : String = getString(id)
+    override fun getResourceString(id: Int): String = getString(id)
 
     override fun notifyNewItem() {
         setResult(HomeActivity.SUCCESS_CREATE_TASK, intent)
