@@ -17,7 +17,7 @@ interface TaskDao {
     fun deleteById(id: Int)
 
     @Insert
-    fun insert(task: Task): Flowable<Long>
+    fun insert(task: Task): Long
 
     @Insert
     fun insertAll(tasks: Array<Task>)

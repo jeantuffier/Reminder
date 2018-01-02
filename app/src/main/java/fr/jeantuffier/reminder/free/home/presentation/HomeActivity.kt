@@ -9,12 +9,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import fr.jeantuffier.reminder.R
-import fr.jeantuffier.reminder.free.common.Reminder
 import fr.jeantuffier.reminder.free.common.extension.toDp
 import fr.jeantuffier.reminder.free.common.model.Task
 import fr.jeantuffier.reminder.free.common.recycler.SpaceItemDecoration
 import fr.jeantuffier.reminder.free.create.presentation.CreateTaskActivity
-import fr.jeantuffier.reminder.free.home.injection.HomeActivityModule
 import kotlinx.android.synthetic.main.home_activity.*
 import javax.inject.Inject
 
@@ -38,8 +36,6 @@ class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickLis
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
-
-        setComponent()
         setToolbar()
 
         setRecyclerView()
@@ -85,12 +81,6 @@ class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickLis
 
     override fun setTasks(tasks: List<Task>) {
         task_recycler.adapter = HomeAdapter(tasks, this)
-    }
-
-    private fun setComponent() {
-        Reminder.instance.component
-                .getTaskListComponent(HomeActivityModule(this))
-                .inject(this)
     }
 
     private fun setToolbar() {

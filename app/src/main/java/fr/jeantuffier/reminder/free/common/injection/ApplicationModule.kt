@@ -2,18 +2,19 @@ package fr.jeantuffier.reminder.free.common.injection
 
 import android.app.Application
 import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+import dagger.android.ContributesAndroidInjector
+import fr.jeantuffier.reminder.free.create.presentation.CreateTaskActivity
+import fr.jeantuffier.reminder.free.home.injection.HomePresenterModule
+import fr.jeantuffier.reminder.free.home.injection.HomeViewModule
+import fr.jeantuffier.reminder.free.home.presentation.HomeActivity
 
-/**
- * Created by jean on 25.10.2016.
- */
 
 @Module
-class ApplicationModule(val application: Application) {
+abstract class ApplicationModule(val application: Application) {
 
-    @Provides
-    @Singleton
-    fun providesApplication() = application
+    @ContributesAndroidInjector(modules = [HomeViewModule::class, HomePresenterModule::class])
+    abstract fun contributeHomeActivityInjector(): HomeActivity
 
+    @ContributesAndroidInjector
+    abstract fun contributeCreateTaskActivityInjector(): CreateTaskActivity
 }

@@ -4,7 +4,6 @@ class CreateTaskContract {
 
     interface View {
         fun notifyNewItem()
-        fun error(message: String)
     }
 
     interface Presenter {

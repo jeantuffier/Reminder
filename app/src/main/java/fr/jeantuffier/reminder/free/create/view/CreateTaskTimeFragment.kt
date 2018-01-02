@@ -60,7 +60,7 @@ class CreateTaskTimeFragment : Fragment(), DateTimePickerListener {
         }
     }
 
-    fun getTaskTime() : Array<String?> {
+    fun getTaskTime() : Array<String> {
         if (from_time?.editText?.text?.toString() != null) {
             from = from_time?.editText?.text?.toString() ?: ""
         }

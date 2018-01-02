@@ -1,27 +1,16 @@
 package fr.jeantuffier.reminder.free.common
 
+import android.app.Activity
 import android.app.Application
-import android.content.Context
-import com.squareup.leakcanary.LeakCanary
-import fr.jeantuffier.reminder.free.common.injection.ApplicationComponent
-import fr.jeantuffier.reminder.free.common.injection.ApplicationModule
-import fr.jeantuffier.reminder.free.common.injection.DaggerApplicationComponent
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasActivityInjector
+import javax.inject.Inject
 
-class Reminder : Application() {
+class Reminder : Application(), HasActivityInjector {
 
-    companion object {
-        val instance by lazy { Reminder() }
-    }
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
-    val component: ApplicationComponent by lazy {
-        DaggerApplicationComponent.builder()
-                .applicationModule(ApplicationModule(this))
-                .build()
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        LeakCanary.install(this)
-    }
+    override public fun activityInjector() = dispatchingAndroidInjector
 
 }
