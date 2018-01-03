@@ -24,3 +24,5 @@
 -keepclasseswithmembernames class * {
     native <methods>;
 }
+
+-dontwarn com.google.errorprone.annotations.**
