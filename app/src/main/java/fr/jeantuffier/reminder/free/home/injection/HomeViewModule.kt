@@ -9,6 +9,6 @@ import fr.jeantuffier.reminder.free.home.presentation.HomeContract
 abstract class HomeViewModule {
 
     @Binds
-    abstract fun providesHomeViewModule(homeActivity: HomeActivity): HomeContract.View
+    abstract fun providesHomeView(homeActivity: HomeActivity): HomeContract.View
 
 }

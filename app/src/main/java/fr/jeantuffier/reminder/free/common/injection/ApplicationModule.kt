@@ -3,6 +3,8 @@ package fr.jeantuffier.reminder.free.common.injection
 import android.app.Application
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import fr.jeantuffier.reminder.free.create.injection.CreateTaskPresenterModule
+import fr.jeantuffier.reminder.free.create.injection.CreateTaskViewModule
 import fr.jeantuffier.reminder.free.create.presentation.CreateTaskActivity
 import fr.jeantuffier.reminder.free.home.injection.HomePresenterModule
 import fr.jeantuffier.reminder.free.home.injection.HomeViewModule
@@ -15,6 +17,6 @@ abstract class ApplicationModule(val application: Application) {
     @ContributesAndroidInjector(modules = [HomeViewModule::class, HomePresenterModule::class])
     abstract fun contributeHomeActivityInjector(): HomeActivity
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [CreateTaskViewModule::class, CreateTaskPresenterModule::class])
     abstract fun contributeCreateTaskActivityInjector(): CreateTaskActivity
 }

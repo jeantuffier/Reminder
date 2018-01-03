@@ -39,7 +39,7 @@ class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickLis
         setToolbar()
 
         setRecyclerView()
-        presenter.loadData()
+        presenter.loadData(this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -109,7 +109,7 @@ class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickLis
     }
 
     private fun updateRecyclerWithInsertion() {
-        presenter.loadData()
+        presenter.loadData(this)
         task_recycler.adapter.notifyDataSetChanged()
     }
 

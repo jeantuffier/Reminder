@@ -1,19 +1,14 @@
 package fr.jeantuffier.reminder.free.create.presentation
 
 import android.content.ComponentName
-import android.content.Context
 import android.os.IBinder
 import fr.jeantuffier.reminder.free.common.model.Priority
 import fr.jeantuffier.reminder.free.common.model.Task
 import fr.jeantuffier.reminder.free.common.service.AbstractConnectionObserver
 import fr.jeantuffier.reminder.free.common.service.DisplayNotificationService
 import java.util.*
-import javax.inject.Inject
 
-class CreateTaskPresenter @Inject constructor(
-        private val context: Context,
-        private val view: CreateTaskContract.View
-) : AbstractConnectionObserver(), CreateTaskContract.Presenter {
+class CreateTaskPresenter(private val view: CreateTaskContract.View) : AbstractConnectionObserver(), CreateTaskContract.Presenter {
 
     //@Inject
     //lateinit var taskDao: TaskDao
@@ -64,7 +59,7 @@ class CreateTaskPresenter @Inject constructor(
 
     private fun registerAlarm() {
         taskId.let { dnsLocalService?.service?.scheduleNewTask(it) }
-        context.unbindService(serviceConnection)
+        //context.unbindService(serviceConnection)
     }
 
 }
