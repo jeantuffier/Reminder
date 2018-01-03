@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import dagger.android.AndroidInjection
 import fr.jeantuffier.reminder.R
 import fr.jeantuffier.reminder.free.common.extension.toDp
 import fr.jeantuffier.reminder.free.common.model.Task
@@ -34,6 +35,7 @@ class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickLis
     lateinit var presenter: HomeContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
         setToolbar()

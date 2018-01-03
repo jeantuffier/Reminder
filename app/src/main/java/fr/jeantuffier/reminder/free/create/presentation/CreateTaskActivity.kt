@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import dagger.android.AndroidInjection
 import fr.jeantuffier.reminder.R
 import fr.jeantuffier.reminder.free.common.extension.toDp
 import fr.jeantuffier.reminder.free.create.view.CreateTaskMandatoryFragment
@@ -23,6 +24,7 @@ class CreateTaskActivity : AppCompatActivity(), CreateTaskContract.View {
     lateinit var presenter: CreateTaskContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.create_task_activity)
         setToolbar()
