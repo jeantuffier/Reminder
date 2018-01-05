@@ -14,8 +14,7 @@ class Reminder : Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
-        DaggerReminderComponent.create()
-                .inject(this)
+        DaggerReminderComponent.create().inject(this)
     }
 
     override public fun activityInjector() = dispatchingAndroidInjector

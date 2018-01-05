@@ -1,27 +1,31 @@
 package fr.jeantuffier.reminder.free.common.injection
 
-import android.app.Activity
-import dagger.Binds
+import android.app.Application
+import android.arch.persistence.room.Room
+import android.content.Context
 import dagger.Module
-import dagger.android.ActivityKey
-import dagger.android.AndroidInjector
-import dagger.multibindings.IntoMap
-import fr.jeantuffier.reminder.free.create.injection.CreateTaskComponent
-import fr.jeantuffier.reminder.free.create.presentation.CreateTaskActivity
-import fr.jeantuffier.reminder.free.home.injection.HomeComponent
-import fr.jeantuffier.reminder.free.home.presentation.HomeActivity
+import dagger.Provides
+import fr.jeantuffier.reminder.free.common.dao.AppDatabase
+import fr.jeantuffier.reminder.free.common.dao.TaskDao
+import javax.inject.Singleton
 
-@Module(subcomponents = [HomeComponent::class, CreateTaskComponent::class])
-abstract class ReminderModule {
+private const val DB_NAME = "reminder_database"
 
-    @Binds
-    @IntoMap
-    @ActivityKey(HomeActivity::class)
-    internal abstract fun bindHomeActivityInjectorFactory(builder: HomeComponent.Builder): AndroidInjector.Factory<out Activity>
+@Module
+class ReminderModule(private val application: Application) {
 
-    @Binds
-    @IntoMap
-    @ActivityKey(CreateTaskActivity::class)
-    internal abstract fun bindCreateTaskActivityInjectorFactory(builder: CreateTaskComponent.Builder): AndroidInjector.Factory<out Activity>
+    private val database by lazy { Room.databaseBuilder(application, AppDatabase::class.java, DB_NAME).build() }
+
+    @Singleton
+    @Provides
+    fun providesContext(): Context = application
+
+    @Singleton
+    @Provides
+    fun providesAppDatabase(): AppDatabase = database
+
+    @Singleton
+    @Provides
+    fun providesTaskDao(): TaskDao = database.taskDAO()
 
 }

@@ -7,5 +7,5 @@ import fr.jeantuffier.reminder.free.common.Reminder
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AndroidInjectionModule::class, ReminderModule::class])
+@Component(modules = [AndroidInjectionModule::class, ActivitiesModule::class, ReminderModule::class])
 interface ReminderComponent : AndroidInjector<Reminder>
