@@ -56,7 +56,7 @@ class CreateTaskActivity : AppCompatActivity(), CreateTaskContract.View {
         val frequency = mandatoryFragment.getFrequency()
         val priority = mandatoryFragment.getPriority()
         val time = timeFragment.getTaskTime()
-        presenter.createTask(title, delay, frequency, priority, time)
+        presenter.createTask(this, title, delay, frequency, priority, time)
     }
 
     private inner class CreateTaskPager(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {

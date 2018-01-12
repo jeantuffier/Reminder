@@ -2,6 +2,7 @@ package fr.jeantuffier.reminder.free.create.injection
 
 import dagger.Module
 import dagger.Provides
+import fr.jeantuffier.reminder.free.common.dao.TaskDao
 import fr.jeantuffier.reminder.free.create.presentation.CreateTaskContract
 import fr.jeantuffier.reminder.free.create.presentation.CreateTaskPresenter
 
@@ -9,8 +10,8 @@ import fr.jeantuffier.reminder.free.create.presentation.CreateTaskPresenter
 class CreateTaskPresenterModule {
 
     @Provides
-    fun providesCreateTaskPresenter(view: CreateTaskContract.View) : CreateTaskContract.Presenter {
-        return CreateTaskPresenter(view)
+    fun providesCreateTaskPresenter(view: CreateTaskContract.View, taskDao: TaskDao) : CreateTaskContract.Presenter {
+        return CreateTaskPresenter(view, taskDao)
     }
     
 }
