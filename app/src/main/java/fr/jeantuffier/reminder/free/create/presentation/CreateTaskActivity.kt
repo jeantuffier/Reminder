@@ -28,7 +28,6 @@ class CreateTaskActivity : AppCompatActivity(), CreateTaskContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.create_task_activity)
         setToolbar()
-        setViewPager()
 
         form_create_button.setOnClickListener { createTask() }
     }
@@ -45,11 +44,6 @@ class CreateTaskActivity : AppCompatActivity(), CreateTaskContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun setViewPager() {
-        create_task_pager.adapter = CreateTaskPager(supportFragmentManager)
-        create_task_pager.pageMargin = 16.toDp(this)
-    }
-
     private fun createTask() {
         val title = mandatoryFragment.getTitle()
         val delay = mandatoryFragment.getDelay().toInt()
@@ -57,14 +51,6 @@ class CreateTaskActivity : AppCompatActivity(), CreateTaskContract.View {
         val priority = mandatoryFragment.getPriority()
         val time = timeFragment.getTaskTime()
         presenter.createTask(this, title, delay, frequency, priority, time)
-    }
-
-    private inner class CreateTaskPager(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
-
-        override fun getItem(position: Int) = fragments[position]
-
-        override fun getCount() = fragments.size
-
     }
 
 }
