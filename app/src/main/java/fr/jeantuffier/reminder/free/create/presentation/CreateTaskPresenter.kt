@@ -9,9 +9,10 @@ import fr.jeantuffier.reminder.free.common.model.Priority
 import fr.jeantuffier.reminder.free.common.model.Task
 import fr.jeantuffier.reminder.free.common.service.AbstractConnectionObserver
 import fr.jeantuffier.reminder.free.common.service.DisplayNotificationService
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.util.*
+import java.util.Calendar
 
 class CreateTaskPresenter(private val view: CreateTaskContract.View, private val taskDao: TaskDao) : AbstractConnectionObserver(), CreateTaskContract.Presenter {
 
@@ -23,14 +24,13 @@ class CreateTaskPresenter(private val view: CreateTaskContract.View, private val
         val priority = getPriority(priorityForm).getLevel()
         val createdAt = Calendar.getInstance().timeInMillis.toString()
         taskDao.getAll()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter { it.isEmpty() }
-                .subscribeOn(Schedulers.io())
                 .subscribe {
                     val id = it.map { it.id }.max() ?: 0
                     val task = Task(id, title, priority, delay, frequency, time[0], time[1], createdAt)
                     saveTask(context, task)
-                    registerAlarm(context)
                 }
     }
 
@@ -49,10 +49,16 @@ class CreateTaskPresenter(private val view: CreateTaskContract.View, private val
     }
 
     private fun saveTask(context: Context, task: Task) {
-        taskId = taskDao.insert(task).toString()
-        view.notifyNewItem()
-        val intent = Intent(context, DisplayNotificationService::class.java)
-        context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+        Single.fromCallable { taskDao.insert(task) }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { id ->
+                    taskId = id.toString()
+                    registerAlarm(context)
+                    val intent = Intent(context, DisplayNotificationService::class.java)
+                    context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+                    view.notifyNewItem()
+                }
     }
 
     private fun registerAlarm(context: Context) {

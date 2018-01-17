@@ -27,14 +27,21 @@
         android:id="@+id/root_create_task"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:paddingLeft="8dp"
-        android:paddingRight="8dp">
+        android:paddingRight="8dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp">
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/title"
@@ -44,6 +51,7 @@
                 app:theme="@style/BlackTextInput">
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/title_input_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
@@ -54,13 +62,17 @@
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/delay"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:hint="@string/create_task_frequency_delay"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title"
                 app:theme="@style/BlackTextInput">
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/delay_input_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
@@ -71,26 +83,30 @@
 
             <Spinner
                 android:id="@+id/task_frequency"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/delay" />
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
 
             <TextView
                 android:id="@+id/task_priority_progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/create_task_priority"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                app:layout_constraintTop_toBottomOf="@+id/task_frequency" />
+                app:layout_constraintTop_toBottomOf="@+id/delay" />
 
             <SeekBar
                 android:id="@+id/task_priority"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:progress="1"
+                android:layout_marginTop="8dp"
                 android:max="2"
+                android:progress="1"
                 app:layout_constraintTop_toBottomOf="@+id/task_priority_progress" />
 
             <Button
@@ -98,6 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:layout_marginTop="16dp"
                 android:text="@string/create_task_confirmation"
                 android:textAllCaps="true"
                 app:layout_constraintTop_toBottomOf="@+id/task_priority" />

@@ -24,8 +24,8 @@ data class Task(
         @ColumnInfo(name = "fromTime")
         val fromTime: String,
 
-        @ColumnInfo(name = "toTime") val
-        toTime: String,
+        @ColumnInfo(name = "toTime")
+        val toTime: String,
 
         @ColumnInfo(name = "createdAtTime")
         val createdAtTime: String
