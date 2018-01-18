@@ -28,7 +28,7 @@ class DisplayNotificationService : Service() {
         val DELETE_EXISTING_TASK = "DisplayNotificationService.DELETE_EXISTING_TASK"
     }
 
-    private val THREAD_NUMBER = 5
+    private val THREAD_NUMBER = 100
     private val VIBRATION_TIME : Long = 250
     private val BLINKING_TIME = 3000
 
@@ -53,11 +53,6 @@ class DisplayNotificationService : Service() {
     override fun onDestroy() {
         Log.d("DNS", "Service done")
         isRunning = false
-    }
-
-    inner class LocalBinder : Binder() {
-        val service: DisplayNotificationService
-            get() = this@DisplayNotificationService
     }
 
     fun scheduleNewTask(taskId: String) {
@@ -155,4 +150,8 @@ class DisplayNotificationService : Service() {
         mNotificationManager.notify(id, mBuilder.build())
     }
 
+    inner class LocalBinder : Binder() {
+        val service: DisplayNotificationService
+            get() = this@DisplayNotificationService
+    }
 }

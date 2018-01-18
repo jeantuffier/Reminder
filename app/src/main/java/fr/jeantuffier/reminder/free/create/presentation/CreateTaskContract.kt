@@ -9,6 +9,6 @@ class CreateTaskContract {
     }
 
     interface Presenter {
-        fun createTask(context: Context, title: String, delay: Int, frequency: String, priorityForm: Int, time: Array<String>)
+        fun createTask(title: String, delay: Int, frequency: String, priorityForm: Int, time: Array<String>)
     }
 }

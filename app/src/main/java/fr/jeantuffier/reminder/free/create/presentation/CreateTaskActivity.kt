@@ -75,7 +75,7 @@ class CreateTaskActivity : AppCompatActivity(), CreateTaskContract.View {
         val frequency = task_frequency.selectedItem as String
         val priority = task_priority.progress
         val time = arrayOf("09:00", "21:00")
-        presenter.createTask(this, title, delay, frequency, priority, time)
+        presenter.createTask(title, delay, frequency, priority, time)
     }
 
 }
