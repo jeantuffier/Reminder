@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.free.home.delegate
+package fr.jeantuffier.reminder.free.home.presentation.delegate
 
 import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable

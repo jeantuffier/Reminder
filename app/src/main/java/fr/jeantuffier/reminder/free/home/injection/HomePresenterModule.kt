@@ -1,5 +1,6 @@
 package fr.jeantuffier.reminder.free.home.injection
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import fr.jeantuffier.reminder.free.common.dao.TaskDao
@@ -10,8 +11,8 @@ import fr.jeantuffier.reminder.free.home.presentation.HomePresenter
 class HomePresenterModule {
 
     @Provides
-    fun provideHomePresenter(view: HomeContract.View, taskDao: TaskDao): HomeContract.Presenter {
-        return HomePresenter(view, taskDao)
+    fun provideHomePresenter(context: Context, view: HomeContract.View, taskDao: TaskDao): HomeContract.Presenter {
+        return HomePresenter(context, view, taskDao)
     }
 
 }

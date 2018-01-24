@@ -1,4 +1,4 @@
-package fr.jeantuffier.reminder.free.home.delegate
+package fr.jeantuffier.reminder.free.home.presentation.delegate
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

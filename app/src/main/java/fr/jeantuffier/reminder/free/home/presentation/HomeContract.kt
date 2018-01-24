@@ -10,8 +10,9 @@ class HomeContract {
     }
 
     interface Presenter {
-        fun onDbCreated(context: Context)
-        fun loadData(context: Context)
+        fun onDbCreated()
+        fun startListeningTasks()
+        fun loadData()
         fun deleteItem(id: Int)
     }
 }

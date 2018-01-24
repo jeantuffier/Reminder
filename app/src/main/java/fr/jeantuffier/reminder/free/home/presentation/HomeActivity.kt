@@ -41,7 +41,8 @@ class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickLis
         setToolbar()
 
         setRecyclerView()
-        presenter.loadData(this)
+        presenter.startListeningTasks()
+        presenter.loadData()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -111,7 +112,7 @@ class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickLis
     }
 
     private fun updateRecyclerWithInsertion() {
-        presenter.loadData(this)
+        presenter.loadData()
         task_recycler.adapter.notifyDataSetChanged()
     }
 

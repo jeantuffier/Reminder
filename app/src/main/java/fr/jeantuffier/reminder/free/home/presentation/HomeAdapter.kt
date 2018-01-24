@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import fr.jeantuffier.reminder.free.common.model.Task
-import fr.jeantuffier.reminder.free.home.delegate.RegularTaskDelegate
+import fr.jeantuffier.reminder.free.home.presentation.delegate.RegularTaskDelegate
 
 class HomeAdapter(private val tasks: List<Task>, private val listener: View.OnLongClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

@@ -11,7 +11,7 @@ import fr.jeantuffier.reminder.free.common.service.DisplayNotificationService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class HomePresenter(private val view: HomeContract.View, private val taskDao: TaskDao) : HomeContract.Presenter, AbstractConnectionObserver() {
+class HomePresenter(private val context: Context, private val view: HomeContract.View, private val taskDao: TaskDao) : HomeContract.Presenter, AbstractConnectionObserver() {
 
     companion object {
         private const val DB_VERSION = 6
@@ -21,9 +21,16 @@ class HomePresenter(private val view: HomeContract.View, private val taskDao: Ta
     private var dnsLocalService: DisplayNotificationService.LocalBinder? = null
     private var taskId = ""
 
-    override fun onDbCreated(context: Context) = context.editPreferences { putInt(LOCAL_DB_VERSION, DB_VERSION) }
+    override fun onDbCreated() = context.editPreferences { putInt(LOCAL_DB_VERSION, DB_VERSION) }
 
-    override fun loadData(context: Context) {
+    override fun startListeningTasks() {
+        if (!DisplayNotificationService.isRunning) {
+            val intent = Intent(context, DisplayNotificationService::class.java)
+            context.startService(intent)
+        }
+    }
+
+    override fun loadData() {
         startService(context)
         taskDao.getAll()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -47,10 +54,7 @@ class HomePresenter(private val view: HomeContract.View, private val taskDao: Ta
     override fun onObserverDisconnected(className: ComponentName) = Unit
 
     private fun startService(context: Context) {
-        if (!DisplayNotificationService.isRunning) {
-            val intent = Intent(context, DisplayNotificationService::class.java)
-            context.startService(intent)
-        }
+
     }
 
 }
