@@ -2,16 +2,16 @@ package fr.jeantuffier.reminder.free.common.dao
 
 import android.arch.persistence.room.*
 import fr.jeantuffier.reminder.free.common.model.Task
-import io.reactivex.Flowable
+import io.reactivex.Single
 
 @Dao
 interface TaskDao {
 
     @Query("SELECT * FROM task")
-    fun getAll(): Flowable<List<Task>>
+    fun getAll(): Single<List<Task>>
 
     @Query("SELECT * FROM task WHERE id LIKE :id LIMIT 1")
-    fun getById(id: Int): Flowable<Task>
+    fun getById(id: Int): Single<Task>
 
     @Query("DELETE FROM task WHERE id = :id")
     fun deleteById(id: Int)

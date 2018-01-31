@@ -18,27 +18,25 @@ class HomePresenter(private val context: Context, private val view: HomeContract
         private const val LOCAL_DB_VERSION = "HomeModel.LOCAL_DB_VERSION"
     }
 
-    private var dnsLocalService: DisplayNotificationService.LocalBinder? = null
     private var taskId = ""
 
     override fun onDbCreated() = context.editPreferences { putInt(LOCAL_DB_VERSION, DB_VERSION) }
 
     override fun startListeningTasks() {
-        if (!DisplayNotificationService.isRunning) {
+         /*if (!DisplayNotificationService.isRunning) {
             val intent = Intent(context, DisplayNotificationService::class.java)
             context.startService(intent)
-        }
+        }*/
     }
 
     override fun loadData() {
-        startService(context)
         taskDao.getAll()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe {
-                    it.sortedBy { it.priority }
-                    it.reversed()
-                    view.setTasks(it)
+                .subscribe { tasks ->
+                    tasks.sortedBy { it.priority }
+                    tasks.reversed()
+                    view.setTasks(tasks)
                 }
     }
 
@@ -47,14 +45,10 @@ class HomePresenter(private val context: Context, private val view: HomeContract
     }
 
     override fun onObserverConnected(className: ComponentName, service: IBinder) {
-        dnsLocalService = service as DisplayNotificationService.LocalBinder
-        dnsLocalService?.service?.deleteExistingTask(taskId)
+        /* dnsLocalService = service as DisplayNotificationService.LocalBinder
+        dnsLocalService?.service?.deleteExistingTask(taskId) */
     }
 
     override fun onObserverDisconnected(className: ComponentName) = Unit
-
-    private fun startService(context: Context) {
-
-    }
 
 }

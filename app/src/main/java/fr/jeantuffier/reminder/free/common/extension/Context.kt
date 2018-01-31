@@ -1,6 +1,7 @@
 package fr.jeantuffier.reminder.free.common.extension
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 
 fun Context.getInteger(resourceId: Int) = this.resources.getInteger(resourceId)
@@ -15,4 +16,8 @@ fun Context.editPreferences(function: SharedPreferences.Editor.() -> Unit) {
     val editor = prefs.edit()
     function(editor)
     editor.apply()
+}
+
+inline fun <reified T> Context.getIntent() : Intent {
+    return Intent(this, T::class.java)
 }
