@@ -60,8 +60,11 @@ class CreateTaskPresenter(private val context: Context, private val view: Create
 
     private fun getTaskIntent(task: Task) = context.getIntent<DisplayNotificationService>()
             .withExtras {
-                putString(Task.TITLE, task.title)
                 putInt(Task.ID, task.id)
+                putString(Task.TITLE, task.title)
+                putString(Task.PRIORITY, Priority.getByLevel(task.priority).toString())
+                putString(Task.FROM, task.fromTime)
+                putString(Task.TO, task.toTime)
             }
 
 }

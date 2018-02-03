@@ -37,6 +37,7 @@ data class Task(
         const val FROM = "Task.FROM"
         const val TO = "Task.TO"
         const val HOURS = "hours"
+        const val PRIORITY = "Task.PRIORITY"
     }
 
     fun getDelayInMs() = Frequency.valueOf(frequency.toUpperCase()).getTimeInMs(delay)

@@ -6,15 +6,13 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.text.format.DateFormat
 import android.widget.TimePicker
-import java.lang.ref.WeakReference
+import fr.jeantuffier.reminder.free.create.view.DateTimePickerListener
 import java.util.*
 
-/**
- * Created by jean on 30.11.2016.
- */
-
-class CreateTaskTimePicker(private val listener: WeakReference<DateTimePickerListener>) : DialogFragment(),
+class CreateTaskTimePicker : DialogFragment(),
         TimePickerDialog.OnTimeSetListener {
+
+    var listener: DateTimePickerListener? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val c = Calendar.getInstance()
@@ -29,7 +27,7 @@ class CreateTaskTimePicker(private val listener: WeakReference<DateTimePickerLis
             val correctHour = if (hour < 10) "0$hour" else hour.toString()
             val correctMinute = if (minute < 10) "0$minute" else minute.toString()
             val time = "$correctHour:$correctMinute"
-            listener.get()?.onTimePicked(time, tag ?: "")
+            listener?.onTimePicked(time, tag ?: "")
         }
     }
 

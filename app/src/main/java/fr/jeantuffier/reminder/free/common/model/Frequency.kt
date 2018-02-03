@@ -6,7 +6,7 @@ enum class Frequency {
         override fun getTimeInMs(time: Int) = (time * 60 * 1000).toLong()
     },
     HOURS {
-        override fun getTimeInMs(time: Int) = (time * 24 * 60 * 1000).toLong()
+        override fun getTimeInMs(time: Int) = (time * 60 * 60 * 1000).toLong()
     };
 
     override fun toString() = this.name.toLowerCase()
