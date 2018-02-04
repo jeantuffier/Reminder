@@ -1,23 +1,20 @@
 package fr.jeantuffier.reminder.free.common.service
 
 import android.annotation.TargetApi
-import android.app.IntentService
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.TaskStackBuilder
-import android.text.format.DateFormat
 import fr.jeantuffier.reminder.R
 import fr.jeantuffier.reminder.free.common.extension.getIntent
+import fr.jeantuffier.reminder.free.common.extension.setHour
+import fr.jeantuffier.reminder.free.common.extension.setMinutes
 import fr.jeantuffier.reminder.free.common.model.Priority
 import fr.jeantuffier.reminder.free.common.model.Task
 import fr.jeantuffier.reminder.free.home.presentation.HomeActivity
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -46,23 +43,10 @@ class DisplayNotificationService : IntentService("DisplayNotificationService") {
             initChannel(text, priority)
         }
 
-        val builder = NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_replay)
-                .setContentTitle(getString(R.string.notification_title))
-                .setContentText(text)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setVibrate(longArrayOf(VIBRATION_TIME, VIBRATION_TIME, VIBRATION_TIME, VIBRATION_TIME))
-                .setLights(Color.RED, BLINKING_TIME, BLINKING_TIME)
-        val resultIntent = getIntent<HomeActivity>()
-
-        val stackBuilder = TaskStackBuilder.create(this)
-        stackBuilder.addNextIntent(resultIntent)
-        val resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
-        builder.setContentIntent(resultPendingIntent)
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
         if (isInTimeInterval(from, to)) {
-            notificationManager.notify(id, builder.build())
+            val notification = getNotification(text)
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.notify(id, notification)
         }
     }
 
@@ -80,21 +64,36 @@ class DisplayNotificationService : IntentService("DisplayNotificationService") {
         notificationManager.createNotificationChannel(channel)
     }
 
+    private fun getNotification(text: String): Notification {
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_replay)
+                .setContentTitle(getString(R.string.notification_title))
+                .setContentText(text)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setVibrate(longArrayOf(VIBRATION_TIME, VIBRATION_TIME, VIBRATION_TIME, VIBRATION_TIME))
+                .setLights(Color.RED, BLINKING_TIME, BLINKING_TIME)
+
+        val resultIntent = getIntent<HomeActivity>()
+        val stackBuilder = TaskStackBuilder.create(this).addNextIntent(resultIntent)
+        val resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+        builder.setContentIntent(resultPendingIntent)
+
+        return builder.build()
+    }
+
     private fun isInTimeInterval(from: String, to: String): Boolean {
         val dateFrom = getCalendarDateFromString(from)
         val dateTo = getCalendarDateFromString(to)
-
         val current = Calendar.getInstance()
 
         return current.after(dateFrom) && current.before(dateTo)
     }
 
-    private fun getCalendarDateFromString(string: String) : Calendar {
+    private fun getCalendarDateFromString(string: String): Calendar {
         val values = string.split(":")
-        val date = Calendar.getInstance()
-        date.set(Calendar.HOUR_OF_DAY, values[0].toInt())
-        date.set(Calendar.MINUTE, values[1].toInt())
-        return date
+        return Calendar.getInstance()
+                .setHour(values[0].toInt())
+                .setMinutes(values[1].toInt())
     }
 
 }
