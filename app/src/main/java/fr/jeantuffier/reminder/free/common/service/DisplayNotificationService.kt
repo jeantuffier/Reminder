@@ -17,7 +17,6 @@ import fr.jeantuffier.reminder.free.common.model.Task
 import fr.jeantuffier.reminder.free.home.presentation.HomeActivity
 import java.util.*
 
-
 private const val VIBRATION_TIME: Long = 250
 private const val BLINKING_TIME = 3000
 

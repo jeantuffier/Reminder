@@ -41,7 +41,6 @@ class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickLis
         setToolbar()
 
         setRecyclerView()
-        presenter.startListeningTasks()
         presenter.loadData()
     }
 

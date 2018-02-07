@@ -11,7 +11,6 @@ class HomeContract {
 
     interface Presenter {
         fun onDbCreated()
-        fun startListeningTasks()
         fun loadData()
         fun deleteItem(id: Int)
     }

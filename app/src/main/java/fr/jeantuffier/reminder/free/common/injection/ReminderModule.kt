@@ -5,16 +5,21 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import fr.jeantuffier.reminder.free.common.DB_NAME
 import fr.jeantuffier.reminder.free.common.dao.AppDatabase
 import fr.jeantuffier.reminder.free.common.dao.TaskDao
 import javax.inject.Singleton
 
-private const val DB_NAME = "reminder_database"
-
 @Module
 class ReminderModule(private val application: Application) {
 
-    private val database by lazy { Room.databaseBuilder(application, AppDatabase::class.java, DB_NAME).build() }
+    private val database by lazy {
+        Room.databaseBuilder(
+            application,
+            AppDatabase::class.java,
+            DB_NAME
+        ).build()
+    }
 
     @Singleton
     @Provides

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="fr.jeantuffier.reminder">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
@@ -33,6 +34,12 @@
         </activity>
 
         <service android:name="fr.jeantuffier.reminder.free.common.service.DisplayNotificationService"/>
+
+        <receiver android:name=".free.common.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 
