@@ -17,19 +17,12 @@ import fr.jeantuffier.reminder.free.create.presentation.CreateTaskActivity
 import kotlinx.android.synthetic.main.home_activity.*
 import javax.inject.Inject
 
-class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickListener {
+class HomeActivity : AppCompatActivity(), HomeContract.View {
 
     companion object {
         const val REQUEST_CREATE_TASK = 1
-        const val REQUEST_SERVICE_NOTIFICATION = 2
-        const val SUCCESS_CREATE_TASK = 3
+        const val SUCCESS_CREATE_TASK = 10
     }
-
-    private var shouldShowLongItemClickOptions = false
-    private val menuIdAdd = Menu.FIRST
-    private val menuIdDelete = menuIdAdd + 1
-    private var itemPosition = -1
-    private var itemId = -1
 
     @Inject
     lateinit var presenter: HomeContract.Presenter
@@ -44,20 +37,21 @@ class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickLis
         presenter.loadData()
     }
 
+    private fun setToolbar() {
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = getString(R.string.app_name)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CREATE_TASK && resultCode == SUCCESS_CREATE_TASK) {
             updateRecyclerWithInsertion()
         }
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        if (shouldShowLongItemClickOptions) {
-            menu?.add(0, menuIdDelete, Menu.NONE, R.string.task_delete)
-                    ?.setIcon(R.drawable.ic_delete)
-                    ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
-        }
-
-        return super.onPrepareOptionsMenu(menu)
+    private fun updateRecyclerWithInsertion() {
+        presenter.loadData()
+        task_recycler.adapter.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -66,29 +60,14 @@ class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickLis
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_create_task -> createTask()
-            menuIdDelete -> deleteTask()
+        if (item.itemId == R.id.menu_create_task) {
+            createTask()
         }
         return true
     }
 
-    override fun onLongClick(view: View): Boolean {
-        shouldShowLongItemClickOptions = true
-        itemPosition = task_recycler.getChildAdapterPosition(view)
-        itemId = view.tag as Int
-        supportInvalidateOptionsMenu()
-        return true
-    }
-
     override fun setTasks(tasks: List<Task>) {
-        task_recycler.adapter = HomeAdapter(tasks, this)
-    }
-
-    private fun setToolbar() {
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.title = getString(R.string.app_name)
+        task_recycler.adapter = HomeAdapter(tasks)
     }
 
     private fun setRecyclerView() {
@@ -101,20 +80,5 @@ class HomeActivity : AppCompatActivity(), HomeContract.View, View.OnLongClickLis
         val intent = Intent(this, CreateTaskActivity::class.java)
         startActivityForResult(intent, REQUEST_CREATE_TASK)
     }
-
-    private fun deleteTask() {
-        task_recycler
-        presenter.deleteItem(itemId)
-        shouldShowLongItemClickOptions = false
-        invalidateOptionsMenu()
-        updateRecyclerWithDeletion()
-    }
-
-    private fun updateRecyclerWithInsertion() {
-        presenter.loadData()
-        task_recycler.adapter.notifyDataSetChanged()
-    }
-
-    private fun updateRecyclerWithDeletion() = task_recycler.adapter.notifyItemRemoved(itemPosition)
 
 }
