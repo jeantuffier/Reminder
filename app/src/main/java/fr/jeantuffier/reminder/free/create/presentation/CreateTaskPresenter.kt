@@ -14,19 +14,22 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-
-class CreateTaskPresenter(private val context: Context, private val view: CreateTaskContract.View, private val taskDao: TaskDao) : CreateTaskContract.Presenter {
+class CreateTaskPresenter(
+    private val context: Context,
+    private val view: CreateTaskContract.View,
+    private val taskDao: TaskDao
+) : CreateTaskContract.Presenter {
 
     override fun createTask(title: String, delay: Int, frequency: String, priorityForm: Int, time: Array<String>) {
         taskDao.getAll()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { tasks ->
-                    val priority = getPriority(priorityForm).getLevel()
-                    val createdAt = Calendar.getInstance().timeInMillis.toString()
-                    val task = Task(getNextTaskId(tasks), title, priority, delay, frequency, time[0], time[1], createdAt)
-                    saveTask(task)
-                }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { tasks ->
+                val priority = getPriority(priorityForm).getLevel()
+                val createdAt = Calendar.getInstance().timeInMillis.toString()
+                val task = Task(getNextTaskId(tasks), title, priority, delay, frequency, time[0], time[1], createdAt)
+                saveTask(task)
+            }
     }
 
     private fun getPriority(priorityForm: Int?): Priority {
@@ -41,12 +44,12 @@ class CreateTaskPresenter(private val context: Context, private val view: Create
 
     private fun saveTask(task: Task) {
         Single.fromCallable { taskDao.insert(task) }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { id ->
-                    view.notifyNewItem()
-                    registerAlarm(task)
-                }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { id ->
+                view.notifyNewItem()
+                registerAlarm(task)
+            }
     }
 
     private fun registerAlarm(task: Task) {
@@ -59,12 +62,12 @@ class CreateTaskPresenter(private val context: Context, private val view: Create
     }
 
     private fun getTaskIntent(task: Task) = context.getIntent<DisplayNotificationService>()
-            .withExtras {
-                putInt(Task.ID, task.id)
-                putString(Task.TITLE, task.title)
-                putString(Task.PRIORITY, Priority.getByLevel(task.priority).toString())
-                putString(Task.FROM, task.fromTime)
-                putString(Task.TO, task.toTime)
-            }
+        .withExtras {
+            putInt(Task.ID, task.id)
+            putString(Task.TITLE, task.title)
+            putString(Task.PRIORITY, Priority.getByLevel(task.priority).toString())
+            putString(Task.FROM, task.fromTime)
+            putString(Task.TO, task.toTime)
+        }
 
 }
