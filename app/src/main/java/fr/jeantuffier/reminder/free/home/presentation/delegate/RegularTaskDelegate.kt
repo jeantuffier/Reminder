@@ -13,31 +13,45 @@ import fr.jeantuffier.reminder.free.common.model.Task
 class RegularTaskDelegate {
 
     fun createViewHolder(parent: ViewGroup?, viewType: Int): RegularTaskViewHolder {
-        val layout = LayoutInflater.from(parent?.context).inflate(R.layout.display_task_view_item, parent, false)
+        val layout = LayoutInflater.from(parent?.context)
+            .inflate(R.layout.display_task_view_item, parent, false)
         return RegularTaskViewHolder(layout)
     }
 
     fun bindViewHolder(holder: RecyclerView.ViewHolder, task: Task?) {
         if (task == null) return
         holder as RegularTaskViewHolder
-        val context = holder.itemView.context
 
-        val colorId = Priority.getByLevel(task.priority).getColorId()
-        val color = ResourcesCompat.getColor(context.resources, colorId, null)
-
-        val colorStateList = ColorStateList(arrayOf(intArrayOf()), intArrayOf(color))
-        (holder.shape.background as GradientDrawable).color = colorStateList
-
+        setColor(holder, task.priority)
         holder.title.text = task.title
+        setFrequency(task, holder)
+        setInterval(task, holder)
+    }
 
-        val frequency = if (task.frequency == Task.HOURS)
-            R.string.create_task_frequency_hours else R.string.create_task_frequency_minutes
-        holder.frequency.text = context.getString(R.string.task_frequency, task.delay,
-                context.getString(frequency))
+    private fun setColor(viewHolder: RegularTaskViewHolder, priority: Int) {
+        val colorId = Priority.getByLevel(priority).getColorId()
+        val color = ResourcesCompat.getColor(viewHolder.itemView.context.resources, colorId, null)
+        val colorStateList = ColorStateList(arrayOf(intArrayOf()), intArrayOf(color))
+        (viewHolder.shape.background as GradientDrawable).color = colorStateList
+    }
 
-        val start = if (task.fromTime.isEmpty()) "00:00" else task.fromTime
-        val end = if (task.toTime.isEmpty()) "23:59" else task.toTime
-        holder.between.text = context.getString(R.string.task_between, start, end)
+    private fun setFrequency(task: Task, viewHolder: RegularTaskViewHolder) {
+        val context = viewHolder.itemView.context
+        val frequency = if (task.frequency == Task.HOURS) {
+            R.string.create_task_frequency_hours
+        } else {
+            R.string.create_task_frequency_minutes
+        }
+
+        viewHolder.frequency.text = context.getString(
+            R.string.task_frequency, task.delay,
+            context.getString(frequency)
+        )
+    }
+
+    private fun setInterval(task: Task, viewHolder: RegularTaskViewHolder) {
+        viewHolder.between.text = task.fromTime
+        viewHolder.and.text = task.toTime
     }
 
 }
