@@ -26,6 +26,8 @@ class RegularTaskDelegate {
         holder.title.text = task.title
         setFrequency(task, holder)
         setInterval(task, holder)
+
+        holder.itemView.tag = task.id
     }
 
     private fun setColor(viewHolder: RegularTaskViewHolder, priority: Int) {
