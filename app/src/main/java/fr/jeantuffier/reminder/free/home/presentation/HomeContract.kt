@@ -6,12 +6,11 @@ class HomeContract {
 
     interface View {
         fun setTasks(tasks: List<Task>)
-
-        fun deleteTask(id: Int)
+        fun deleteTask(position: Int)
     }
 
     interface Presenter {
-        fun onDbCreated()
         fun loadData()
     }
+
 }

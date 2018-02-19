@@ -54,20 +54,11 @@ class CreateTaskPresenter(
 
     private fun registerAlarm(task: Task) {
         val triggerAt = System.currentTimeMillis() + task.getDelayInMs()
-        val intent = getTaskIntent(task)
+        val intent = DisplayNotificationService.getIntent(context, task)
         val pendingIntent = PendingIntent.getService(context, task.id, intent, 0)
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.setInexactRepeating(AlarmManager.RTC, triggerAt, task.getDelayInMs(), pendingIntent)
     }
-
-    private fun getTaskIntent(task: Task) = context.getIntent<DisplayNotificationService>()
-        .withExtras {
-            putInt(Task.ID, task.id)
-            putString(Task.TITLE, task.title)
-            putString(Task.PRIORITY, Priority.getByLevel(task.priority).toString())
-            putString(Task.FROM, task.fromTime)
-            putString(Task.TO, task.toTime)
-        }
 
 }

@@ -6,29 +6,29 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "task")
 data class Task(
-        @PrimaryKey(autoGenerate = true)
-        val id: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
 
-        @ColumnInfo(name = "title")
-        val title: String,
+    @ColumnInfo(name = "title")
+    val title: String,
 
-        @ColumnInfo(name = "priority")
-        val priority: Int,
+    @ColumnInfo(name = "priority")
+    val priority: Int,
 
-        @ColumnInfo(name = "delay")
-        val delay: Int,
+    @ColumnInfo(name = "delay")
+    val delay: Int,
 
-        @ColumnInfo(name = "frequency")
-        val frequency: String,
+    @ColumnInfo(name = "frequency")
+    val frequency: String,
 
-        @ColumnInfo(name = "fromTime")
-        val fromTime: String,
+    @ColumnInfo(name = "fromTime")
+    val fromTime: String,
 
-        @ColumnInfo(name = "toTime")
-        val toTime: String,
+    @ColumnInfo(name = "toTime")
+    val toTime: String,
 
-        @ColumnInfo(name = "createdAtTime")
-        val createdAtTime: String
+    @ColumnInfo(name = "createdAtTime")
+    val createdAtTime: String
 ) {
 
     companion object {

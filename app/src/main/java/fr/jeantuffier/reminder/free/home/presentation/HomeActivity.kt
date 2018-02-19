@@ -6,10 +6,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
-import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.LinearLayout
 import dagger.android.AndroidInjection
 import fr.jeantuffier.reminder.R
@@ -28,14 +26,14 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
     @Inject
     lateinit var presenter: HomeContract.Presenter
 
+    private val adapter = HomeAdapter(mutableListOf<Task>())
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
         setToolbar()
         setRecyclerView()
-
-        presenter.loadData()
     }
 
     private fun setToolbar() {
@@ -46,9 +44,12 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
 
     private fun setRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
 
         val divider = DividerItemDecoration(this, LinearLayout.VERTICAL)
         recyclerView.addItemDecoration(divider)
+
+        presenter.loadData()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -70,7 +71,8 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
     }
 
     override fun setTasks(tasks: List<Task>) {
-        recyclerView.adapter = HomeAdapter(tasks)
+        adapter.setItems(tasks)
+        recyclerView.adapter.notifyDataSetChanged()
     }
 
     private fun createTask() {
@@ -78,7 +80,9 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
         startActivityForResult(intent, REQUEST_CREATE_TASK)
     }
 
-    override fun deleteTask(id: Int) {
-        presenter.loadData()
+    override fun deleteTask(position: Int) {
+        adapter.removeItem(position)
+        recyclerView.adapter.notifyItemRemoved(position)
     }
+
 }

@@ -4,10 +4,6 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import fr.jeantuffier.reminder.free.common.dao.TaskDao
-import fr.jeantuffier.reminder.free.common.extension.editPreferences
-import fr.jeantuffier.reminder.free.common.extension.getIntent
-import fr.jeantuffier.reminder.free.common.extension.withExtras
-import fr.jeantuffier.reminder.free.common.model.Priority
 import fr.jeantuffier.reminder.free.common.model.Task
 import fr.jeantuffier.reminder.free.common.service.DisplayNotificationService
 import fr.jeantuffier.reminder.free.home.presentation.delegate.ItemClickDispatcher
@@ -22,12 +18,7 @@ class HomePresenter(
     private val taskDao: TaskDao
 ) : HomeContract.Presenter {
 
-    private var tasks : List<Task>? = null
-
-    companion object {
-        private const val DB_VERSION = 6
-        private const val LOCAL_DB_VERSION = "HomeModel.LOCAL_DB_VERSION"
-    }
+    private var tasks: MutableList<Task>? = null
 
     init {
         setItemClickDispatcher()
@@ -41,44 +32,49 @@ class HomePresenter(
     }
 
     private fun deleteItem(id: Int) {
+        val position = getItemPosition(id)
+        view.deleteTask(position)
+
+        getTaskById(id)?.let {
+            unregisterAlarm(it)
+            tasks?.remove(it)
+        }
+
+        deleteItemFromDb(id)
+    }
+
+    private fun deleteItemFromDb(id: Int) {
         Observable.fromCallable { taskDao.deleteById(id) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe {
-                unregisterAlarm(id)
-                view.deleteTask(id)
-            }
-    }
-
-    private fun unregisterAlarm(id: Int) {
-        getTaskById(id)?.let {
-            val intent = getTaskIntent(it)
-            val pendingIntent = PendingIntent.getService(context, id, intent, 0)
-
-            val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            alarmManager.cancel(pendingIntent)
-        }
+            .subscribe()
     }
 
     private fun getTaskById(id: Int) = tasks?.first { it.id == id }
 
-    private fun getTaskIntent(task: Task) = context.getIntent<DisplayNotificationService>()
-        .withExtras {
-            putInt(Task.ID, task.id)
-            putString(Task.TITLE, task.title)
-            putString(Task.PRIORITY, Priority.getByLevel(task.priority).toString())
-            putString(Task.FROM, task.fromTime)
-            putString(Task.TO, task.toTime)
-        }
+    private fun unregisterAlarm(task: Task) {
+        val intent = DisplayNotificationService.getIntent(context, task)
+        val pendingIntent = PendingIntent.getService(context, task.id, intent, 0)
 
-    override fun onDbCreated() = context.editPreferences { putInt(LOCAL_DB_VERSION, DB_VERSION) }
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.cancel(pendingIntent)
+    }
+
+    private fun getItemPosition(id: Int): Int {
+        val task = tasks?.find { it.id == id }
+        return if (task != null) {
+            tasks?.indexOf(task) ?: -1
+        } else {
+            -1
+        }
+    }
 
     override fun loadData() {
         taskDao.getAll()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe { tasks ->
-                this.tasks = tasks
+                this.tasks = tasks.toMutableList()
                 tasks.sortedBy { it.priority }
                 tasks.reversed()
                 view.setTasks(tasks)

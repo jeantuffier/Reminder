@@ -15,11 +15,11 @@ class RegularTaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
     val between = itemView.findViewById(R.id.between) as TextView
     val and = itemView.findViewById(R.id.and) as TextView
 
-    private val more = itemView.findViewById(R.id.more) as ImageView
-    private val popupMenu = PopupMenu(itemView.context, more)
+    private val remove = itemView.findViewById(R.id.remove) as ImageView
+    private val popupMenu = PopupMenu(itemView.context, remove)
 
     init {
         popupMenu.menu.add(0,0,0, itemView.context.getString(R.string.task_delete))
-        more.setOnClickListener { ItemClickDispatcher.publishSubject?.onNext(itemView.tag as Int) }
+        remove.setOnClickListener { ItemClickDispatcher.publishSubject?.onNext(itemView.tag as Int) }
     }
 }
