@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="fr.jeantuffier.mom">
+          package="fr.jeantuffier.reminder">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
-        android:name="fr.jeantuffier.mom.common.Reminder"
+        android:name="fr.jeantuffier.reminder.free.common.Reminder"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="fr.jeantuffier.mom.display.view.DisplayTaskActivity"
+        <activity android:name="fr.jeantuffier.reminder.free.home.presentation.HomeActivity"
                   android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>
@@ -22,17 +23,23 @@
 
         </activity>
 
-        <activity android:name="fr.jeantuffier.mom.create.view.activity.CreateTaskActivity"
+        <activity android:name="fr.jeantuffier.reminder.free.create.presentation.CreateTaskActivity"
                   android:label="@string/activity_create_task_name"
                   android:theme="@style/AppTheme.NoActionBar">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="fr.jeantuffier.mom.display.view.DisplayTaskActivity" />
+                android:value="fr.jeantuffier.reminder.free.home.presentation.HomeActivity" />
 
         </activity>
 
-        <service android:name="fr.jeantuffier.mom.common.service.DisplayNotificationService"/>
+        <service android:name="fr.jeantuffier.reminder.free.common.service.DisplayNotificationService"/>
+
+        <receiver android:name=".free.common.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 

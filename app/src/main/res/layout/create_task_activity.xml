@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="fr.jeantuffier.mom.create.view.activity.CreateTaskActivity">
+    tools:context=".free.create.presentation.CreateTaskActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -19,37 +19,127 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/root_create_task"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/create_task_pager"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_centerInParent="true"
-            android:paddingLeft="60dp"
-            android:paddingTop="5dp"
-            android:paddingRight="60dp"
-            android:paddingBottom="5dp"
-            android:clipToPadding="false"/>
-
-        <Button
-            android:id="@+id/form_create_button"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_alignParentBottom="true"
-            android:text="@string/create_task_confirmation"
-            android:textAllCaps="true"/>
+            android:orientation="vertical"
+            android:layout_marginTop="8dp">
 
-    </RelativeLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/create_task_title"
+                app:theme="@style/BlackTextInput">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/title_input_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/delay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/create_task_frequency_delay"
+                app:theme="@style/BlackTextInput">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/delay_input_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/task_frequency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:id="@+id/task_priority_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:text="@string/create_task_priority"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <SeekBar
+                android:id="@+id/task_priority"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:max="2"
+                android:progress="1"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/between"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/create_task_time_between"
+                app:theme="@style/BlackTextInput">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/between_input_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/and"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/create_task_time_and"
+                app:theme="@style/BlackTextInput">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/and_input_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/form_create_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/create_task_confirmation"
+                android:textAllCaps="true" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 
 </android.support.design.widget.CoordinatorLayout>
